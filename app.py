@@ -39,3 +39,7 @@ def signup():
     return render_template('signup.html',
                             placeholder_usernames=PLACEHOLDER_USERNAMES,
                             placeholder_email_domains=PLACEHOLDER_EMAIL_DOMAINS)
+
+@app.get('/Discover')
+def Discover():
+    return render_template('Discover.html')
