@@ -1,0 +1,25 @@
+
+/* Login Page */
+.login-background{
+    /* background-color: #ef7b45ff; */
+    background-color: #d84727;
+}
+
+.login-container{
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.login-btn{
+    background-color: #d84727;
+}
+
+.login-links{
+    font-weight: lighter;
+    font-size: 10pt;
+}
