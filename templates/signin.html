@@ -1,15 +1,35 @@
-{% extends 'layout.html' %}
+{% extends '2_layout.html' %}
+{# Background Color for body #}
+{% block content %}
+class="login-background"
+{% endblock %}
+
 {% block body %}
-<form action="/signin" method="post">
-    <h1>Sign in</h1>
-    <div class="mb-3">
-      <label for="username" class="form-label">Name</label>
-      <input type="text"
-        class="form-control" name="username" id="username" placeholder="@{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}"">
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-    </div>
-</form>
+<div class="d-flex align-items-center min-vh-100">
+  <div class="container login-container">
+    <form action="/signin" method="post">
+        <h1 class="text-center mb-5">From Scratch</h1>
+        <!--Username Input-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username""> <!-- Thing from before: @{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}-->
+        </div>
+        <!--Password Input-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password">
+        </div>
+        <!--Forgot Pass Link-->
+        <div class="mb-3 d-flex align-items-center">
+          <a href="/" class="login-links">I forgot my password</a>
+        </div>
+        <!--Sign Up Link-->
+        <div class="mb-3 d-flex align-items-center">
+          <a href="/" class="login-links">Sign Up!</a>
+        </div>
+        <!--Log In Button-->
+        <div class="mb-3 d-flex align-items-center">
+          <button type="submit" class="btn btn-primary form-control form-control-lg login-btn">Log in</button>
+        </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
