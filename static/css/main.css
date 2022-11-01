@@ -1,7 +1,22 @@
+:root {
+    --link: #5EB1BF;
+    --main-orange: #d84727;
+}
+
 /* Navbar */
 .nav-orange{
     background-color: #d84727;
     border-bottom: 2px;
+}
+
+p, a, input::placeholder {
+    font-family: 'Nunito';
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link);
 }
 
 .link-white{
@@ -25,26 +40,37 @@ svg:hover{
 }
 
 /* Login Page */
-.login-background{
-    background-color: #d84727;
+.login-background, .btn-primary {
+    background-color: var(--main-orange);
+}
+
+.login-form {
+    width: 45%;
 }
 
 .login-container{
     background-color: white;
     border-radius: 10px;
-    width: 500px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-left: 100px;
-    padding-right: 100px;
+    width: 45%;
+    height: 50%;
+    padding: 3rem 2rem;
+    padding-top: 7rem;
 }
 
-.login-btn{
-    background-color: #d84727;
+.help-links>a {
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+}
+.logo {
+    font-family: 'Kaushan Script';
+    font-size: 4rem;
 }
 
-.login-links{
-    font-weight: lighter;
-    font-size: 10pt;
+input.form-control {
+    border-radius: 3px;
+    border-color: #DADADA;
 }
 
+input.form-control::placeholder {
+    color: black;
+}
