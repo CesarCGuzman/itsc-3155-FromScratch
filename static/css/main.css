@@ -6,6 +6,7 @@
 
 .link-white{
     color: #ffff;
+    margin-left: 15px;
 }
 
 .nav-right{
@@ -24,9 +25,29 @@ svg:hover{
     fill: black;
 }
 
-/* Login Page */
-.login-background{
+svg.downarrow{
+    fill: white;
+}
+
+.user-dropdown{
     background-color: #d84727;
+    border-radius: 0px;
+    border-color: #d84727;
+    color: #ffff;
+}
+.user-dropdown:hover{
+    border-radius: 0pt;
+    border-color: #d84727;
+}
+
+.user-dropdown:focus{
+    border-color: #d84727;
+}
+
+/* Login Page */
+.login-body{
+    background-color: #d84727;
+    /* overflow-y: hidden; */
 }
 
 .login-container{
