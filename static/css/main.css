@@ -17,10 +17,14 @@
     background-color: #5EB1BF;
 }
 
-svg{
-    fill: #ffff;
+
+.bi bi-globe{
+    fill: white;
 }
 
+.bi bi-bell{
+    fill: white;
+}
 svg:hover{
     fill: black;
 }
