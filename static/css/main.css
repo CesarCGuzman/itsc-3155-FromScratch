@@ -1,7 +1,31 @@
+/* Navbar */
+.nav-orange{
+    background-color: #d84727;
+    border-bottom: 2px;
+}
+
+.link-white{
+    color: #ffff;
+}
+
+.nav-right{
+    float: right;
+}
+
+.create-btn{
+    background-color: #5EB1BF;
+}
+
+svg{
+    fill: #ffff;
+}
+
+svg:hover{
+    fill: black;
+}
 
 /* Login Page */
 .login-background{
-    /* background-color: #ef7b45ff; */
     background-color: #d84727;
 }
 
@@ -23,3 +47,4 @@
     font-weight: lighter;
     font-size: 10pt;
 }
+
