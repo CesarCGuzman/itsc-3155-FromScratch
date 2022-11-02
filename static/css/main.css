@@ -18,14 +18,19 @@
 }
 
 
-.bi bi-globe{
+.bi-globe{
     fill: white;
 }
 
-.bi bi-bell{
+.bi-globe:hover{
+    fill: black;
+}
+
+.bi-bell{
     fill: white;
 }
-svg:hover{
+
+.bi-bell:hover{
     fill: black;
 }
 
