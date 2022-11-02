@@ -142,3 +142,9 @@ input.form-control::placeholder {
     padding: 3rem 2rem;
     padding-top: 7rem;
 }
+
+.tools{
+    border-color: black;
+    border: 1px;
+    border-style: solid;
+}
