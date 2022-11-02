@@ -43,3 +43,7 @@ def signup():
 @app.get('/Discover')
 def Discover():
     return render_template('Discover.html')
+
+@app.get('/Error')
+def Error():
+    return render_template('Error.html')

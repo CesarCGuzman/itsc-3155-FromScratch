@@ -1,19 +1,39 @@
 {% extends 'layout.html' %}
+
+{# Background Color for body #}
+{% block content %}
+class="login-body"
+{% endblock %}
+
 {% block body %}
-<form action="/signup" method="post">
-<h1>Sign up</h1>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" name="email" id="email" placeholder="{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}@{{ placeholder_email_domains[range(0, placeholder_email_domains|length) | random ]  }}.com">
-    </div>
-    <div class="mb-3">
-      <label for="username" class="form-label">Name</label>
-      <input type="text"
-        class="form-control" name="username" id="username" placeholder="@{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}"">
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-    </div>
-</form>
+<div class="d-flex align-items-center min-vh-100">
+  <div class="container login-container">
+    <form action="/signup" method="post">
+        <h1 class="text-center mb-5">From Scratch</h1>
+        <!--Create Username Input-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username""> <!-- Thing from before: @{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}-->
+        </div>
+        <!--Create Password Input-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password">
+        </div>
+        <!--Confirm Password-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Confirm Password">
+        </div>
+        <!--TOS Checkbox-->
+        <div class="form-check mb-5">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Do you agree to our terms of services?
+          </label>
+        </div>
+        <!--Sign up Button-->
+        <div class="mb-3 d-flex align-items-center">
+          <button type="submit" class="btn btn-primary form-control form-control-lg login-btn">Sign up :)</button>
+        </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -21,6 +21,7 @@ a {
 
 .link-white{
     color: #ffff;
+    margin-left: 15px;
 }
 
 .nav-right{
@@ -31,12 +32,32 @@ a {
     background-color: #5EB1BF;
 }
 
-svg{
-    fill: #ffff;
+
+.bi-globe{
+    fill: white;
 }
 
-svg:hover{
+.bi-globe:hover{
     fill: black;
+}
+
+svg.downarrow{
+    fill: white;
+}
+
+.user-dropdown{
+    background-color: #d84727;
+    border-radius: 0px;
+    border-color: #d84727;
+    color: #ffff;
+}
+.user-dropdown:hover{
+    border-radius: 0pt;
+    border-color: #d84727;
+}
+
+.user-dropdown:focus{
+    border-color: #d84727;
 }
 
 /* Login Page */
@@ -46,6 +67,39 @@ svg:hover{
 
 .login-form {
     width: 45%;
+}
+
+.bi-bell{
+    fill: white;
+}
+
+.bi-bell:hover{
+    fill: black;
+}
+
+svg.downarrow{
+    fill: white;
+}
+
+.user-dropdown{
+    background-color: #d84727;
+    border-radius: 0px;
+    border-color: #d84727;
+    color: #ffff;
+}
+.user-dropdown:hover{
+    border-radius: 0pt;
+    border-color: #d84727;
+}
+
+.user-dropdown:focus{
+    border-color: #d84727;
+}
+
+/* Login Page */
+.login-body{
+    background-color: #d84727;
+    /* overflow-y: hidden; */
 }
 
 .login-container{
