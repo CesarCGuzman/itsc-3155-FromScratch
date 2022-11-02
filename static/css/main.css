@@ -3,21 +3,13 @@
     --main-orange: #d84727;
 }
 
-/* Navbar */
+
+/********** Navbar **********/
 .nav-orange{
-    background-color: #d84727;
+    background-color: var(--main-orange);
     border-bottom: 2px;
 }
 
-p, a, input::placeholder {
-    font-family: 'Nunito';
-    font-style: normal;
-}
-
-a {
-    text-decoration: none;
-    color: var(--link);
-}
 
 .link-white{
     color: #ffff;
@@ -39,34 +31,6 @@ a {
 
 .bi-globe:hover{
     fill: black;
-}
-
-svg.downarrow{
-    fill: white;
-}
-
-.user-dropdown{
-    background-color: #d84727;
-    border-radius: 0px;
-    border-color: #d84727;
-    color: #ffff;
-}
-.user-dropdown:hover{
-    border-radius: 0pt;
-    border-color: #d84727;
-}
-
-.user-dropdown:focus{
-    border-color: #d84727;
-}
-
-/* Login Page */
-.login-background, .btn-primary {
-    background-color: var(--main-orange);
-}
-
-.login-form {
-    width: 45%;
 }
 
 .bi-bell{
@@ -96,7 +60,35 @@ svg.downarrow{
     border-color: #d84727;
 }
 
-/* Login Page */
+svg.downarrow{
+    fill: white;
+}
+
+.user-dropdown{
+    background-color: #d84727;
+    border-radius: 0px;
+    border-color: #d84727;
+    color: #ffff;
+}
+.user-dropdown:hover{
+    border-radius: 0pt;
+    border-color: #d84727;
+}
+
+.user-dropdown:focus{
+    border-color: #d84727;
+}
+
+
+/********** Login Page **********/
+.login-background, .btn-primary {
+    background-color: var(--main-orange);
+}
+
+.login-form, .signup-form {
+    width: 45%;
+}
+
 .login-body{
     background-color: #d84727;
     /* overflow-y: hidden; */
@@ -115,16 +107,38 @@ svg.downarrow{
     font-size: 0.8rem;
     line-height: 0.9rem;
 }
+
+p, a, input::placeholder {
+    font-family: 'Nunito';
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link);
+}
+
 .logo {
     font-family: 'Kaushan Script';
     font-size: 4rem;
 }
 
 input.form-control {
-    border-radius: 3px;
+    border-radius: 5px;
     border-color: #DADADA;
 }
 
 input.form-control::placeholder {
     color: black;
+}
+
+
+/********** Sign Up Page **********/
+.signup-container{
+    background-color: white;
+    border-radius: 10px;
+    width: 40%;
+    height: 50%;
+    padding: 3rem 2rem;
+    padding-top: 7rem;
 }
