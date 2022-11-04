@@ -5,6 +5,11 @@
 
 
 /********** Navbar **********/
+
+.navbar-brand{
+    font-family: 'Kaushan Script';
+}
+
 .nav-orange{
     background-color: var(--main-orange);
     border-bottom: 2px;
@@ -16,12 +21,13 @@
     margin-left: 15px;
 }
 
-.nav-right{
-    float: right;
+.btn-primary{
+    background-color: var(--link);
+    border-color: var(--link);
 }
 
-.create-btn{
-    background-color: #5EB1BF;
+.btn-primary:hover{
+    background-color: var(--main-orange);
 }
 
 
@@ -41,57 +47,33 @@
     fill: black;
 }
 
-svg.downarrow{
-    fill: white;
-}
-
 .user-dropdown{
-    background-color: #d84727;
+    background-color: var(--main-orange);
     border-radius: 0px;
-    border-color: #d84727;
+    border-color: var(--main-orange);
     color: #ffff;
 }
 .user-dropdown:hover{
     border-radius: 0pt;
-    border-color: #d84727;
+    border-color: var(--main-orange);
 }
 
 .user-dropdown:focus{
-    border-color: #d84727;
+    border-color: var(--main-orange);
 }
 
-svg.downarrow{
-    fill: white;
+option{
+    border-radius: 0%;
 }
-
-.user-dropdown{
-    background-color: #d84727;
-    border-radius: 0px;
-    border-color: #d84727;
-    color: #ffff;
-}
-.user-dropdown:hover{
-    border-radius: 0pt;
-    border-color: #d84727;
-}
-
-.user-dropdown:focus{
-    border-color: #d84727;
-}
-
 
 /********** Login Page **********/
-.login-background, .btn-primary {
+.login-body, .login-btn {
     background-color: var(--main-orange);
+    /* overflow-y: hidden; */
 }
 
 .login-form, .signup-form {
     width: 45%;
-}
-
-.login-body{
-    background-color: #d84727;
-    /* overflow-y: hidden; */
 }
 
 .login-container{
