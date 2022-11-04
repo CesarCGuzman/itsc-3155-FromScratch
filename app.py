@@ -48,7 +48,6 @@ def Discover():
 def Error():
     return render_template('Error.html')
 
-
 @app.get('/Profile')
 def Profile():
     return render_template('Profile.html')
