@@ -30,7 +30,6 @@
     background-color: var(--main-orange);
 }
 
-
 .bi-globe{
     fill: white;
 }
@@ -63,7 +62,8 @@
 }
 
 option{
-    border-radius: 0%;
+    background-color: white;
+    color: black;
 }
 
 /********** Login Page **********/
@@ -125,8 +125,88 @@ input.form-control::placeholder {
     padding-top: 7rem;
 }
 
+/******** Create Scratch Page ********/
 .tools{
     border-color: black;
     border: 1px;
     border-style: solid;
 }
+
+.tools-size:focus{
+    border: 3px;
+    border-style: inset;
+}
+
+.btn-circle-lg {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.1rem;
+  }
+
+  .btn-circle {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+  }
+
+  .btn-circle:focus{
+    border:3px;
+    border-color: black;
+    border-style: solid;
+  }
+
+  .btn-black, .btn-black:hover{
+    background-color: black;
+  }
+
+  .btn-red, .btn-red:hover{
+    background-color: red;
+  }
+  .btn-pink, .btn-pink:hover{
+    background-color: pink;
+  }
+  .btn-orange, .btn-orange:hover{
+    background-color: orange;
+  }
+  .btn-yellow, .btn-yellow:hover{
+    background-color: yellow;
+  }
+  .btn-limeg, .btn-limeg:hover{
+    background-color: lime;
+  }
+  .btn-green, .btn-green:hover{
+    background-color: green;
+  }
+  .btn-teal, .btn-teal:hover{
+    background-color: teal;
+  }
+  .btn-blue, .btn-blue:hover{
+    background-color: blue;
+  }
+  .btn-purple, .btn-purple:hover{
+    background-color: purple;
+  }
+  /* Resource: https://dev.to/madsstoumann/recreating-apples-color-picker-icon-20aa */
+  .btn-choose, .btn-choose:hover{
+    background: conic-gradient(
+        hsl(360, 100%, 50%),
+        hsl(315, 100%, 50%),
+        hsl(270, 100%, 50%),
+        hsl(225, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(135, 100%, 50%),
+        hsl(90, 100%, 50%),
+        hsl(45, 100%, 50%),
+        hsl(0, 100%, 50%)
+    ) border-box; 
+  }
+
+
+  
