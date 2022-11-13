@@ -1,0 +1,240 @@
+:root {
+    --link: #5EB1BF;
+    --main-orange: #d84727;
+}
+
+
+/********** Navbar **********/
+
+.navbar-brand{
+    font-family: 'Kaushan Script';
+}
+
+.nav-orange{
+    background-color: var(--main-orange);
+    border-bottom: 2px;
+}
+
+
+.link-white{
+    color: #ffff;
+    margin-left: 15px;
+}
+
+.btn-primary{
+    background-color: var(--link);
+    border-color: var(--link);
+}
+
+.btn-primary:hover{
+    background-color: var(--main-orange);
+}
+
+.bi-globe{
+    fill: white;
+}
+
+.bi-globe:hover{
+    fill: black;
+}
+
+.bi-bell{
+    fill: white;
+}
+
+.bi-bell:hover{
+    fill: black;
+}
+
+.user-dropdown{
+    background-color: var(--main-orange);
+    border-radius: 0px;
+    border-color: var(--main-orange);
+    color: #ffff;
+}
+.user-dropdown:hover{
+    border-radius: 0pt;
+    border-color: var(--main-orange);
+}
+
+.user-dropdown:focus{
+    border-color: var(--main-orange);
+}
+
+option{
+    background-color: white;
+    color: black;
+}
+
+/********** Login Page **********/
+.login-body, .login-btn {
+    background-color: var(--main-orange);
+    /* overflow-y: hidden; */
+}
+
+.login-form, .signup-form {
+    width: 45%;
+}
+
+.login-container{
+    background-color: white;
+    border-radius: 10px;
+    width: 45%;
+    height: 50%;
+    padding: 3rem 2rem;
+    padding-top: 7rem;
+}
+
+.help-links>a {
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+}
+
+p, a, input::placeholder {
+    font-family: 'Nunito';
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link);
+}
+
+.logo {
+    font-family: 'Kaushan Script';
+    font-size: 4rem;
+}
+
+input.form-control {
+    border-radius: 5px;
+    border-color: #DADADA;
+}
+
+input.form-control::placeholder {
+    color: black;
+}
+
+
+/********** Sign Up Page **********/
+.signup-container{
+    background-color: white;
+    border-radius: 10px;
+    width: 40%;
+    height: 50%;
+    padding: 3rem 2rem;
+    padding-top: 7rem;
+}
+
+/******** Create Scratch Page ********/
+.canvas{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    width: 1000px;
+    height: 650px;
+    /* border: 1px;
+    border-style: solid;
+    border-color: blue; */
+    border-radius: 15px;
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.tools{
+    width: 175px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+}
+
+.drawing-canvas{
+    width: 650px;
+    height: 650px;
+    border-left: 1px;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-right: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+.colors{
+    width: 175px;
+    height: 650px;
+}
+
+.btn-circle-lg {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.1rem;
+}
+
+.btn-circle {
+width: 45px;
+height: 45px;
+line-height: 40px;
+padding: 0;
+border-radius: 50%;
+border: 1px;
+border-color: black;
+border-style: solid;
+}
+
+.btn-circle:focus{
+border:3px;
+border-color: black;
+border-style: solid;
+}
+
+.btn-black, .btn-black:hover{
+    background-color: black;
+}
+.btn-red, .btn-red:hover{
+    background-color: red;
+}
+.btn-pink, .btn-pink:hover{
+    background-color: pink;
+}
+.btn-orange, .btn-orange:hover{
+    background-color: orange;
+}
+.btn-yellow, .btn-yellow:hover{
+    background-color: yellow;
+}
+.btn-limeg, .btn-limeg:hover{
+    background-color: lime;
+}
+.btn-green, .btn-green:hover{
+    background-color: green;
+}
+.btn-teal, .btn-teal:hover{
+    background-color: teal;
+}
+.btn-blue, .btn-blue:hover{
+    background-color: blue;
+}
+.btn-purple, .btn-purple:hover{
+    background-color: purple;
+}
+/* Resource: https://dev.to/madsstoumann/recreating-apples-color-picker-icon-20aa */
+.btn-choose, .btn-choose:hover{
+    background: conic-gradient(
+    hsl(360, 100%, 50%),
+    hsl(315, 100%, 50%),
+    hsl(270, 100%, 50%),
+    hsl(225, 100%, 50%),
+    hsl(180, 100%, 50%),
+    hsl(135, 100%, 50%),
+    hsl(90, 100%, 50%),
+    hsl(45, 100%, 50%),
+    hsl(0, 100%, 50%)
+    ) border-box; 
+}
+
+
+  
