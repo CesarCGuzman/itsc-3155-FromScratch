@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS app_user (
     PRIMARY KEY (user_id)
 );
 
-CREATE TABLE IS NOT EXISTS user_history (
+CREATE TABLE IF NOT EXISTS user_history (
     parent_scratch_id INT NOT NULL,
     user_id INT NOT NULL,
     user_created_op_scratch BOOLEAN NOT NULL,
