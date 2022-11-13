@@ -15,6 +15,16 @@ CREATE TABLE IF NOT EXISTS app_user (
     PRIMARY KEY (user_id)
 );
 
+CREATE TABLE IF NOT EXISTS scratch (
+	scratch_id SERIAL NOT NULL,
+	caption VARCHAR(30) NULL,
+	author_id INT NOT NULL,
+	is_comment BOOLEAN NOT NULL,
+	date_created DATE NOT NULL DEFAULT CURRENT_DATE,
+	PRIMARY KEY(scratch_id),
+	FOREIGN KEY(author_id) REFERENCES app_user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS user_history (
     parent_scratch_id INT NOT NULL,
     user_id INT NOT NULL,
