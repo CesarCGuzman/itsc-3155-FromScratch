@@ -45,3 +45,10 @@ CREATE TABLE IF NOT EXISTS liked_by (
     FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS commented_by (
+    op_scratch_id INT NOT NULL,
+    comment_scratch_id INT NOT NULL,
+    PRIMARY KEY (op_scratch_id, comment_scratch_id)
+    FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (comment_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
