@@ -25,3 +25,9 @@ INSERT INTO liked_by(user_id, scratch_id)
 VALUES 
 	(1,1)-- mjover liked scratch id of 1
 	(2,3)--bsamuel4 liked scratch id of 3
+
+INSERT INTO commented_by(op_scratch_id, comment_scratch_id)
+VALUES
+	(2,5)
+	(3,4)
+	(2,3)
