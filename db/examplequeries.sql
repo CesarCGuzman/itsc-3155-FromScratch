@@ -21,3 +21,7 @@ VALUES
 	(4, 2, false, true, 3, false),  -- hbalu replied to scratch of id = 2 and their comment scratch has id = 3
 	(1, 3, false, false, NULL, true) -- mjover liked hbalu's reply with an id = 3
 ;
+INSERT INTO liked_by(user_id, scratch_id)
+VALUES 
+	(1,1)-- mjover liked scratch id of 1
+	(2,3)--bsamuel4 liked scratch id of 3
