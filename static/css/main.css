@@ -129,31 +129,27 @@ input.form-control::placeholder {
 .canvas{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
-    width: 1000px;
-    height: 650px;
-    /* border: 1px;
-    border-style: solid;
-    border-color: blue; */
+    width: 80%;
+    height: 30%;
     border-radius: 15px;
     display: flex;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
+    padding: 0 2rem;
+    margin: 0 auto;
     overflow: hidden;
 }
 
-.tools{
-    width: 175px;
-    height: 650px;
-    display: flex;
-    flex-direction: column;
+.tools {
+    width: 20%;
+    height: inherit;
+}
+
+.colors{
+    width: 20%;
+    height: inherit;
 }
 
 .drawing-canvas{
-    width: 650px;
-    height: 650px;
+    width: 60%;
     border-left: 1px;
     border-top: 0px;
     border-bottom: 0px;
@@ -162,10 +158,6 @@ input.form-control::placeholder {
     border-style: solid;
 }
 
-.colors{
-    width: 175px;
-    height: 650px;
-}
 
 .btn-circle-lg {
     width: 55px;
