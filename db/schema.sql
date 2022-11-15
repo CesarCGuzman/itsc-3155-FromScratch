@@ -1,12 +1,4 @@
 -- FromScratch SQL Schema here :)
-CREATE TABLE IF NOT EXISTS user_scratch_history (
-    user_id INT NOT NULL,
-    scratch_id INT NOT NULL,
-    PRIMARY KEY (user_id, scratch_id),
-    FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS app_user (
     user_id SERIAL NOT NULL,
     username VARCHAR(16) NOT NULL,
@@ -41,14 +33,14 @@ CREATE TABLE IF NOT EXISTS user_history (
 CREATE TABLE IF NOT EXISTS liked_by (
     scratch_id INT NOT NULL,
     user_id INT NOT NULL,
-    PRIMARY KEY (user_id, scratch_id)
+    PRIMARY KEY (user_id, scratch_id),
     FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS commented_by (
     op_scratch_id INT NOT NULL,
     comment_scratch_id INT NOT NULL,
-    PRIMARY KEY (op_scratch_id, comment_scratch_id)
+    PRIMARY KEY (op_scratch_id, comment_scratch_id),
     FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (comment_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
