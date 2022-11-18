@@ -40,14 +40,14 @@ def signup():
                             placeholder_usernames=PLACEHOLDER_USERNAMES,
                             placeholder_email_domains=PLACEHOLDER_EMAIL_DOMAINS)
 
-@app.get('/Discover')
-def Discover():
-    return render_template('Discover.html')
+@app.get('/discover')
+def discover():
+    return render_template('discover.html')
 
-@app.get('/Error')
-def Error():
-    return render_template('Error.html')
+@app.get('/error')
+def error():
+    return render_template('404.html')
 
-@app.get('/Profile')
-def Profile():
-    return render_template('Profile.html')
+@app.get('/profile')
+def profile():
+    return render_template('profile.html')
