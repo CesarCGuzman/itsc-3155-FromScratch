@@ -12,7 +12,7 @@ class="login-body"
     <form action="/signup" method="post" class="signup-form m-auto">
         <!--Create Username Input-->
         <div class="mb-3 d-flex align-items-center">
-          <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username""> <!-- Thing from before: @{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}-->
+          <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username"> <!-- Thing from before: @{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}-->
         </div>
         <!--Create Password Input-->
         <div class="mb-3 d-flex align-items-center">
@@ -20,11 +20,16 @@ class="login-body"
         </div>
         <!--Confirm Password-->
         <div class="mb-3 d-flex align-items-center">
-          <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Confirm Password">
+          <input type="password" class="form-control form-control-lg" name="confirm-password" id="confirm-password" placeholder="Confirm Password">
         </div>
+        {% if passwords_match is defined and not passwords_match %}
+        <p class="text-danger">Passwords do not match :(</p>
+        {% endif %}
         <!--TOS Checkbox-->
         <div class="form-check mb-5">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required
+          oninvalid="this.setCustomValidity('You must agree to our terms and services to join FromScratch :)')"
+          oninput="setCustomValidity('')">
           <label class="form-check-label" for="flexCheckDefault">
             Do you agree to our terms of services?
           </label>
