@@ -1,6 +1,12 @@
+from os import getenv
 from flask import Flask, request, render_template, redirect
+from src.models import db
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
 
 # REPLACE WITH SESSION HANDLING :)
 SIGNED_IN: bool = False 
