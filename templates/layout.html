@@ -23,7 +23,7 @@
     <!-- TODO REMOVE -->
     <a class="nav-link link-white" href="/404">404</a>
     <a class="nav-link link-white" href="/signup">Signup</a>
-    <a class="nav-link link-white" href="/profile">Profile</a>
+   
   
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -58,14 +58,18 @@
 
     <!--Username + selection dropdown-->
     <div class="justify-content-end">
-      <form action="" method="get" class="form-inline">
-          <select class="form-select form-select-sm user-dropdown" aria-label=".form-select-lg example">
-              <option disabled selected style="display: none">Hi, User</option>
-              <option value="1">Your profile</option>
-              <option value="2">Notifications</option>
-              <option value="3">Drafts</option>
-          </select>
-      </form>
+      <li class="user-dropdown inline nav-item dropdown">
+        <a class="user-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Hi, User
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/profile">Your profile</a></li>
+          <li><a class="dropdown-item" href="/notification">Notifications</a></li>
+          <li><a class="dropdown-item" href="#">Drafts</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="/signin">Log out</a></li>
+        </ul>
+      </li>
     </div>
   </nav>
 <body {% block content %}{% endblock %}>

@@ -51,10 +51,13 @@
     border-radius: 0px;
     border-color: var(--main-orange);
     color: #ffff;
+    list-style: none;
+    padding: 0px 22px;
 }
 .user-dropdown:hover{
     border-radius: 0pt;
     border-color: var(--main-orange);
+    fill: black;
 }
 
 .user-dropdown:focus{
@@ -80,7 +83,7 @@ option{
     background-color: white;
     border-radius: 10px;
     width: 45%;
-    height: 50%;
+    height: 60%;
     padding: 3rem 2rem;
     padding-top: 7rem;
 }
