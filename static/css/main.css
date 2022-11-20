@@ -143,6 +143,29 @@ input.form-control::placeholder {
     height: inherit;
 }
 
+.tools .option{
+    list-style: none;
+    margin: 30% 15% 0 5px;
+}
+
+.tool{
+    border: 1px solid #000;
+    border-radius: 5px;
+    text-align: center;
+    background-color: var(--main-orange);
+    color: #fff;
+    font-weight:bold;
+    padding: 10px 5px;
+}
+
+.tool:hover{
+    background-color: var(--link);
+}
+
+.tool:active{
+    background-color: var(--link);
+}
+
 .colors{
     width: 20%;
     height: inherit;

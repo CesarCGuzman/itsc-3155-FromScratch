@@ -1,4 +1,5 @@
 const canvas = document.querySelector("canvas"),
+colorBtns = document.querySelectorAll(".color-container .btn"),
 ctx = canvas.getContext("2d");
 
 let prevMouseX, prevMouseY,
@@ -21,6 +22,7 @@ const startDrawing = (e) => {
 }
 
 const drawing = (e) => {
+
     if(!isDrawing) return;
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
