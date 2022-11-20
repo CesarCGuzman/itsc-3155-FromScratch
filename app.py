@@ -55,6 +55,10 @@ def try_signing_up():
 def compose_scratch():
     return render_template('compose-scratch.html')
 
+@app.route('/compose-reply/scratch')
+def compose_reply_scratch():
+    return render_template('compose-reply-scratch.html')
+
 @app.get('/Discover')
 def discover():
     return render_template('discover.html')
