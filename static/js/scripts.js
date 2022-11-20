@@ -37,7 +37,8 @@ const drawing = (e) => {
 toolBtns.forEach(btn => {
     btn.addEventListener("click", () => {// click event for all the tools
         //Removes active from currently active - adds it to the btn we clicked
-        document.querySelector(".options .active").classList.remove("active");
+        console.log(selectedTool);
+        document.querySelector(".option .active").classList.remove("active");
         btn.classList.add("active");
         selectedTool = btn.id;
 
