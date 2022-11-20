@@ -146,11 +146,12 @@ input.form-control::placeholder {
 .tools .option{
     list-style: none;
     margin: 30% 15% 0 5px;
+    cursor: pointer;
 }
 
 .tool{
     border: 1px solid #000;
-    border-radius: 5px;
+    border-radius: 7px;
     text-align: center;
     background-color: var(--main-orange);
     color: #fff;
@@ -159,10 +160,6 @@ input.form-control::placeholder {
 }
 
 .tool:hover{
-    background-color: var(--link);
-}
-
-.tool:active{
     background-color: var(--link);
 }
 
@@ -213,34 +210,34 @@ border-style: solid;
 }
 
 .btn-black, .btn-black:hover{
-    background-color: black;
+    background-color: #000;
 }
 .btn-red, .btn-red:hover{
-    background-color: red;
+    background-color: #FF0000;
 }
 .btn-pink, .btn-pink:hover{
-    background-color: pink;
+    background-color: #FFC0CB;
 }
 .btn-orange, .btn-orange:hover{
-    background-color: orange;
+    background-color: #FFA500;
 }
 .btn-yellow, .btn-yellow:hover{
-    background-color: yellow;
+    background-color: #FFFF00;
 }
 .btn-limeg, .btn-limeg:hover{
-    background-color: lime;
+    background-color: #32CD32;
 }
 .btn-green, .btn-green:hover{
-    background-color: green;
+    background-color: #228B22;
 }
 .btn-teal, .btn-teal:hover{
-    background-color: teal;
+    background-color: #008080;
 }
 .btn-blue, .btn-blue:hover{
-    background-color: blue;
+    background-color: #0000FF;
 }
 .btn-purple, .btn-purple:hover{
-    background-color: purple;
+    background-color: #A020F0;
 }
 /* Resource: https://dev.to/madsstoumann/recreating-apples-color-picker-icon-20aa */
 .btn-choose, .btn-choose:hover{
