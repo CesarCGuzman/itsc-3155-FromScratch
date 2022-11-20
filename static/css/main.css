@@ -159,6 +159,11 @@ input.form-control::placeholder {
     border-style: solid;
 }
 
+.drawing-canvas canvas{
+    width: 100%;
+    height: 100%;
+}
+
 
 .btn-circle-lg {
     width: 55px;
