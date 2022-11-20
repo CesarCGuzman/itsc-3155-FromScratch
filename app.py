@@ -59,6 +59,10 @@ def compose_scratch():
 def compose_reply_scratch():
     return render_template('compose-reply-scratch.html')
 
+@app.route('/reply/scratch')
+def reply_scratch():
+    return render_template('reply-scratch.html')
+
 @app.get('/Discover')
 def discover():
     return render_template('discover.html')
