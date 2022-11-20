@@ -55,9 +55,13 @@ def try_signing_up():
 def compose_scratch():
     return render_template('compose-scratch.html')
 
-@app.get('/discover')
+@app.get('/Discover')
 def discover():
     return render_template('discover.html')
+
+@app.get('/notification')
+def notification():
+    return render_template('notification.html')
 
 @app.get('/profile')
 def profile():

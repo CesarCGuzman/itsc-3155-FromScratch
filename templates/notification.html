@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+    h1 {
+         padding-top: 50px;
+         text-align: center;
+         padding-bottom: 50px;
+         border-bottom: 100ch;
+     }
+    hr.solid{
+        border-top: 3px solid #bbb;
+        width: 50%;
+        align-self: baseline;
+       
+    }
+    .container {
+    display: grid;
+    justify-content: center;
+}
+ul.separator {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+ul.separator li {
+  padding: .5em 0;
+  border-bottom: 3px solid #CCC;
+}
+ </style>
+ 
+ <!--Page Heading-->
+ <h1>Notifications</h1>
+
+
+ <div class="notifications">
+    <div class="row row-cols-2 row-cols-md-1">
+        {% for i in range(3) %}
+     <ul class="separator">
+       <li></li></li>
+        <div class="col d-flex justify-content-center">
+            <div class="c" style="max-width: 540px;">
+                <div class="row g-8">
+                    <div class="col-md-4">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">CoolPerson123 liked your scratch</p>
+                            <p class="card-text"><small class="text-muted">3 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+      {% endfor %}
+    </ul>
+    </div>
+  </div>
+
+
+{% endblock %}
