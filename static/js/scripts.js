@@ -12,7 +12,7 @@ colorPicker = document.querySelector("#color-picker"),
 ctx = canvas.getContext("2d");
 
 //Variables and Defaults
-let prevMouseX, prevMouseY,
+let prevMouseX, prevMouseY, snapshot,
 selectedTool = "pen",
 selectedColor = "#000",
 toolsize = 1,
@@ -31,6 +31,31 @@ const drawLine = (e) => {
     ctx.stroke();
 }
 
+//Draws rectangle, if fill is checked it draws a filled in rectangle - technically can be used for squares as well
+const drawRect = (e) => {
+    ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
+}
+
+//Draws circle, if fill is checked it draws a filled in circle
+const drawCircle = (e) => {
+    ctx.beginPath();
+    // getting radius for circle based on location of mouse pointer
+    let radius = Math.sqrt(Math.pow((prevMouseX - e.offsetX), 2) + Math.pow((prevMouseY - e.offsetY), 2));
+    ctx.arc(prevMouseX, prevMouseY, radius, 0, 2 * Math.PI);
+    ctx.stroke();
+}
+
+//Draws triangle, if fill is checked it draws a filled in triangle
+const drawTriangle = (e) => {
+    ctx.beginPath();
+    ctx.moveTo(prevMouseX, prevMouseY);
+    ctx.lineTo(e.offsetX, e.offsetY); // creates first line based on mouse location
+    ctx.lineTo(prevMouseX * 2 - e.offsetX, e.offsetY); // creates bottom line on triangle
+    ctx.closePath(); // Closes path of triangle to draw third line
+    ctx.stroke();
+}
+
+
 const startDrawing = (e) => {
     isDrawing = true;
     prevMouseX = e.offsetX;
@@ -39,17 +64,26 @@ const startDrawing = (e) => {
     ctx.lineWidth = toolsize;
     ctx.strokeStyle = selectedColor;
     ctx.fillStyle = selectedColor;
+
+    // avoids dragging shape img
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
 const drawing = (e) => {
-
-    if(!isDrawing) return;
+    if(!isDrawing) return; //Does not draw if not true
+    ctx.putImageData(snapshot, 0, 0);
     if(selectedTool === "pen" || selectedTool === "eraser") {
         ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor;
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
     } else if(selectedTool === "line"){
         drawLine(e);
+    } else if(selectedTool === "square") {
+        drawRect(e);
+    } else if(selectedTool ==="circle") {
+        drawCircle(e);
+    } else {
+        drawTriangle(e);
     }
 }
 
