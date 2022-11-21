@@ -14,6 +14,7 @@ pluggy==1.0.0
 psycopg2==2.9.5
 pyparsing==3.0.9
 pytest==7.2.0
+python-dotenv==0.21.0
 SQLAlchemy==1.4.44
 tomli==2.0.1
 Werkzeug==2.2.2
