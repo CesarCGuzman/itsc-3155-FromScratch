@@ -22,8 +22,28 @@ def index():
 
 @app.get('/signin')
 def signin():
+<<<<<<< Updated upstream
     return render_template('signin.html',
                             placeholder_usernames=PLACEHOLDER_USERNAMES)
+=======
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    existing_user = User.query.filter_by(username = username).first() #Makes sure there is only that one username in the query
+    if not existing_user:
+        return redirect('/signin')
+
+    if not Bcrypt.check_password_hash(existing_user.password,password):
+        return redirect('/signin')
+
+    session['user'] = {
+        'user_id': existing_user.user_id
+    }
+    #change at the end
+    return redirect('/discover')
+    #return render_template('signin.html',
+                           #placeholder_usernames=PLACEHOLDER_USERNAMES)
+>>>>>>> Stashed changes
 
 @app.get('/signup')
 def signup():
