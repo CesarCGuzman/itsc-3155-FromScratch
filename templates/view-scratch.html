@@ -1,12 +1,19 @@
-{% extends 'layout.html' %}
+{% extends 'layout-no-navbar.html' %}
 {% block body %}
 <style>
-   h1 {
-        padding-top: 50px;
-        text-align: center;
-        padding-bottom: 50px;
-    } 
-
+   .back-button {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  }
+  .col{
+    padding-top: 100;
+  }
+  .card{
+    width: 300;
+    height: 300;
+    align-self: center;
+  }
     .cards{
         display: flex;
         justify-content: space-between;
@@ -21,16 +28,20 @@
     
 </style>
 
-<!--Page Heading-->
-<h1>Discover</h1>
+<!--Back Button-->
+<span class="back-button">
+    <button type="button" onclick="history.back()" class="btn btn-primary flex-grow-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" >
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      Go Back
+    </button>
+</span>
 
-<!--Handles creation of all cards-->
-<div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-       <!--For Loop for creating cards-->
-      {% for i in range(11) %}
+<div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example justify-content-center" tabindex="0">
+    <div class="row row-cols-1 row-cols-md-1 g-2 d-flex justify-content-center">
         <div class="col">
-          <div class="card h-100 justify-content-center">
+            <div class="card h-100 justify-content-center">
 
                 <!--Card image display-->
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" class="card-img-top" alt="...">
@@ -42,12 +53,12 @@
 
                 <!--Card footer-->
                 <div class="card-footer bg-transparent justify-content-center">
-                  
+                    
 
                     <!--Person Icon-->
                     <span class="icon">
-                        <form action="/view/scratch" method="get" class="">
-                            <button type="submit" class="btn btn-clear">
+                        <form action="/view-reply/scratch" method="get" class="">
+                            <button type="button" class="btn btn-clear">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                 </svg>
@@ -86,12 +97,9 @@
                         </form>
                     </span>   
                 </div>
-          </div>
+            </div>
         </div>
-      {% endfor %}
-        
     </div>
 </div>
-  
 
 {% endblock %}

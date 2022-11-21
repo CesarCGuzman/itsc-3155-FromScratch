@@ -63,6 +63,10 @@ def compose_reply_scratch():
 def reply_scratch():
     return render_template('reply-scratch.html')
 
+@app.route('/view/scratch')
+def view_scratch():
+    return render_template('view-scratch.html')
+
 @app.get('/Discover')
 def discover():
     return render_template('discover.html')
