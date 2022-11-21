@@ -1,6 +1,19 @@
-from flask import Flask, request, render_template, redirect
+import os
+from flask import Flask, request, render_template, redirect, session
+from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+from models import db, User
+
+load_dotenv()
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
+app.session_key = os.getenv('APP_SECRET_KEY')
+
+db.init_app(app)
+
+bcyrpt = Bcrypt(app)
 
 # REPLACE WITH SESSION HANDLING :)
 SIGNED_IN: bool = False 
@@ -15,17 +28,15 @@ def index():
     """ Redirects user to the home page if signed in or signin page if not
     signed in.
     """
-    if SIGNED_IN:
-        return redirect('discover.html')
-    else:
-        return redirect('/signin')
+    if 'user' in session:
+        return redirect ('/discover.html')
+    #if SIGNED_IN:
+        #return redirect('discover.html')
+    #else:
+        #return redirect('/signin')
 
 @app.get('/signin')
 def signin():
-<<<<<<< Updated upstream
-    return render_template('signin.html',
-                            placeholder_usernames=PLACEHOLDER_USERNAMES)
-=======
     username = request.form.get('username')
     password = request.form.get('password')
 
@@ -40,10 +51,8 @@ def signin():
         'user_id': existing_user.user_id
     }
     #change at the end
-    return redirect('/discover')
-    #return render_template('signin.html',
-                           #placeholder_usernames=PLACEHOLDER_USERNAMES)
->>>>>>> Stashed changes
+    return render_template('signin.html',
+                           placeholder_usernames=PLACEHOLDER_USERNAMES)
 
 @app.get('/signup')
 def signup():
@@ -56,6 +65,21 @@ def try_signing_up():
     password = request.form.get('password')
     confirm_password = request.form.get('confirm-password')
 
+    #SESSION IMPLEMENTATION
+    existing_user = User.query.filter_by(username = username).first() #Makes sure there is only that one username in the query
+    if existing_user:
+        return redirect('/signin')
+    
+    hashed_bytes = Bcrypt.generate_password_hash (password, int(os.getenv('BCRYPT_ROUNDS'))) #hashes the passcode
+    hashed_password = hashed_bytes.decode('utf-8')
+    
+
+    new_user = User(username,hashed_password) #creates a new user 
+
+    db.session.add(new_user)
+    db.session.commit()
+    #END OF SESSION FOR THIS PART
+
     print(f'\t\t{username=}\n' \
           f'\t\t{password=}\n' \
           f'\t\t{confirm_password=}\n')
@@ -64,6 +88,7 @@ def try_signing_up():
                                 placeholder_usernames=PLACEHOLDER_USERNAMES,
                                 placeholder_email_domains=PLACEHOLDER_EMAIL_DOMAINS,
                                 passwords_match=False)
+
     
     # NOTE: TEMPORARY username/password displaying to demonstrate form works
     return f'<h1>Your username is: {username}<h1>' \
@@ -77,6 +102,8 @@ def compose_scratch():
 
 @app.get('/discover')
 def discover():
+    if 'user' not in session:
+        return redirect('/')
     return render_template('discover.html')
 
 @app.get('/profile')
