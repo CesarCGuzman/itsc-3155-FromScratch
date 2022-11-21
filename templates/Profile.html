@@ -10,6 +10,17 @@ table tr{
 td{
     padding: 0 5px;
 }
+th {
+  color: #5EB1BF;
+  border-bottom: 3px solid #bbb;
+}
+.icon{
+        padding-inline-start: 1em;
+        justify-content: center;
+}
+form {
+    display: inline;
+}
 </style>
 <!--Central card profile-->
 <div class="col d-flex justify-content-center">
@@ -39,9 +50,11 @@ td{
                     <small>Joined October 2022 </small>
                 </p>
                 <small>
-                <div class="d-flex pt-1">
-                    <button type="button" class="btn btn-primary flex-grow-1">Edit Profile</button>
-                </div>
+                    <form action="/404" method="get" class="">
+                        <div class="d-flex pt-1">
+                            <button type="submit" class="btn btn-primary flex-grow-1">Edit Profile</button>
+                        </div>
+                    </form>
                 </small>
             </div>
         </div>
@@ -56,6 +69,7 @@ td{
           <th>Sketches</th>
           <th>Drafts</th>
         </tr>
+        
         <tr>
           <td>
             <!--Handles creation of all cards-->
@@ -80,11 +94,13 @@ td{
 
                     <!--Person Icon-->
                     <span class="icon">
-                        <button type="button" class="btn btn-clear">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg>
-                        </button>
+                        <form action="/view/scratch" method="get" class="">
+                            <button type="submit" class="btn btn-clear">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                            </button>
+                        </form>
                     </span>
 
                     <!--Upvote Icon-->
@@ -109,11 +125,13 @@ td{
 
                     <!--Reply Icon-->
                     <span class="icon">
-                        <button type="button" class="btn btn-clear">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
-                            </svg>
-                        </button>
+                        <form action="/compose-reply/scratch" method="get" class="">
+                            <button type="submit" class="btn btn-clear">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+                                </svg>
+                            </button>
+                        </form>
                     </span>
                     
                 </div>
@@ -147,11 +165,13 @@ td{
 
                     <!--Person Icon-->
                     <span class="icon">
-                        <button type="button" class="btn btn-clear">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg>
-                        </button>
+                        <form action="/view/scratch" method="get" class="">
+                            <button type="submit" class="btn btn-clear">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                            </button>
+                        </form>
                     </span>
 
                     <!--Upvote Icon-->
@@ -176,11 +196,13 @@ td{
 
                     <!--Reply Icon-->
                     <span class="icon">
-                        <button type="button" class="btn btn-clear">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
-                            </svg>
-                        </button>
+                        <form action="/compose-reply/scratch" method="get" class="">
+                            <button type="submit" class="btn btn-clear">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+                                </svg>
+                            </button>
+                        </form>
                     </span>
                     
                 </div>
