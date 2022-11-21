@@ -24,6 +24,13 @@ window.addEventListener("load", () => {
 });
 
 
+const drawLine = (e) => {
+    ctx.beginPath();
+    ctx.moveTo(prevMouseX, prevMouseY);
+    ctx.lineTo(e.offsetX, e.offsetY); // creates line based on mouse location
+    ctx.stroke();
+}
+
 const startDrawing = (e) => {
     isDrawing = true;
     prevMouseX = e.offsetX;
@@ -41,12 +48,16 @@ const drawing = (e) => {
         ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor;
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
+    } else if(selectedTool === "line"){
+        drawLine(e);
     }
 }
 
 toolBtns.forEach(btn => {
     btn.addEventListener("click", () => {// click event for all the tools
         selectedTool = btn.id;
+        document.querySelector(".option .btn-picked").classList.remove("btn-picked");
+        btn.classList.add("btn-picked");
 
         //Shows you what tool you clicked on
         console.log("Tool selected: " + selectedTool);
@@ -79,7 +90,7 @@ colorPicker.addEventListener("change", () => {
     document.querySelector(".color-container .selected").classList.remove("selected");
     colorPicker.parentElement.classList.add("selected");
     selectedColor = colorPicker.value;
-    
+
     //Shows in console the color value
     console.log("Color Picked: " + colorPicker.value);
 });

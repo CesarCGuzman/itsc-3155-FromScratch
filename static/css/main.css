@@ -168,6 +168,10 @@ input.form-control::placeholder {
     background-color: var(--link);
 }
 
+.btn-picked{
+    background-color: var(--link);
+}
+
 .colors{
     width: 20%;
     height: inherit;
