@@ -1,6 +1,8 @@
 //Note: This was created using a tutorial
 // Resource used: https://www.youtube.com/watch?v=y84tBZo8GFo
 
+// TODO: line, square, circle, and triangle tools
+
 const canvas = document.querySelector("canvas"),
 toolBtns = document.querySelectorAll(".tool"),
 colorBtns = document.querySelectorAll(".color-container .btn"),
