@@ -3,6 +3,7 @@
 
 // TODO: line, square, circle, and triangle tools
 
+//Query Selectors
 const canvas = document.querySelector("canvas"),
 toolBtns = document.querySelectorAll(".tool"),
 colorBtns = document.querySelectorAll(".color-container .btn"),
@@ -10,6 +11,7 @@ sizeSlider = document.querySelector(".option #size-slider"),
 colorPicker = document.querySelector("#color-picker"),
 ctx = canvas.getContext("2d");
 
+//Variables and Defaults
 let prevMouseX, prevMouseY,
 selectedTool = "pen",
 selectedColor = "#000",
@@ -72,9 +74,12 @@ colorBtns.forEach(btn => {
 colorPicker.addEventListener("change", () => {
     // Sets current color to value selected and changes the color of the button to the selected color
     colorPicker.parentElement.style.background = colorPicker.value;
-    selectedColor = colorPicker.value;
-    colorPicker.parentElement.click();
 
+    //Remove selected class from currently selected and add it to the colorpicker
+    document.querySelector(".color-container .selected").classList.remove("selected");
+    colorPicker.parentElement.classList.add("selected");
+    selectedColor = colorPicker.value;
+    
     //Shows in console the color value
     console.log("Color Picked: " + colorPicker.value);
 });
