@@ -22,16 +22,17 @@
 <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
     <div class="row row-cols-1 row-cols-md-4 g-4">
        <!--For Loop for creating cards-->
-      {% for i in range(11) %}
+      {% for scratch in all_scratches %}
         <div class="col">
           <div class="card h-100">
 
                 <!--Card image display-->
+                <!-- TODO REPLACE WITH IMG -->
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" class="card-img-top" alt="...">
 
                 <!--Card body text-->
                 <div class="card-body">
-                    <p class="card-text">A wonderful caption</p>
+                    <p class="card-text">{{ scratch.caption }}</p>
                 </div>
 
                 <!--Card footer-->
@@ -75,6 +76,9 @@
                             </svg>
                         </button>
                     </span>
+
+                    <!-- TODO REMOVE THIS, JUST TO TEST DATE -->
+                    <p>{{ scratch.date_created }}</p>
                     
                 </div>
           </div>

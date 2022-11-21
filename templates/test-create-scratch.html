@@ -1,0 +1,46 @@
+{% extends 'layout-no-navbar.html' %}
+{% block body %}
+    
+<h1>Scratch testing</h1>
+<h3>Create scratch</h3>
+<form action="/compose/scratch/post" method="post">
+    <label for="caption" class="">Caption</label>    
+    <input type="text" name="caption" id="caption" class="form-control">
+    <label for="caption" class="">Author ID</label>    
+    <input type="text" name="author_id" id="author_id" class="form-control">
+    <label for="caption" class="">Is comment</label>    
+    <div class="form-check">
+        <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="is_comment" id="is_comment" value="True">
+        Is comment
+      </label>
+    </div>
+    <div class="mb-3">
+      <label for="op_scratch_id" class="form-label">Op scratch id</label>
+      <input type="text"
+        class="form-control" name="op_scratch_id" id="op_scratch_id" aria-describedby="helpId" placeholder="Enter op scratch id if comment is true">
+      <small id="helpId" class="form-text text-muted">Help text</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="my-5"></div>
+
+<h1>User testing</h1>
+<form action="/signup/createuser" method="post">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text"
+        class="form-control" name="username" id="username" aria-describedby="username" placeholder="">
+      <small id="username" class="form-text text-muted">Enter username</small>
+    </div>
+    <div class="mb-3">
+      <label for="user_password" class="form-label">Password</label>
+      <input type="password" class="form-control" name="user_password" id="user_password" placeholder="Password here">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{% endblock %}
