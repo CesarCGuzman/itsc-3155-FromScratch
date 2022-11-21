@@ -1,7 +1,11 @@
+//Note: This was created using a tutorial
+// Resource used: https://www.youtube.com/watch?v=y84tBZo8GFo
+
 const canvas = document.querySelector("canvas"),
 toolBtns = document.querySelectorAll(".tool"),
 colorBtns = document.querySelectorAll(".color-container .btn"),
 sizeSlider = document.querySelector(".option #size-slider"),
+colorPicker = document.querySelector("#color-picker"),
 ctx = canvas.getContext("2d");
 
 let prevMouseX, prevMouseY,
@@ -38,27 +42,39 @@ const drawing = (e) => {
 
 toolBtns.forEach(btn => {
     btn.addEventListener("click", () => {// click event for all the tools
-        //Removes active from currently active - adds it to the btn we clicked
-        document.querySelector(".option .active").classList.remove("active");
-        btn.classList.add("active");
         selectedTool = btn.id;
 
         //Shows you what tool you clicked on
-        console.log(selectedTool);
+        console.log("Tool selected: " + selectedTool);
     });
 });
 
 sizeSlider.addEventListener("change", () => {
     toolsize = sizeSlider.value;
+
+    //Shows in console the current size of your tool
     console.log(toolsize);
 });
 
 colorBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-        //Removes active from currently active - adds it to the btn we clicked
+        //Removes active from currently selected - adds it to the btn we clicked
         selectedColor = window.getComputedStyle(btn).getPropertyValue("background-color");
-        console.log(selectedColor);
+        document.querySelector(".color-container .selected").classList.remove("selected");
+        btn.classList.add("selected");
+        //Shows in console the color selected
+        console.log("Color Button clicked: " + selectedColor);
     });
+});
+
+colorPicker.addEventListener("change", () => {
+    // Sets current color to value selected and changes the color of the button to the selected color
+    colorPicker.parentElement.style.background = colorPicker.value;
+    selectedColor = colorPicker.value;
+    colorPicker.parentElement.click();
+
+    //Shows in console the color value
+    console.log("Color Picked: " + colorPicker.value);
 });
 
 canvas.addEventListener("mousedown", startDrawing);

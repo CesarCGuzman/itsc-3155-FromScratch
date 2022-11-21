@@ -208,7 +208,7 @@ border-color: black;
 border-style: solid;
 }
 
-.btn-circle:focus{
+.selected{
 border:3px;
 border-color: black;
 border-style: solid;
