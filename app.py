@@ -69,9 +69,21 @@ def discover():
 
     return render_template('discover.html', all_scratches=all_scratches)
 
-@app.get('/profile')
-def profile():
-    return render_template('profile.html')
+@app.get('/user/<int:user_id>')
+def user(user_id):
+    is_user_owner = False # FIXME: Implmenet session to determine if this user is the currently logged in user
+    user = ars.return_user_if_exists(user_id)
+    all_scratches = ars.get_scratches_by_author(user_id)
+    num_scratches = ars.get_total_number_of_scratches(user_id)
+    num_likes = ars.get_total_number_of_likes_on_scratches(user_id)
+    return render_template(
+        'user.html',
+        is_user_owner=is_user_owner,
+        user=user,
+        all_scratches=all_scratches,
+        num_likes=num_likes,
+        num_scratches=num_scratches
+    )
 
 @app.get('/test')
 def get_test_page():
@@ -115,7 +127,6 @@ def create_user():
     user = ars.create_user(username=username,
                            user_password=user_password,
                            return_user=True)
-    print(user)
     return redirect(f'/user/{user.user_id}', 200)
 
 @app.post('/like')

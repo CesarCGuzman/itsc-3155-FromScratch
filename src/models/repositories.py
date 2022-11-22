@@ -35,12 +35,12 @@ class AppUserRepository():
         return True
 
     @staticmethod
-    def return_user_if_exists(self, user_id: int) -> AppUser:
+    def return_user_if_exists(user_id: int) -> AppUser:
         """ Returns an AppUser instance if the user exists in the database,
             else raises a ValueError.
         """
         vhs.validate_id_is_int_and_pos(user_id)
-        target_user = self.db.query.filter_by(user_id=user_id).first()
+        target_user = AppUser.query.filter_by(user_id=user_id).first()
         if target_user is None:
             raise ValueError(f'Could not find user with {user_id=}')
         return target_user
@@ -66,6 +66,26 @@ class AppUserRepository():
         db.session.commit()
         if return_liked_by_map:
             return liked_map
+
+    def get_total_number_of_scratches(user_id: int) -> int:
+        all_scratches = AppUserRepository.get_scratches_by_author(user_id)
+        return len(all_scratches)
+
+    def get_total_number_of_likes_on_scratches(user_id: int) -> int:
+        all_scratches_made_by_author = AppUserRepository.get_scratches_by_author(user_id)
+        all_scratch_ids_made_by_author = [scratch.scratch_id for scratch in all_scratches_made_by_author]
+        scratches_liked_by_users = LikedBy.query.filter(LikedBy.scratch_id.in_(all_scratch_ids_made_by_author)).all()
+        return len(scratches_liked_by_users)
+
+    @staticmethod
+    def get_scratches_by_author(author_id: int) -> List[Scratch]:
+        """ Returns all scratches by an author. Assumes the author's id
+            has already been validated by the app_user repository.
+        """
+        scratches_by_author = Scratch.query.filter_by(author_id=author_id).all()
+        vhs.validate_not_none(scratches_by_author)
+        return scratches_by_author
+    
 
 class ScratchRepository():
     """ A static wrapper class that queries and modifies data in the scratch table.
@@ -147,15 +167,6 @@ class ScratchRepository():
         """
         all_scratches = Scratch.query.all()
         return all_scratches
-
-    @staticmethod
-    def get_scratches_by_author(author_id: int) -> List[Scratch]:
-        """ Returns all scratches by an author. Assumes the author's id
-            has already been validated by the app_user repository.
-        """
-        scratches_by_author = Scratch.query.filter_by(author_id=author_id)
-        vhs.validate_not_none(scratches_by_author)
-        return scratches_by_author
 
 
 
