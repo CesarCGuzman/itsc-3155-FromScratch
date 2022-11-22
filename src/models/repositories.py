@@ -1,6 +1,6 @@
 from typing import List
 from src.models.helpers import ValidateHelperSingleton as vhs
-from models import db, Scratch, AppUser
+from models import db, Scratch, AppUser, CommentedBy, LikedBy
 
 class AppUserRepository():
     """ A static wrapper class that queries and modifies data in the app_user table.
@@ -29,7 +29,7 @@ class AppUserRepository():
             else returns False.
         """
         vhs.validate_id_is_int_and_pos(user_id)
-        target_user = db.query.filter_by(user_id=user_id).first()
+        target_user = AppUser.query.filter_by(user_id=user_id).first()
         if target_user is None:
             return False
         return True
@@ -45,6 +45,28 @@ class AppUserRepository():
             raise ValueError(f'Could not find user with {user_id=}')
         return target_user
 
+    @staticmethod
+    def like_scratch(*,
+                     author_id: int,
+                     scratch_id: int,
+                     return_liked_by_map=False) -> None | LikedBy:
+        """ Likes a scratch with `scratch id`, and stores their likes in the
+            `liked_by` table. 
+        """
+        liked_scratch = ScratchRepository.check_if_scratch_exists(scratch_id)
+        author_exists = AppUserRepository.check_if_user_exists(author_id)
+        if not liked_scratch:
+            raise ValueError(f'Scratch with id {scratch_id} could not be found to like')
+        if not author_exists:
+            raise ValueError(f'User with {author_id=} does not exist and therefore' + \
+                             f'could not like scratch with id {scratch_id}')
+        
+        liked_map = LikedBy(scratch_id, author_id)
+        db.session.add(liked_map)
+        db.session.commit()
+        if return_liked_by_map:
+            return liked_map
+
 class ScratchRepository():
     """ A static wrapper class that queries and modifies data in the scratch table.
     """
@@ -55,7 +77,7 @@ class ScratchRepository():
                        caption: str,
                        author_id: int,
                        is_comment: bool = False,
-                       return_scratch=False) -> Scratch:
+                       return_scratch=False) -> None | Scratch:
         """ Creates a scratch, stores in the database, and returns the
             Scratch instance if `return_scratch` is `True`.
         """
@@ -75,7 +97,7 @@ class ScratchRepository():
                            caption: str,
                            author_id: int,
                            op_scratch_id: int,
-                           return_scratch=False) -> Scratch:
+                           return_scratch=False) -> None | Scratch:
         """ Creates a scratch, stores in the database, adds reference to
             original scratch in commented_by table, and returns
             Scratch instance if `return_scratch` is `True`.
@@ -95,8 +117,30 @@ class ScratchRepository():
         db.session.add(reply_map)
         db.session.commit()
         if return_scratch is True:
-            return new_comment
-    
+            return new_comment        
+
+    @staticmethod
+    def check_if_scratch_exists(scratch_id: int) -> bool:
+        """ Returns `True` if a Scratch given `scratch_id` exists,
+            else returns `False`.
+        """
+        vhs.validate_id_is_int_and_pos(scratch_id)
+        target_scratch = ScratchRepository.find_scratch_with_id(scratch_id)
+        if target_scratch is None:
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def find_scratch_with_id(scratch_id: int) -> Scratch:
+        """ Returns a Scratch instance given a `scratch_id`. Raises
+            a ValueError if the scratch cannot be found.
+        """
+        vhs.validate_id_is_int_and_pos(scratch_id)
+        target_scratch = Scratch.query.filter_by(scratch_id=scratch_id).first()
+        vhs.validate_not_none(target_scratch)
+        return target_scratch
+
     @staticmethod
     def get_all_scratches() -> List[Scratch]:
         """ Returns a `List` of all scratches.
@@ -112,6 +156,8 @@ class ScratchRepository():
         scratches_by_author = Scratch.query.filter_by(author_id=author_id)
         vhs.validate_not_none(scratches_by_author)
         return scratches_by_author
+
+
 
 ScratchRepositorySingleton = ScratchRepository()
 AppUserRepositorySingleton = AppUserRepository()

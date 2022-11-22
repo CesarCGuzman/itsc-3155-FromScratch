@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, redirect
 from models import db
 from src.models.repositories import ScratchRepositorySingleton as srs, AppUserRepository as ars
 from src.models.helpers import DebugHelper as debug  # REMOVE
-
+# 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -81,7 +81,7 @@ def get_test_page():
 @app.post('/compose/scratch/post')
 def post_scratch():
     caption = request.form.get('caption', type=str)
-    author_id = request.form.get('author_id', type=int)
+    author_id = request.form.get('author_id', type=int)  # FIXME: Replace this with session user information
     is_comment = request.form.get('is_comment', type=bool)
     if is_comment is None or is_comment is False:
         is_comment = False
@@ -116,8 +116,15 @@ def create_user():
                            user_password=user_password,
                            return_user=True)
     print(user)
-    return redirect('/test', 200)
+    return redirect(f'/user/{user.user_id}', 200)
 
+@app.post('/like')
+def like_scratch():
+    scratch_id = request.form.get('scratch_id', type=int)
+    author_id = request.form.get('author_id', type=int)  # FIXME: Replace this with session user information
+    ars.like_scratch(author_id=author_id,
+                     scratch_id=scratch_id)
+    return redirect('/test', 200)  # FIXME: Replace with previous session url
 
 @app.errorhandler(404)
 def page_not_found(error):
