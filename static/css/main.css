@@ -122,8 +122,8 @@ input.form-control::placeholder {
 .signup-container{
     background-color: white;
     border-radius: 10px;
-    width: 40%;
-    height: 50%;
+    width: 550px;
+    height: 600px;
     padding: 3rem 2rem;
     padding-top: 7rem;
 }
