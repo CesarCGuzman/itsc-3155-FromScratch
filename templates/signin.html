@@ -2,7 +2,6 @@
 
 {# Background Color for body #}
 {% block content %}
-class="login-body"
 {% endblock %}
 
 {% block body %}
@@ -14,10 +13,16 @@ class="login-body"
         <div class="mb-2 d-flex align-items-center">
           <input type="text" class="form-control" name="username" id="username" placeholder="Username" required> <!-- Thing from before: @{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}-->
         </div>
+        {% if user_not_exist is defined and user_not_exist %}
+        <p class="text-danger">Incorrect password :(</p>
+        {% endif %}
         <!--Password Input-->
         <div class="mb-2 d-flex align-items-center">
           <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
         </div>
+        {% if incorrect_password is defined and incorrect_password %}
+        <p class="text-danger">Incorrect password :(</p>
+        {% endif %}
         <div class="help-links-container text-center mb-4">
           <div class="help-links text-left d-inline-block">
             <!--Forgot Pass Link-->
