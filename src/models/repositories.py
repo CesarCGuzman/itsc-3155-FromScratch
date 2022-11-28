@@ -1,13 +1,14 @@
 from typing import List
 from src.models.helpers import ValidateHelperSingleton as vhs
-from models import db, Scratch, AppUser, CommentedBy, LikedBy
+from models import db, Scratch, AppUser, CommentedBy, LikedBy, UserHistory
+
 
 class AppUserRepository():
     """ A static wrapper class that queries and modifies data in the app_user table.
     """
 
     @staticmethod
-    def create_user(*, 
+    def create_user(*,
                     username: str,
                     user_password: str,
                     return_user: bool = False) -> AppUser:
@@ -56,13 +57,19 @@ class AppUserRepository():
         liked_scratch = ScratchRepository.check_if_scratch_exists(scratch_id)
         author_exists = AppUserRepository.check_if_user_exists(author_id)
         if not liked_scratch:
-            raise ValueError(f'Scratch with id {scratch_id} could not be found to like')
+            raise ValueError(
+                f'Scratch with id {scratch_id} could not be found to like')
         if not author_exists:
-            raise ValueError(f'User with {author_id=} does not exist and therefore' + \
+            raise ValueError(f'User with {author_id=} does not exist and therefore' +
                              f'could not like scratch with id {scratch_id}')
-        
+
         liked_map = LikedBy(scratch_id, author_id)
+        user_liked_scratch_history = UserHistory(
+            user_id=author_id,
+            parent_scratch_id=scratch_id,
+            user_liked=True)
         db.session.add(liked_map)
+        db.session.add(user_liked_scratch_history)
         db.session.commit()
         if return_liked_by_map:
             return liked_map
@@ -72,9 +79,12 @@ class AppUserRepository():
         return len(all_scratches)
 
     def get_total_number_of_likes_on_scratches(user_id: int) -> int:
-        all_scratches_made_by_author = AppUserRepository.get_scratches_by_author(user_id)
-        all_scratch_ids_made_by_author = [scratch.scratch_id for scratch in all_scratches_made_by_author]
-        scratches_liked_by_users = LikedBy.query.filter(LikedBy.scratch_id.in_(all_scratch_ids_made_by_author)).all()
+        all_scratches_made_by_author = AppUserRepository.get_scratches_by_author(
+            user_id)
+        all_scratch_ids_made_by_author = [
+            scratch.scratch_id for scratch in all_scratches_made_by_author]
+        scratches_liked_by_users = LikedBy.query.filter(
+            LikedBy.scratch_id.in_(all_scratch_ids_made_by_author)).all()
         return len(scratches_liked_by_users)
 
     @staticmethod
@@ -82,17 +92,18 @@ class AppUserRepository():
         """ Returns all scratches by an author. Assumes the author's id
             has already been validated by the app_user repository.
         """
-        scratches_by_author = Scratch.query.filter_by(author_id=author_id).all()
+        scratches_by_author = Scratch.query.filter_by(
+            author_id=author_id).all()
         vhs.validate_not_none(scratches_by_author)
         return scratches_by_author
-    
+
 
 class ScratchRepository():
     """ A static wrapper class that queries and modifies data in the scratch table.
     """
 
     @staticmethod
-    def create_scratch(img, # TODO IMG VALIDATION HERE
+    def create_scratch(img,  # TODO IMG VALIDATION HERE
                        *,
                        caption: str,
                        author_id: int,
@@ -106,13 +117,19 @@ class ScratchRepository():
                               is_comment=is_comment)
 
         vhs.validate_obj_is_of_type(new_scratch, desired_type=Scratch)
+        user_created_scratch_history = UserHistory(
+            user_id=author_id,
+            parent_scratch_id=new_scratch.scratch_id,
+            user_created_op_scratch=True
+        )
         db.session.add(new_scratch)
+        db.session.add(user_created_scratch_history)
         db.session.commit()
         if return_scratch is True:
             return new_scratch
-    
+
     @staticmethod
-    def comment_on_scratch(img, # TODO IMG VALIDATION HERE
+    def comment_on_scratch(img,  # TODO IMG VALIDATION HERE
                            *,
                            caption: str,
                            author_id: int,
@@ -134,10 +151,17 @@ class ScratchRepository():
         comment_scratch_id = new_comment.scratch_id
         reply_map = CommentedBy(op_scratch_id=op_scratch_id,
                                 comment_scratch_id=comment_scratch_id)
+        user_commented_history = UserHistory(
+            user_id=author_id,
+            parent_scratch_id=op_scratch_id,
+            user_commented=True,
+            user_comment_scratch_id=comment_scratch_id
+        )
         db.session.add(reply_map)
+        db.session.add(user_commented_history)
         db.session.commit()
         if return_scratch is True:
-            return new_comment        
+            return new_comment
 
     @staticmethod
     def check_if_scratch_exists(scratch_id: int) -> bool:
@@ -167,7 +191,6 @@ class ScratchRepository():
         """
         all_scratches = Scratch.query.all()
         return all_scratches
-
 
 
 ScratchRepositorySingleton = ScratchRepository()
