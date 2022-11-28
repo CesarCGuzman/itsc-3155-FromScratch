@@ -51,17 +51,40 @@ class AppUser(db.Model):
 
     MAX_USERNAME_LENGTH = 16
     MAX_PASSWORD_LENGTH = 32
+    MAX_BIOGRAPHY_LENGTH = 60
 
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(MAX_USERNAME_LENGTH), nullable=False)
-    user_password = db.Column(db.String(MAX_PASSWORD_LENGTH), nullable=False)
-    date_created = db.Column(db.DateTime(
-        timezone=True), server_default=func.now())
+    user_id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+    username = db.Column(
+        db.String(MAX_USERNAME_LENGTH),
+        nullable=False
+    )
+    user_password = db.Column(   # TODO: Add salt
+        db.String(MAX_PASSWORD_LENGTH),
+        nullable=False
+        ) 
+    date_created = db.Column(
+        db.DateTime(timezone=True),
+        server_default=func.now()
+    )
+    biography = db.Column(
+        db.String(MAX_BIOGRAPHY_LENGTH),
+        nullable=True
+    )
 
     def __init__(self, username: str, user_password: str) -> None:
         self.username = username
         self.user_password = user_password
 
+    def update_biography(self, new_biography: str) -> None:
+        if new_biography == self.biography:
+            raise ValueError('Cannot replace bio since new_biography is the \
+            same as the current biography')
+        
+        self.biography = new_biography
+        
     def repr(self) -> str:
         return f'AppUser({self.user_id=}, {self.username=}, {self.user_password=}, {self.date_created=})'
 

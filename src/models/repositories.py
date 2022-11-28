@@ -25,6 +25,21 @@ class AppUserRepository():
             return new_user
 
     @staticmethod
+    def update_biography(*,
+                         user_id: int,
+                         new_biography: str,
+                         return_updated_biography: bool = False) -> None | str:
+        """ Updates a user's biography. Returns the new biography if
+            `return_updated_biography` is `True`
+        """
+        vhs.validate_id_is_int_and_pos(user_id)
+        user = AppUserRepository.return_user_if_exists(user_id)
+        updated_biography = user.update_biography(new_biography)
+        db.session.commit()
+        if return_updated_biography:
+            return updated_biography
+
+    @staticmethod
     def check_if_user_exists(user_id: int) -> bool:
         """ Returns True if the user exists in the database,
             else returns False.
