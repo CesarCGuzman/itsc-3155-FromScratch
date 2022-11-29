@@ -27,6 +27,12 @@ class ValidateHelper():
         ValidateHelperSingleton.validate_num_is_pos(id)
         return True
 
+    @staticmethod
+    def validate_username_not_empty(username: str) -> bool:
+        if username == '' or username is None:
+            raise ValueError(f'Username cannot be empty or None, {username=}')
+        return True
+
 class DebugHelper():
     """ A static class that helps print useful information for debugging.
         NOTE: Can be removed before production.
