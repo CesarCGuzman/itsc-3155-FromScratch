@@ -1,6 +1,13 @@
+import os
+import json
 from flask import Flask, request, render_template, redirect
+from werkzeug.utils import secure_filename
 
+
+UPLOAD_FOLDER = '/src/images'
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 # REPLACE WITH SESSION HANDLING :)
 SIGNED_IN: bool = False 
@@ -8,6 +15,8 @@ SIGNED_IN: bool = False
 PLACEHOLDER_USERNAMES = ['fadborecasts86', 'aabootllianzs77', 'dittensmumbass55', 'shetherwtunnings95', 'temorsefulrartarys76', 'tallasterbowards58', 'wnterviewiriters85', 'meetingmarrieds5', 'aalnutswssumptions72', 'bcoresoyscouts71', 'cailboxmartloads47', 'geinekenhloves20', 'irgeuntends73', 'rhizzwofls16', 'prrogantarofits40', 'qboveauizs67', 'cinkerouckoos32', 'iwindlersllegals65', 'naitersgormals38', 'onamusedublongatas46', 'tauceshemselves96', 'iiglinpnspects73', 'ertisteanhances68', 'belchbunts56',
                          'mindlykustys92', 'paskbills86', 'mistakemaps30', 'teavenlyhalus72', 'lreviouspeadings19', 'sanolactruggles30', 'dimbobarts23', 'sandshakehhortbreads45', 'oeetperates51', 'hssueiealths80', 'sibjecretives21', 'utuffsntrues24', 'mtatussatures42', 'wmportanceiittys61', 'ponvictioncigs51', 'mranshiptacabres8', 'tlockcheres38', 'drashytaggers74', 'uhereaswrethras12', 'vcourgeselcros49', 'complexcreams39', 'deporterrisputes18', 'nthleteaaives79', 'cocationlounters96', 'sntilutakings98', 'wailronderfuls94']
 PLACEHOLDER_EMAIL_DOMAINS = ['gmail', 'yahoo', 'microsoft', 'aol']
+
+
 
 
 @app.route('/')
@@ -74,3 +83,29 @@ def profile():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+
+#Simple implementation to get file/image
+#
+@app.post('/get-img')
+def getImage():
+    if 'image' not in request.files:
+        return redirect('/Discover')
+
+    picture = request.files['image']
+
+    if picture.filename == '':
+        return redirect('/Discover')
+
+    if picture.filename.rsplit('.', 1).lower() not in ['jpg']:
+        return redirect('/Discover')
+    
+    safe_filename = secure_filename(picture.filename)
+
+    picture.save(os.path('static', 'image', safe_filename))
+
+
+# TODO: somehow save the data we got - or do something different
+@app.post('/saveImg/<string:canvasImage')
+def getImage(canvasImage):
+    canvasImage = json.loads(canvasImage)

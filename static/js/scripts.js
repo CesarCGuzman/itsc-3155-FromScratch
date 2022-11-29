@@ -1,14 +1,13 @@
 //Note: This was created using a tutorial
 // Resource used: https://www.youtube.com/watch?v=y84tBZo8GFo
 
-// TODO: line, square, circle, and triangle tools
-
 //Query Selectors
 const canvas = document.querySelector("canvas"),
 toolBtns = document.querySelectorAll(".tool"),
 colorBtns = document.querySelectorAll(".color-container .btn"),
 sizeSlider = document.querySelector(".option #size-slider"),
 colorPicker = document.querySelector("#color-picker"),
+//saveImg = document.querySelector("#post-btn"), // <= here will go our button to save the image to our server (assumption)
 ctx = canvas.getContext("2d");
 
 //Variables and Defaults
@@ -18,9 +17,18 @@ selectedColor = "#000",
 toolsize = 1,
 isDrawing = false;
 
+const setCanvasBG = () => {
+    // Makes the whole canvas white, solves the issue of our image being transparent
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = selectedColor; // sets the fillStyle back to selected color
+}
+
 window.addEventListener("load", () => {
+    //This stops the line from being offset from the mouse
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
+    setCanvasBG();
 });
 
 
@@ -31,12 +39,12 @@ const drawLine = (e) => {
     ctx.stroke();
 }
 
-//Draws rectangle, if fill is checked it draws a filled in rectangle - technically can be used for squares as well
+//Draws rectangle/square
 const drawRect = (e) => {
     ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
 }
 
-//Draws circle, if fill is checked it draws a filled in circle
+//Draws circle
 const drawCircle = (e) => {
     ctx.beginPath();
     // getting radius for circle based on location of mouse pointer
@@ -45,7 +53,7 @@ const drawCircle = (e) => {
     ctx.stroke();
 }
 
-//Draws triangle, if fill is checked it draws a filled in triangle
+//Draws triangle
 const drawTriangle = (e) => {
     ctx.beginPath();
     ctx.moveTo(prevMouseX, prevMouseY);
@@ -128,6 +136,29 @@ colorPicker.addEventListener("change", () => {
     //Shows in console the color value
     console.log("Color Picked: " + colorPicker.value);
 });
+
+
+// This currently downloads an image of the canvas (transparent) 
+// Will be updated to send to where we want it instead
+// saveImg.addEventListener("click", () => {
+//     const link = document.createElement("a"); // Creates an <a> element
+//     link.download = `${Date.now()}.jpg`; // passes current date a download value
+//     link.href = canvas.toDataURL(); // passes canvasData as link href value
+//     link.click(); // clicks the link to DL the image
+// });
+
+/* 
+   Saves canvas a data, opens a requrest, passing said data along as a string
+   then sends request | This should be called when we click post
+   and will be an onclick function
+*/
+function saveImage() {
+    let canvasImage = canvas.toDataURL("image/jpeg, 1.0");
+    const request = new XMLHttpRequest();
+    request.open('POST', `/saveImg/${JSON.stringify(canvasImage)}`);
+    request.send();
+}
+
 
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", drawing);
