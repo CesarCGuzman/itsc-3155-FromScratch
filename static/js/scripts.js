@@ -4,9 +4,10 @@
 //Query Selectors
 const canvas = document.querySelector("canvas"),
 toolBtns = document.querySelectorAll(".tool"),
-colorBtns = document.querySelectorAll(".color-container .btn"),
+colorBtns = document.querySelectorAll("#color"),
 sizeSlider = document.querySelector(".option #size-slider"),
 colorPicker = document.querySelector("#color-picker"),
+saveImg = document.querySelector("#post-btn"),
 //saveImg = document.querySelector("#post-btn"), // <= here will go our button to save the image to our server (assumption)
 ctx = canvas.getContext("2d");
 
@@ -116,9 +117,9 @@ sizeSlider.addEventListener("change", () => {
 colorBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         //Removes active from currently selected - adds it to the btn we clicked
-        selectedColor = window.getComputedStyle(btn).getPropertyValue("background-color");
         document.querySelector(".color-container .selected").classList.remove("selected");
         btn.classList.add("selected");
+        selectedColor = btn.value;
         //Shows in console the color selected
         console.log("Color Button clicked: " + selectedColor);
     });
@@ -138,27 +139,11 @@ colorPicker.addEventListener("change", () => {
 });
 
 
-// This currently downloads an image of the canvas (transparent) 
-// Will be updated to send to where we want it instead
-// saveImg.addEventListener("click", () => {
-//     const link = document.createElement("a"); // Creates an <a> element
-//     link.download = `${Date.now()}.jpg`; // passes current date a download value
-//     link.href = canvas.toDataURL(); // passes canvasData as link href value
-//     link.click(); // clicks the link to DL the image
-// });
-
-/* 
-   Saves canvas a data, opens a requrest, passing said data along as a string
-   then sends request | This should be called when we click post
-   and will be an onclick function
-*/
-function saveImage() {
-    let canvasImage = canvas.toDataURL("image/jpeg, 1.0");
-    const request = new XMLHttpRequest();
-    request.open('POST', `/saveImg/${JSON.stringify(canvasImage)}`);
-    request.send();
-}
-
+// This currently gives me the image in base64 in the console
+saveImg.addEventListener("click", () => {
+    let image = canvas.toDataURL("image/jpeg", 1.0);
+    console.log(image);
+});
 
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", drawing);

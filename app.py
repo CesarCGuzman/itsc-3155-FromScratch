@@ -85,27 +85,29 @@ def page_not_found(error):
     return render_template('404.html'), 404
 
 
-#Simple implementation to get file/image
-#
-@app.post('/get-img')
-def getImage():
-    if 'image' not in request.files:
-        return redirect('/Discover')
 
-    picture = request.files['image']
 
-    if picture.filename == '':
-        return redirect('/Discover')
+#Ignore this it's cringe
 
-    if picture.filename.rsplit('.', 1).lower() not in ['jpg']:
-        return redirect('/Discover')
+# @app.post('/get-img')
+# def getImage():
+#     if 'image' not in request.files:
+#         return redirect('/Discover')
+
+#     picture = request.files['image']
+
+#     if picture.filename == '':
+#         return redirect('/Discover')
+
+#     if picture.filename.rsplit('.', 1).lower() not in ['jpg']:
+#         return redirect('/Discover')
     
-    safe_filename = secure_filename(picture.filename)
+#     safe_filename = secure_filename(picture.filename)
 
-    picture.save(os.path('static', 'image', safe_filename))
+#     picture.save(os.path('static', 'image', safe_filename))
 
 
-# TODO: somehow save the data we got - or do something different
-@app.post('/saveImg/<string:canvasImage')
-def getImage(canvasImage):
-    canvasImage = json.loads(canvasImage)
+# # TODO: somehow save the data we got - or do something different
+# @app.post('/saveImg/<string:canvasImage')
+# def getImage(canvasImage):
+#     canvasImage = json.loads(canvasImage)
