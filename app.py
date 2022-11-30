@@ -85,9 +85,10 @@ def page_not_found(error):
 
 @app.post("/imgProcessing")
 def process_img():
-    image = request.files.get('image')
-    image.filename = "userID_scratchID.jpeg" #This is currently incorrect - Just adding it because we will likely need it
-    safe_image = secure_filename(image.filename)
-    if image:
-        image.save(os.path('static', 'images', safe_image))
+    image = request.get_json()
+    print(image)
+    # image.filename = "userID_scratchID.jpeg" #This is currently incorrect - Just adding it because we will likely need it
+    # safe_image = secure_filename(image.filename)
+    # if image:
+    #     image.save(os.path('static', 'images', safe_image))
     return redirect('/')
