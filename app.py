@@ -1,6 +1,5 @@
 import os
-import json
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, jsonify
 from werkzeug.utils import secure_filename
 
 
@@ -83,3 +82,11 @@ def profile():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+@app.post("/imgProcessing")
+def process_img():
+    image = request.files.get('image')
+    name = "Epic_ultimate_filename.jpeg"
+    if image:
+        image.save(f'/static/images/{name}')
+    return redirect('Discover.html')
