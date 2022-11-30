@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, render_template, redirect, jsonify
 from werkzeug.utils import secure_filename
+from binascii import a2b_base64
 
 
 UPLOAD_FOLDER = '/src/images'
@@ -85,8 +86,16 @@ def page_not_found(error):
 
 @app.post("/imgProcessing")
 def process_img():
-    image = request.get_json()
-    print(image)
+    image_json = request.get_json()
+    print(image_json)
+    image_data = image_json.split(",")[1]
+    binary_data = a2b_base64(image_data)
+
+    # Replace with proper naming system
+    with open('image.jpeg', 'wb') as file_writer:
+        file_writer.write(binary_data)  
+        print("wrote to image.jpeg!!")
+
     # image.filename = "userID_scratchID.jpeg" #This is currently incorrect - Just adding it because we will likely need it
     # safe_image = secure_filename(image.filename)
     # if image:
