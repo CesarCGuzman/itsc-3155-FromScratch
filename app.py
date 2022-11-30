@@ -86,7 +86,8 @@ def page_not_found(error):
 @app.post("/imgProcessing")
 def process_img():
     image = request.files.get('image')
-    name = "Epic_ultimate_filename.jpeg"
+    image.filename = "userID_scratchID.jpeg" #This is currently incorrect - Just adding it because we will likely need it
+    safe_image = secure_filename(image.filename)
     if image:
-        image.save(f'/static/images/{name}')
-    return redirect('Discover.html')
+        image.save(os.path('static', 'images', safe_image))
+    return redirect('/')
