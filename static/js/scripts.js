@@ -139,10 +139,15 @@ colorPicker.addEventListener("change", () => {
 });
 
 
-// This currently gives me the image in base64 in the console
+// This currently gives me the image in base64 in the console - I'm adding to it to see if we can send that data to flask
 saveImg.addEventListener("click", () => {
     let image = canvas.toDataURL("image/jpeg", 1.0);
     console.log(image);
+    fetch("/imgProcessing", {
+        "method": "POST",
+        "headers": {"Content-Type": "application/json"},
+        "body": JSON.stringify(image),
+    });
 });
 
 canvas.addEventListener("mousedown", startDrawing);
