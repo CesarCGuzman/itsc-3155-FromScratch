@@ -154,6 +154,18 @@ saveImg.addEventListener("click", () => {
     });
 });
 
+// Will turn the mouse cursor into the selected tool and size when we enter the canvas
+canvas.addEventListener('mouseenter', () => {
+    if(selectedTool === 'pen'){
+        document.body.style.cursor = 'crosshair';
+    }
+});
+
+// Turns the cursor back into what it was before when user leaves the area of the canvas
+canvas.addEventListener('mouseleave', () => {
+    document.body.style.cursor = 'default';
+});
+
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", drawing);
 canvas.addEventListener("mouseup", () => isDrawing = false);
