@@ -8,7 +8,6 @@ colorBtns = document.querySelectorAll("#color"),
 sizeSlider = document.querySelector(".option #size-slider"),
 colorPicker = document.querySelector("#color-picker"),
 saveImg = document.querySelector("#post-btn"),
-//saveImg = document.querySelector("#post-btn"), // <= here will go our button to save the image to our server (assumption)
 ctx = canvas.getContext("2d");
 
 //Variables and Defaults
@@ -32,7 +31,7 @@ window.addEventListener("load", () => {
     setCanvasBG();
 });
 
-
+// Draws a line from where the user clicks to where user lets go of mouse 
 const drawLine = (e) => {
     ctx.beginPath();
     ctx.moveTo(prevMouseX, prevMouseY);
@@ -40,7 +39,8 @@ const drawLine = (e) => {
     ctx.stroke();
 }
 
-//Draws rectangle/square
+/*Draws rectangle/square based on where one clicked to where one
+  drags the cursor */
 const drawRect = (e) => {
     ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
 }
@@ -69,7 +69,7 @@ const startDrawing = (e) => {
     isDrawing = true;
     prevMouseX = e.offsetX;
     prevMouseY = e.offsetY;
-    ctx.beginPath(); // Creates new drwaing path, so that when you click the line starts where you click and does not draw to you
+    ctx.beginPath(); // Creates new drawing path, so that when you click the line starts where you click and does not draw to you
     ctx.lineWidth = toolsize;
     ctx.strokeStyle = selectedColor;
     ctx.fillStyle = selectedColor;
@@ -79,10 +79,10 @@ const startDrawing = (e) => {
 }
 
 const drawing = (e) => {
-    if(!isDrawing) return; //Does not draw if not true
+    if(!isDrawing) return; // isDrawing is only set to true when we click - if not, we do not draw
     ctx.putImageData(snapshot, 0, 0);
     if(selectedTool === "pen" || selectedTool === "eraser") {
-        ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor;
+        ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor; // if we select the eraser we set the stroke to white
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
     } else if(selectedTool === "line"){
@@ -96,6 +96,9 @@ const drawing = (e) => {
     }
 }
 
+/*Listens for click on all tool buttons (Excludes slider)
+  Adds class to selected tool
+  Selects tool via id in javascript */
 toolBtns.forEach(btn => {
     btn.addEventListener("click", () => {// click event for all the tools
         selectedTool = btn.id;
@@ -107,15 +110,19 @@ toolBtns.forEach(btn => {
     });
 });
 
-sizeSlider.addEventListener("change", () => {
+// Changes the size of the tool - Affects shapes as well
+sizeSlider.addEventListener("input", () => {
     toolsize = sizeSlider.value;
     var span = document.querySelector(".size-display"); //Gets span element from size slider label
-    span.textContent = toolsize;                        // Changes the display value to the current tool size
+    span.innerHTML = toolsize;                          // Changes the display value to the current tool size
 
-    //Shows in console the current size of your tool
-    console.log(toolsize);
+    /*Shows in console the current size of your tool
+      commented out as now it updates in real time and
+      this can cause it to spam the console */
+    //console.log(toolsize);
 });
 
+// Changes the color selected - Affects shapes as well
 colorBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         //Removes active from currently selected - adds it to the btn we clicked
@@ -127,6 +134,8 @@ colorBtns.forEach(btn => {
     });
 });
 
+/* Changes the color of tool based on selected color
+   Also updates background of button for more clarity */
 colorPicker.addEventListener("change", () => {
     // Sets current color to value selected and changes the color of the button to the selected color
     colorPicker.parentElement.style.background = colorPicker.value;
@@ -156,19 +165,32 @@ saveImg.addEventListener("click", () => {
     });
 });
 
-// Will turn the mouse cursor into the selected tool and size when we enter the canvas
+/* Should turn the mouse cursor into the selected tool and size when we enter the canvas
+   Currently only does the following:
+   -    Changes mouse cursor to selected tool
+
+   TODO: Add a way to see the size of the tool
+*/
 canvas.addEventListener('mouseenter', () => {
     if(selectedTool === 'pen'){
         document.body.style.cursor = "url('/static/icons/pencil.svg') 0 20, auto"; // Uses an svg to replace mouse cursor
-    } else if (selectedTool === 'eraser') {
+    }else if(selectedTool === 'eraser') {
         document.body.style.cursor = "url('/static/icons/eraser.svg') 0 20, auto";
+    }else if(selectedTool === 'line') {
+        document.body.style.cursor = "url('/static/icons/line.svg') 0 20, auto";
+    }else if(selectedTool === 'square') {
+        document.body.style.cursor = "url('/static/icons/square.svg') 0 20, auto";
+    }else if(selectedTool === 'circle') {
+        document.body.style.cursor = "url('/static/icons/circle.svg') 0 20, auto";
+    }else if(selectedTool === 'triangle') {
+        document.body.style.cursor = "url('/static/icons/triangle.svg') 0 20, auto";
+    }else {
+        document.body.style.cursor = 'default'
     }
 });
 
-// Turns the cursor back into what it was before when user leaves the area of the canvas
-canvas.addEventListener('mouseleave', () => {
-    document.body.style.cursor = 'default';
-});
+// Turns the cursor back into default when user leaves the area of the canvas
+canvas.addEventListener('mouseleave', () => document.body.style.cursor = 'default');
 
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", drawing);
