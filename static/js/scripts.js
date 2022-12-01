@@ -109,6 +109,8 @@ toolBtns.forEach(btn => {
 
 sizeSlider.addEventListener("change", () => {
     toolsize = sizeSlider.value;
+    var span = document.querySelector(".size-display"); //Gets span element from size slider label
+    span.textContent = toolsize;                        // Changes the display value to the current tool size
 
     //Shows in console the current size of your tool
     console.log(toolsize);
@@ -157,7 +159,9 @@ saveImg.addEventListener("click", () => {
 // Will turn the mouse cursor into the selected tool and size when we enter the canvas
 canvas.addEventListener('mouseenter', () => {
     if(selectedTool === 'pen'){
-        document.body.style.cursor = 'crosshair';
+        document.body.style.cursor = "url('/static/icons/pencil.svg') 0 20, auto"; // Uses an svg to replace mouse cursor
+    } else if (selectedTool === 'eraser') {
+        document.body.style.cursor = "url('/static/icons/eraser.svg') 0 20, auto";
     }
 });
 
