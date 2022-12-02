@@ -8,6 +8,9 @@ colorBtns = document.querySelectorAll("#color"),
 sizeSlider = document.querySelector(".option #size-slider"),
 colorPicker = document.querySelector("#color-picker"),
 saveImg = document.querySelector("#post-btn"),
+clearCanvas = document.querySelector(".clear"),
+fillbtn = document.querySelector(".fill-btn"),
+fillcolor = document.querySelector("#fill-color"),
 ctx = canvas.getContext("2d");
 
 //Variables and Defaults
@@ -42,7 +45,11 @@ const drawLine = (e) => {
 /*Draws rectangle/square based on where one clicked to where one
   drags the cursor */
 const drawRect = (e) => {
-    ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
+    if(!fillcolor.checked) {
+        ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
+    } else { // Fill is checked so we fill it in with the selected color
+        ctx.fillRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
+    }
 }
 
 //Draws circle
@@ -52,6 +59,12 @@ const drawCircle = (e) => {
     let radius = Math.sqrt(Math.pow((prevMouseX - e.offsetX), 2) + Math.pow((prevMouseY - e.offsetY), 2));
     ctx.arc(prevMouseX, prevMouseY, radius, 0, 2 * Math.PI);
     ctx.stroke();
+
+    // If fill is checked - Fill it in with selected color
+    if(fillcolor.checked) {
+        ctx.fill();
+        ctx.stroke();
+    }
 }
 
 //Draws triangle
@@ -62,6 +75,12 @@ const drawTriangle = (e) => {
     ctx.lineTo(prevMouseX * 2 - e.offsetX, e.offsetY); // creates bottom line on triangle
     ctx.closePath(); // Closes path of triangle to draw third line
     ctx.stroke();
+    
+    // Fills if fill is checked
+    if(fillcolor.checked) {
+        ctx.fill();
+        ctx.stroke();
+    }
 }
 
 
@@ -85,14 +104,16 @@ const drawing = (e) => {
         ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor; // if we select the eraser we set the stroke to white
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
-    } else if(selectedTool === "line"){
+    } else if(selectedTool === 'line'){
         drawLine(e);
-    } else if(selectedTool === "square") {
+    } else if(selectedTool === 'square') {
         drawRect(e);
-    } else if(selectedTool ==="circle") {
+    } else if(selectedTool === 'circle') {
         drawCircle(e);
-    } else {
+    } else if(selectedTool === 'triangle') {
         drawTriangle(e);
+    } else {
+        fillColor(e);
     }
 }
 
@@ -173,7 +194,7 @@ saveImg.addEventListener("click", () => {
 */
 canvas.addEventListener('mouseenter', () => {
     if(selectedTool === 'pen'){
-        document.body.style.cursor = "url('/static/icons/pencil.svg') 0 20, auto"; // Uses an svg to replace mouse cursor
+        document.body.style.cursor = "url('/static/icons/pencil.svg') 0 20, move"; // Uses an svg to replace mouse cursor
     }else if(selectedTool === 'eraser') {
         document.body.style.cursor = "url('/static/icons/eraser.svg') 0 20, auto";
     }else if(selectedTool === 'line') {
@@ -187,6 +208,21 @@ canvas.addEventListener('mouseenter', () => {
     }else {
         document.body.style.cursor = 'default'
     }
+});
+
+// This just makes the fill color button a different color when it is checked
+fillbtn.addEventListener("change", () => {
+    if(fillcolor.checked) {
+        console.log("Fill color: Checked");
+        document.querySelector(".fill-btn").classList.add("fill-btn-checked");
+    } else if(!fillcolor.checked) {
+        console.log("Fill color: Unchecked")
+        document.querySelector(".fill-btn").classList.remove("fill-btn-checked");
+    }
+});
+
+clearCanvas.addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears the whole canvas
 });
 
 // Turns the cursor back into default when user leaves the area of the canvas

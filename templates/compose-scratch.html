@@ -14,9 +14,6 @@
     width: 1000;
     height: 580;
   }
-  .colors{
-    height: fit-content;
-  }
 
   body{
     background-color: #d84727;
@@ -32,83 +29,101 @@
   </button>
 </span>
 
+  <div class="canvas mb-3 mt-5">
+      <div class="tools">
+          <ul class="option">
+            <li class="option tool btn-picked" id="pen">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+              </svg>
+              <span>Pen</span>
+            </li>
 
-  <div class="scratch-form mb-3 mt-5">
-    <div class="canvas">
-        <div class="tools">
-            <ul class="option">
-              <li class="option tool btn-picked" id="pen">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-                </svg>
-                <span>Pen</span>
+            <li class="option tool" id="eraser">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser" viewBox="0 0 16 16">
+                <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
+              </svg>
+              <span>Eraser</span>
+            </li>
+
+            <li class="option tool" id="line">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+              </svg>
+              <span>Line</span>
+            </li>
+
+            <li class="option tool" id="square">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-square" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+              </svg>
+              <span>Square</span>
+            </li>
+
+            <li class="option tool" id="circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              </svg>
+              <span>Circle</span>
+            </li>
+
+            <li class="option tool" id="triangle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-triangle" viewBox="0 0 16 16">
+                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+              </svg>
+              <span>Triangle</span>
+            </li>
+            <div>
+              <li class="clear" id="clear">
+                <span>Clear Canvas</span>
               </li>
-
-              <li class="option tool" id="eraser">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser" viewBox="0 0 16 16">
-                  <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
-                </svg>
-                <span>Eraser</span>
-              </li>
-
-              <li class="option tool" id="line">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-lg" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
-                </svg>
-                <span>Line</span>
-              </li>
-
-              <li class="option tool" id="square">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-square" viewBox="0 0 16 16">
-                  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                </svg>
-                <span>Square</span>
-              </li>
-
-              <li class="option tool" id="circle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                </svg>
-                <span>Circle</span>
-              </li>
-
-              <li class="option tool" id="triangle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-triangle" viewBox="0 0 16 16">
-                  <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-                </svg>
-                <span>Triangle</span>
-              </li>
-
-              <li class="option">
-                <label for="fill-color" class="">Size: <span class="size-display">1</span></label>
-                <input type="range" class="form-range" name="fill-color" id="size-slider" min="1" max="20" value="1">
-              </li>
-            </ul>
-        </div>
-
-        <div class="drawing-canvas">
-          <canvas></canvas>
-        </div>
-        <div class="colors d-flex align-items-center flex-column">
-          <div class="color-container d-flex align-items-center flex-column">
-              <!-- lg circle buttons-->
-              <button class="btn btn-black btn-circle btn-circle-lg m-1 selected" id="color" value="#000"></button>
-              <button class="btn btn-red btn-circle btn-circle-lg m-1" id="color" value="#FF0000"></button>
-              <button class="btn btn-pink btn-circle btn-circle-lg m-1" id="color" value="#FFC0CB"></button>
-              <button class="btn btn-orange btn-circle btn-circle-lg m-1" id="color" value="#FFA500"></button>
-              <button class="btn btn-yellow btn-circle btn-circle-lg m-1" id="color" value="#FFFF00"></button>
-              <button class="btn btn-limeg btn-circle btn-circle-lg m-1" id="color" value="#32CD32"></button>
-              <button class="btn btn-green btn-circle btn-circle-lg m-1" id="color" value="#228B22"></button>
-              <button class="btn btn-teal btn-circle btn-circle-lg m-1" id="color" value="#008080"></button>
-              <button class="btn btn-blue btn-circle btn-circle-lg m-1" id="color" value="#0000FF"></button>
-              <button class="btn btn-purple btn-circle btn-circle-lg m-1" id="color" value="#A020F0"></button>
-              <div style="position:relative; display:inline-block">
-                <button class="button btn-choose btn-circle btn-circle-lg m-1">
-                  <input type="color" id="color-picker" value="#4A98F7" style="opacity:0; position:absolute; left:0;top:0;width:100%; height:100%"/>
-                </button>
-              </div>
           </div>
+            <li class="option">
+              <label for="fill-color" class="">Size: <span class="size-display">1</span></label>
+              <input type="range" class="form-range" name="fill-color" id="size-slider" min="1" max="20" value="1">
+            </li>
+          </ul>
       </div>
+
+      <div class="drawing-canvas">
+        <canvas></canvas>
+      </div>
+      <div class="colors align-items-center ">
+        <div class="color-container align-items-center ">
+            <!-- lg circle buttons-->
+
+            <!-- TODO: Add more colors and restructure the way this looks (I don't like how it's in a line) -->
+            <!-- remove d-flex and do m-2 instead (I have already added flex-flow: row wrap; to make it not look like a line) -->
+
+            <button class="btn btn-black btn-circle m-2 selected" id="color" value="#000"></button>
+            <button class="btn btn-dgrey btn-circle m-2" id="color" value="#5A5A5A"></button>
+            <button class="btn btn-lgrey btn-circle m-2" id="color" value="#D3D3D3"></button>
+            <button class="btn btn-dred btn-circle m-2" id="color" value="#8B0000"></button>
+            <button class="btn btn-red btn-circle m-2" id="color" value="#FF0000"></button>
+            <button class="btn btn-pink btn-circle m-2" id="color" value="#FFC0CB"></button>
+            <button class="btn btn-orange btn-circle m-2" id="color" value="#FFA500"></button>
+            <button class="btn btn-borange btn-circle m-2" id="color" value="#FFAC1C"></button>
+            <button class="btn btn-yellow btn-circle m-2" id="color" value="#FFFF00"></button>
+            <button class="btn btn-green btn-circle m-2" id="color" value="#228B22"></button>
+            <button class="btn btn-limeg btn-circle m-2" id="color" value="#32CD32"></button>
+            <button class="btn btn-teal btn-circle m-2" id="color" value="#008080"></button>
+            <button class="btn btn-blue btn-circle m-2" id="color" value="#0000FF"></button>
+            <button class="btn btn-bblue btn-circle m-2" id="color" value="#0096FF"></button>
+            <button class="btn btn-sky-blue btn-circle m-2" id="color" value="#87CEEB"></button>
+            <button class="btn btn-dpurple btn-circle m-2" id="color" value="#301934"></button>
+            <button class="btn btn-purple btn-circle m-2" id="color" value="#A020F0"></button>
+            <div style="position:relative; display:inline-block; vertical-align: middle;" class="m-2">
+              <button class="button btn-choose btn-circle">
+                <input type="color" id="color-picker" value="#4A98F7" style="opacity:0; position:absolute; left:0;top:0;width:100%; height:100%"/>
+              </button>
+            </div>
+        </div>
+        <div style="align-items: center; position: relative;" class="fill-btn">
+          <li class="option">
+            <input type="checkbox" name="fill-color" id="fill-color">
+            <label for="fill-color">Fill shape</label>
+          </li>
+        </div>
     </div>
   </div>
 <form action="" method="post" class="" enctype="multipart/form-data">
