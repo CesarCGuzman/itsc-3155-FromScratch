@@ -55,7 +55,7 @@ class AppUserRepository():
         """ Returns True if the user exists in the database,
             else returns False.
         """
-        vhs.validate_id_is_int_and_pos(username)
+        vhs.validate_username_not_empty(username)
         target_user = AppUser.query.filter_by(username=username).first()
         if target_user is None:
             return False
