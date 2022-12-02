@@ -75,9 +75,9 @@ def discover():
 def notification():
     return render_template('notification.html')
 
-@app.get('/profile')
+@app.get('/user')
 def profile():
-    return render_template('profile.html')
+    return render_template('user.html')
 
 @app.errorhandler(404)
 def page_not_found(error):
