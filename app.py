@@ -107,17 +107,31 @@ def try_signing_up():
 
 @app.route('/compose/scratch')
 def compose_scratch():
-   return render_template('compose-scratch.html')
+    return render_template('compose-scratch.html')
+
+@app.route('/compose-reply/scratch')
+def compose_reply_scratch():
+    return render_template('compose-reply-scratch.html')
+
+@app.route('/reply/scratch')
+def reply_scratch():
+    return render_template('reply-scratch.html')
+
  
 @app.get('/discover')
 def discover():
     if 'user' not in session:
         return redirect('/')
     return render_template('discover.html')
- 
-@app.get('/profile')
+
+@app.get('/notification')
+def notification():
+    return render_template('notification.html')
+
+@app.get('/user')
 def profile():
-   return render_template('profile.html')
+    # TODO: Implement fetching current user's id here
+    return render_template('user.html')
  
 @app.errorhandler(404)
 def page_not_found(error):

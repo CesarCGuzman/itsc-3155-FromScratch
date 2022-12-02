@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+h1 {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.container{
+  width: 600px;
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+  width: 600px;
+}
+.card-footer{
+  padding-top: 90px;
+}
+</style>
+ 
+ <!--Page Heading-->
+ <h1>Notifications</h1>
+
+<!--For Loop-->
+ {% for i in range(6) %}
+
+ <!--Row Divider-->
+ <hr class="solid">
+
+ <!--Creates notification containers-->
+ <div class="container">
+  <div class="row">
+      <!--Left Side-->
+      <div class="col">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" class="img-fluid rounded-start" alt="...">
+      </div>
+      <!--Center-->
+      <div class="col">
+          <p class="card-text">CoolPerson123 liked your scratch :)</p>
+          <div class="card-footer">
+            <small class="text-muted">
+              3 mins ago
+            </small>
+          </div>
+      </div>
+      <!--Right Side-->
+      <div class="col">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" class="img-fluid rounded-start" alt="...">
+      </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
