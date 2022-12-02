@@ -13,8 +13,9 @@
         <div class="mb-2 d-flex align-items-center">
           <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
         </div>
-        {% if user_not_exist is defined and user_not_exist %}
-        <p class="text-danger">Incorrect password :(</p>
+        {% if user_exists is defined and not user_exists %}
+        <p class="text-danger">{{failed_username}} is not a valid username :(</p>
+        {% else %}
         {% endif %}
         <!--Password Input-->
         <div class="mb-2 d-flex align-items-center">
