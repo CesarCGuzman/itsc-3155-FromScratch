@@ -1,33 +1,72 @@
 {% extends 'layout-no-navbar.html' %}
 {% block body %}
+<style>
+  .back-button {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  }
 
-<h1>Create Scratch</h1>
-<div class="canvas">
-  <div class="tools">
-      
-  </div>
+  .scratch-form{
+      padding-top: 30px;
+  }
+  .canvas{
+    width: 1000;
+    height: 580;
+  }
+  .colors{
+    height: fit-content;
+  }
+</style>
 
-  <div class="drawing-canvas">
+<!--Back Button-->
+<span class="back-button">
+  <button type="button" onclick="history.back()" class="btn btn-primary flex-grow-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" >
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+    </svg>
+    Go Back
+  </button>
+</span>
 
-  </div>
+<!--Scratch Template-->
+  <div class="scratch-form mb-3">
+    <div class="canvas">
+        <div class="tools">
+            
+        </div>
 
-  <div class="colors d-flex align-items-center flex-column">
-      <div class="color-conatainer d-flex align-items-center flex-column">
-          <!-- lg circle buttons-->
-          <button class="btn btn-black btn-circle btn-circle-lg m-1"><i class="fa fa-check"></i></button>
-          <button class="btn btn-red btn-circle btn-circle-lg m-1"><i class="fa fa-cog"></i></button>
-          <button class="btn btn-pink btn-circle btn-circle-lg m-1"><i class="fa fa-paper-plane"></i></button>
-          <button class="btn btn-orange btn-circle btn-circle-lg m-1"><i class="fa fa-tags"></i></button>
-          <button class="btn btn-yellow btn-circle btn-circle-lg m-1"><i class="fa fa-sliders"></i></button>
-          <button class="btn btn-limeg btn-circle btn-circle-lg m-1"><i class="fa fa-search"></i></button>
-          <button class="btn btn-green btn-circle btn-circle-lg m-1"><i class="fa fa-wrench"></i></button>
-          <button class="btn btn-teal btn-circle btn-circle-lg m-1"><i class="fa fa-bar-chart"></i></button>
-          <button class="btn btn-blue btn-circle btn-circle-lg m-1"><i class="fa fa-bar-chart"></i></button>
-          <button class="btn btn-purple btn-circle btn-circle-lg m-1"><i class="fa fa-bar-chart"></i></button>
-          <button class="btn btn-choose btn-circle btn-circle-lg m-1"><i class="fa fa-bar-chart"></i></button>
+        <div class="drawing-canvas">
+
+        </div>
+        <div class="colors d-flex align-items-center flex-column">
+          <div class="color-container d-flex align-items-center flex-column">
+              <!-- lg circle buttons-->
+              <button class="btn btn-black btn-circle btn-circle-lg m-1"><i class="black"></i></button>
+              <button class="btn btn-red btn-circle btn-circle-lg m-1"><i class="red"></i></button>
+              <button class="btn btn-pink btn-circle btn-circle-lg m-1"><i class="pink"></i></button>
+              <button class="btn btn-orange btn-circle btn-circle-lg m-1"><i class="orange"></i></button>
+              <button class="btn btn-yellow btn-circle btn-circle-lg m-1"><i class="yellow"></i></button>
+              <button class="btn btn-limeg btn-circle btn-circle-lg m-1"><i class="lime green"></i></button>
+              <button class="btn btn-green btn-circle btn-circle-lg m-1"><i class="green"></i></button>
+              <button class="btn btn-teal btn-circle btn-circle-lg m-1"><i class="teal"></i></button>
+              <button class="btn btn-blue btn-circle btn-circle-lg m-1"><i class="blue"></i></button>
+              <button class="btn btn-purple btn-circle btn-circle-lg m-1"><i class="purple"></i></button>
+              <button class="btn btn-choose btn-circle btn-circle-lg m-1"><i class="choose color"></i></button>
+          </div>
       </div>
-  </div>
-</div>
     </div>
   </div>
+
+<!--Post Button-->
+<form action="/404" method="post" class="">
+  <div class="login-form m-auto">
+    <div class="mb-3">
+      <input type="text" name="caption" id="caption" class="form-control" autocomplete="off" maxlength="20" placeholder="Caption (20 chars)">
+    </div>
+    <div class="d-flex pt-1">
+      <button type="submit" class="btn btn-primary flex-grow-1">Post</button>
+    </div>
+  </div>
+</form>
 {% endblock %}

@@ -112,6 +112,27 @@ def compose_scratch_get():
     return render_template('compose-scratch.html')
 
 
+
+@app.route('/compose-reply/scratch')
+def compose_reply_scratch():
+    return render_template('compose-reply-scratch.html')
+
+  
+@app.get('/discover')
+def discover():
+    if 'user' not in session:
+        return redirect('/')
+    return render_template('discover.html')
+
+@app.get('/notification')
+def notification():
+    return render_template('notification.html')
+
+@app.get('/user')
+def profile():
+    # TODO: Implement fetching current user's id here
+    return render_template('user.html')
+ 
 @app.errorhandler(404)
 def page_not_found(error):
     session['url'] = url_for('page_not_found')
