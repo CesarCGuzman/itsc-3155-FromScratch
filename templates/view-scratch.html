@@ -8,8 +8,8 @@
   }
 
   .card{
-    width: 650;
-    height: 560;
+    width: 30%;
+    height: 200px;
     align-self: center;
     margin: 0 auto;
     float: none;
@@ -26,11 +26,11 @@
     padding-top: 80;
   }
   .card-body{
-    height: 50;
+    height: 30%;
   }
     
     .icon{
-        padding-inline-start: 5em;
+        padding-inline-start: 2em;
         justify-content: center;
     }
     form {
@@ -55,7 +55,7 @@
 
 <label class="scratch-label justify-content-center">Scratch</label>
 
-<div class="scratch">
+<div class="scratch" style="height:65%">
     <div class="card h-100">
 
         <!--Card image display-->
@@ -117,7 +117,7 @@
 
 
 <!--Generates card replies-->
-<label class="justify-content-center">Replies</label>
+<label class="justify-content-center" style="padding-top: 20;">Replies</label>
 <!--For loop for reply cards-->
 {% for i in range(3) %}
 <div class="row">
