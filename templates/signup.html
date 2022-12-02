@@ -2,7 +2,6 @@
 
 {# Background Color for body #}
 {% block content %}
-class="login-body"
 {% endblock %}
 
 {% block body %}
@@ -16,6 +15,9 @@ class="login-body"
             <div class="mb-3 d-flex align-items-center">
               <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username"> <!-- Thing from before: @{{ placeholder_usernames[range(0, placeholder_usernames|length) | random ] }}-->
             </div>
+            {% if username_taken is defined and username_taken %}
+              <p class="text-danger">Username is taken, please try something different :)</p>
+            {% endif %}
             <!--Create Password Input-->
             <div class="mb-3 d-flex align-items-center">
               <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password">

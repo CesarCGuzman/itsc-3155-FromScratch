@@ -2,8 +2,9 @@
 CREATE TABLE IF NOT EXISTS app_user (
     user_id SERIAL NOT NULL,
     username VARCHAR(16) NOT NULL,
-    user_password VARCHAR(32) NOT NULL,
+    user_password VARCHAR(100) NOT NULL,
     date_created DATE NOT NULL DEFAULT CURRENT_DATE,
+    biography VARCHAR(60) NULL,
     PRIMARY KEY (user_id)
 );
 
