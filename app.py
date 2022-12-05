@@ -265,3 +265,8 @@ def process_img():
     # if image:
     #     image.save(os.path('static', 'images', safe_image))
     return redirect('/')
+
+@app.post('/logout')
+def logout():
+    session.pop('user')
+    return redirect('/signin')
