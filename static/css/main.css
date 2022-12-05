@@ -136,7 +136,7 @@ input.form-control::placeholder {
     height: 80%;
     border-radius: 15px;
     display: flex;
-    padding: 0 2rem;
+    padding: 0;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -146,10 +146,102 @@ input.form-control::placeholder {
     height: inherit;
 }
 
+.tools .option{
+    list-style: none;
+    margin: 18% 15% 0 5px;
+}
+
+/* Stops the user from highlighting these elements
+   in the event that their mouse runs off the canvas */
+.option label, span, svg, li{
+    user-select: none;
+}
+
+.option #size-slider{
+    width: 100%;
+    height: 15px;
+}
+
+.tool{
+    border: 1px solid var(--main-orange);
+    border-radius: 7px;
+    text-align: center;
+    background-color: var(--main-orange);
+    color: #fff;
+    font-weight:bold;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+.clear{
+    border: 1px solid var(--main-orange);
+    border-radius: 7px;
+    text-align: center;
+    background-color: var(--main-orange);
+    color: #fff;
+    font-weight:bold;
+    padding: 10px 5px;
+    cursor: pointer;
+    list-style: none;
+    margin: 18% 15% 0 5px;
+}
+
+.fill-btn{
+    border: 1px solid var(--main-orange);
+    border-radius: 7px;
+    text-align: center;
+    background-color: var(--main-orange);
+    color: #fff;
+    font-weight:bold;
+    padding: 10px 5px;
+    cursor: pointer;
+    list-style: none;
+    margin: 15% 10%;
+    width: 80%;
+}
+.fill-btn input{
+    position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.fill-btn-checked{
+    background-color: var(--link);
+    color: var(--main-orange);
+    border-color: var(--main-orange);
+}
+
+.fill-btn label{
+    width: 100%;
+}
+
+.clear:active{
+    background-color: var(--link);
+    color: var(--main-orange);
+    border-color: var(--main-orange);
+}
+
+.tool:hover{
+    background-color: var(--link);
+}
+
+.btn-picked{
+    background-color: var(--link);
+    color: var(--main-orange);
+    border-color: var(--main-orange);
+}
+
 .colors{
     width: 20%;
     height: inherit;
+    flex-flow: row wrap;
+    height: 100%;
 }
+
 
 .drawing-canvas{
     width: 60%;
@@ -162,12 +254,9 @@ input.form-control::placeholder {
     border-style: solid;
 }
 
-
-.btn-circle-lg {
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
-    font-size: 1.1rem;
+.drawing-canvas canvas{
+    width: 100%;
+    height: 100%;
 }
 
 .btn-circle {
@@ -181,41 +270,63 @@ border-color: black;
 border-style: solid;
 }
 
-.btn-circle:focus{
+.selected{
 border:3px;
 border-color: black;
 border-style: solid;
 }
 
+
 .btn-black, .btn-black:hover{
-    background-color: black;
+    background-color: #000;
+}
+.btn-dgrey, .btn-dgrey:hover{
+    background-color: #5A5A5A;
+}
+.btn-lgrey, .btn-lgrey:hover{
+    background-color: #D3D3D3;
+}
+.btn-dred, .btn-dred:hover{
+    background-color: #8B0000;
 }
 .btn-red, .btn-red:hover{
-    background-color: red;
+    background-color: #FF0000;
 }
 .btn-pink, .btn-pink:hover{
-    background-color: pink;
+    background-color: #FFC0CB;
 }
 .btn-orange, .btn-orange:hover{
-    background-color: orange;
+    background-color: #FFA500;
+}
+.btn-borange, .btn-borange:hover{
+    background-color: #FFBF00;
 }
 .btn-yellow, .btn-yellow:hover{
-    background-color: yellow;
+    background-color: #FFFF00;
 }
 .btn-limeg, .btn-limeg:hover{
-    background-color: lime;
+    background-color: #32CD32;
 }
 .btn-green, .btn-green:hover{
-    background-color: green;
+    background-color: #228B22;
 }
 .btn-teal, .btn-teal:hover{
-    background-color: teal;
+    background-color: #008080;
 }
 .btn-blue, .btn-blue:hover{
-    background-color: blue;
+    background-color: #0000FF;
+}
+.btn-bblue, .btn-bblue:hover{
+    background-color: #0096FF;
+}
+.btn-sky-blue, .btn-sky-blue:hover{
+    background-color: #87CEEB;
+}
+.btn-dpurple, .btn-dpurple:hover{
+    background-color: #301934;
 }
 .btn-purple, .btn-purple:hover{
-    background-color: purple;
+    background-color: #A020F0;
 }
 /* Resource: https://dev.to/madsstoumann/recreating-apples-color-picker-icon-20aa */
 .btn-choose, .btn-choose:hover{
@@ -230,6 +341,10 @@ border-style: solid;
     hsl(45, 100%, 50%),
     hsl(0, 100%, 50%)
     ) border-box; 
+}
+
+.button {
+    margin: 0;
 }
 
 

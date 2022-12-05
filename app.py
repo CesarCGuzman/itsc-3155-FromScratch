@@ -1,10 +1,13 @@
 import os
+from binascii import a2b_base64
 from flask import Flask, request, render_template, redirect, session, url_for
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 from models import db
 from src.models.repositories import ScratchRepositorySingleton as srs, AppUserRepository as ars
 
+
+UPLOAD_FOLDER = '/src/images'
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.secret_key = os.getenv('APP_SECRET_KEY')
@@ -13,6 +16,8 @@ load_dotenv()
 db.init_app(app)
 bcrypt = Bcrypt(app)
 num_rounds = int(os.getenv('BCRYPT_ROUNDS'))
+
+
 
 
 @app.route('/')
@@ -242,6 +247,24 @@ def like_scratch():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+@app.post("/imgProcessing")
+def process_img():
+    image_json = request.get_json()
+    print(image_json)
+    image_data = image_json.split(",")[1]
+    binary_data = a2b_base64(image_data)
+
+    # Replace with proper naming system
+    with open('image.jpeg', 'wb') as file_writer:
+        file_writer.write(binary_data)  
+        print("wrote to image.jpeg!!")
+
+    # image.filename = "userID_scratchID.jpeg" #This is currently incorrect - Just adding it because we will likely need it
+    # safe_image = secure_filename(image.filename)
+    # if image:
+    #     image.save(os.path('static', 'images', safe_image))
+    return redirect('/')
 
 @app.post('/logout')
 def logout():
