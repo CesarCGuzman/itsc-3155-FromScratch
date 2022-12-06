@@ -6,7 +6,7 @@ from models import db, Scratch, AppUser, CommentedBy, LikedBy, UserHistory
 class AppUserRepository():
     """ A static wrapper class that queries and modifies data in the app_user table.
     """
-
+    
     @staticmethod
     def create_user(*,
                     username: str,
@@ -33,14 +33,14 @@ class AppUserRepository():
             `return_updated_biography` is `True`
         """
         vhs.validate_id_is_int_and_pos(user_id)
-        user = AppUserRepository.return_user_if_exists(user_id)
+        user = AppUserRepository.return_user_by_id(user_id)
         updated_biography = user.update_biography(new_biography)
         db.session.commit()
         if return_updated_biography:
             return updated_biography
 
     @staticmethod
-    def check_if_user_exists(user_id: int) -> bool:
+    def check_if_user_exists_by_id(user_id: int) -> bool:
         """ Returns True if the user exists in the database,
             else returns False.
         """
@@ -51,9 +51,20 @@ class AppUserRepository():
         return True
 
     @staticmethod
-    def return_user_if_exists(user_id: int) -> AppUser:
-        """ Returns an AppUser instance if the user exists in the database,
-            else raises a ValueError.
+    def check_if_user_exists_by_username(username: str) -> bool:
+        """ Returns True if the user exists in the database,
+            else returns False.
+        """
+        vhs.validate_username_not_empty(username)
+        target_user = AppUser.query.filter_by(username=username).first()
+        if target_user is None:
+            return False
+        return True
+
+    @staticmethod
+    def return_user_by_id(user_id: int) -> AppUser:
+        """ Returns an AppUser instance by `user_id` if the user exists 
+            in the database, else raises a ValueError.
         """
         vhs.validate_id_is_int_and_pos(user_id)
         target_user = AppUser.query.filter_by(user_id=user_id).first()
@@ -61,6 +72,16 @@ class AppUserRepository():
             raise ValueError(f'Could not find user with {user_id=}')
         return target_user
 
+    @staticmethod
+    def return_user_by_username(username: str) -> AppUser:
+        """ Returns an AppUser instance by case-sensitive `username`
+            if the user exists in the database, else raises a ValueError.
+        """
+        target_user = AppUser.query.filter_by(username=username).first()
+        if target_user is None:
+            raise ValueError(f'Could not find user with {username=}')
+        return target_user
+        
     @staticmethod
     def like_scratch(*,
                      author_id: int,
@@ -70,7 +91,7 @@ class AppUserRepository():
             `liked_by` table. 
         """
         liked_scratch = ScratchRepository.check_if_scratch_exists(scratch_id)
-        author_exists = AppUserRepository.check_if_user_exists(author_id)
+        author_exists = AppUserRepository.check_if_user_exists_by_id(author_id)
         if not liked_scratch:
             raise ValueError(
                 f'Scratch with id {scratch_id} could not be found to like')

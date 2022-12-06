@@ -50,7 +50,7 @@ class AppUser(db.Model):
     __tablename__ = 'app_user'
 
     MAX_USERNAME_LENGTH = 16
-    MAX_PASSWORD_LENGTH = 32
+    MAX_PASSWORD_LENGTH = 100
     MAX_BIOGRAPHY_LENGTH = 60
 
     user_id = db.Column(

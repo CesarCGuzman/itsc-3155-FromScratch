@@ -1,0 +1,65 @@
+{% extends 'layout-no-navbar.html' %}
+{% block body %}
+<style>
+  .back-button {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  }
+
+  .scratch-form{
+      padding-top: 30px;
+  }
+  .canvas{
+    width: 600;
+    height: 560;
+  }
+  .drawing-canvas{
+    width: 600;
+    height: 560;
+  }
+  .colors{
+    height: fit-content;
+  }
+    .checkbox{
+        padding-left: 12em;
+    }
+</style>
+
+<!--Back Button-->
+<span class="back-button">
+  <button type="button" onclick="history.back()" class="btn btn-primary flex-grow-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" >
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+    </svg>
+    Go Back
+  </button>
+</span>
+
+<!--Scratch template-->
+  <div class="scratch-form mb-3">
+        <div class="canvas">
+            
+        </div>
+  </div>
+
+<!--Reply Button-->  
+<form action="/404" method="get" class="">
+  <div class="login-form m-auto">
+        <div class="">
+            <input type="text" name="caption" id="caption" class="form-control" autocomplete="off" maxlength="20" placeholder="Caption (20 chars)">
+        </div>
+        <div class="checkbox">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    <p style="color:#5EB1BF;">View Original Scratch</p>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex pt-1">
+            <button type="submit" class="btn btn-primary flex-grow-1">Reply</button>
+        </div>
+  </div>
+</form>
+{% endblock %}
