@@ -126,6 +126,7 @@ input.form-control::placeholder {
     height: 50%;
     padding: 3rem 2rem;
     padding-top: 7rem;
+    border: #000, solid, 1px;
 }
 
 /******** Create Scratch Page ********/
