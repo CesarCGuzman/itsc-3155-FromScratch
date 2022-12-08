@@ -16,19 +16,6 @@ class AppUserRepository():
         """ Creates a user, stores in the database, and returns the AppUser 
             instance if `return_user` is `True`
         """
-        if len(username) < AppUser.MINIMUM_FRONTEND_USERNAME_LENGTH:
-            raise ValueError(f'Username must be greater than ' + 
-                             f'{AppUser.MINIMUM_FRONTEND_USERNAME_LENGTH} characters long')
-        if len(username) > AppUser.MAXIMUM_FRONTEND_USERNAME_LENGTH:
-            raise ValueError(f'Username must be less than ' + 
-                             f'{AppUser.MAXIMUM_FRONTEND_USERNAME_LENGTH} characters long')
-        if len(user_password) < AppUser.MINIMUM_FRONTEND_PASSWORD_LENGTH:
-            raise ValueError(f'Password must be greater than ' +  
-                             f'{AppUser.MINIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
-        if len(user_password) > AppUser.MAXIMUM_FRONTEND_PASSWORD_LENGTH:
-            raise ValueError(f'Password cannot be greater than ' +  
-                             f'{AppUser.MAXIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
-
         new_user = AppUser(username=username,
                            user_password=user_password)
 
@@ -153,8 +140,7 @@ class ScratchRepository():
     """
 
     @staticmethod
-    def create_scratch(img,  # TODO IMG VALIDATION HERE
-                       *,
+    def create_scratch(*,
                        caption: str,
                        author_id: int,
                        is_comment: bool = False,
@@ -162,21 +148,63 @@ class ScratchRepository():
         """ Creates a scratch, stores in the database, and returns the
             Scratch instance if `return_scratch` is `True`.
         """
+
         new_scratch = Scratch(caption=caption,
                               author_id=author_id,
                               is_comment=is_comment)
-
+        print(f'\n\n\nCreating scratch in repositories.py,\n{new_scratch=}\n{new_scratch.scratch_id=}\n\n\n')
         vhs.validate_obj_is_of_type(new_scratch, desired_type=Scratch)
+        db.session.add(new_scratch)
+        db.session.commit()
+
+        # Store in the user's history
+        just_created_scratch = AppUserRepository.get_scratches_by_author(author_id)[-1]
+        ScratchRepository.add_url_to_scratch(just_created_scratch.scratch_id)
         user_created_scratch_history = UserHistory(
             user_id=author_id,
-            parent_scratch_id=new_scratch.scratch_id,
+            parent_scratch_id=just_created_scratch.scratch_id,
             user_created_op_scratch=True
         )
-        db.session.add(new_scratch)
         db.session.add(user_created_scratch_history)
         db.session.commit()
         if return_scratch is True:
             return new_scratch
+
+    @staticmethod
+    def add_url_to_scratch(scratch_id: int,
+                           return_scratch: bool = True) -> None | Scratch:
+        vhs.validate_id_is_int_and_pos(scratch_id)
+        target_scratch = ScratchRepository.find_scratch_with_id(scratch_id)
+        filename = ScratchRepository.create_scratch_filename(target_scratch.scratch_id, target_scratch.author_id)
+        target_scratch.scratch_filename = filename
+        print(f'{target_scratch} had its filename updated to {filename}')
+        db.session.commit()
+
+    @staticmethod
+    def create_scratch_filename(scratch_id: int,
+                                user_id: int) -> str:
+        """Creates the filename for a given scratch id that 
+        takes the following form:
+
+        `scratch_id00user_id00scratch.date_created`
+
+        Args:
+            scratch_id (int): id of the scratch whose filename is being created
+            user_id (int): id of the user who created the scratch
+
+        Returns:
+            str: filename of the scratch
+        """
+        vhs.validate_id_is_int_and_pos(scratch_id)
+        vhs.validate_id_is_int_and_pos(user_id)
+        target_scratch = ScratchRepository.find_scratch_with_id(scratch_id)
+        date_created = target_scratch.date_created
+        delim = '00'
+        file_extension = '.jpeg'
+        stripped_date_created = str(date_created.month) + delim + str(date_created.day) + delim + str(date_created.year)
+
+        filename: str = str(scratch_id) + delim + str(user_id) + delim + stripped_date_created + file_extension
+        return filename
 
     @staticmethod
     def comment_on_scratch(img,  # TODO IMG VALIDATION HERE
