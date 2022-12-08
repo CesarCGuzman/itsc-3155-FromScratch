@@ -8,13 +8,20 @@ db = SQLAlchemy()
 class Scratch(db.Model):
     MAX_CAPTION_LENGTH = 40
     MAX_DATE_LENGTH = 20
+    MAXMIMUM_FILENAME_LENGTH: int = 30
     __tablename__ = 'scratch'
+
     scratch_id = db.Column(db.Integer,
                            db.ForeignKey('commented_by.op_scratch_id'),
                            db.ForeignKey('liked_by.scratch_id'),
                            primary_key=True,
-                           autoincrement=True
+                           autoincrement=True,
+                           nullable=False
                            )
+    scratch_filename = db.Column(
+        db.String(MAXMIMUM_FILENAME_LENGTH),
+        nullable=True
+    )
     caption = db.Column(
         db.String(MAX_CAPTION_LENGTH),
         nullable=True

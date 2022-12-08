@@ -175,10 +175,16 @@ colorPicker.addEventListener("change", () => {
 // Comment out if you need to test the drawing function as it currently breaks the js
 saveImg.addEventListener("click", () => {
     let image = canvas.toDataURL("image/jpeg", 1.0);
-    console.log(image);
-    fetch(`${window.origin}/imgProcessing`, { //Where we want to send the data + where we are located (assumption)
+    let caption = document.getElementById('caption');
+    let captionText = caption.value;    
+    data= {
+        image_uri: image,
+        caption: captionText
+    },
+    console.log(data);
+    fetch(`${window.origin}/compose/scratch/post`, { //Where we want to send the data + where we are located (assumption)
         method: "POST",
-        body: JSON.stringify(image),
+        body: JSON.stringify(data),
         cache: "no-cache",
         headers: new Headers({
             "Content-Type": "application/json"

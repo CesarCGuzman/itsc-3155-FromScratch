@@ -1,9 +1,10 @@
 import os
+from flask import json
 from binascii import a2b_base64
 from flask import Flask, request, render_template, redirect, session, url_for
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
-from models import db
+from models import AppUser, db
 from src.models.repositories import ScratchRepositorySingleton as srs, AppUserRepository as ars
 from functools import wraps
 
@@ -83,12 +84,15 @@ def signup_post():
     password = request.form.get('password')
     confirm_password = request.form.get('confirm-password')
 
+    validate_username(username)
+    validate_password(password)
+
     username_taken = ars.check_if_user_exists_by_username(username)
     if username_taken:
-        return redirect('/signup', username_taken=True)
+        return redirect(url_for('signup_get', username_taken=True))
 
     if password != confirm_password:
-        return redirect('/signup', passwords_match=False)
+        return redirect(url_for('signup_get', passwords_match=False))
 
     hashed_password = hash_password(password)
 
@@ -107,20 +111,20 @@ def signup_post():
 
 
 def validate_username(username):
-    if len(username) < ars.MINIMUM_FRONTEND_USERNAME_LENGTH:
+    if len(username) < AppUser.MINIMUM_FRONTEND_USERNAME_LENGTH:
             raise ValueError(f'Username must be greater than ' + 
-                             f'{ars.MINIMUM_FRONTEND_USERNAME_LENGTH} characters long')
-    if len(username) > ars.MAXIMUM_FRONTEND_USERNAME_LENGTH:
+                             f'{AppUser.MINIMUM_FRONTEND_USERNAME_LENGTH} characters long')
+    if len(username) > AppUser.MAXIMUM_FRONTEND_USERNAME_LENGTH:
         raise ValueError(f'Username must be less than ' + 
-                            f'{ars.MAXIMUM_FRONTEND_USERNAME_LENGTH} characters long')
+                            f'{AppUser.MAXIMUM_FRONTEND_USERNAME_LENGTH} characters long')
 
 def validate_password(user_password):
-    if len(user_password) < ars.MINIMUM_FRONTEND_PASSWORD_LENGTH:
+    if len(user_password) < AppUser.MINIMUM_FRONTEND_PASSWORD_LENGTH:
             raise ValueError(f'Password must be greater than ' +  
-                             f'{ars.MINIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
-    if len(user_password) > ars.MAXIMUM_FRONTEND_PASSWORD_LENGTH:
+                             f'{AppUser.MINIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
+    if len(user_password) > AppUser.MAXIMUM_FRONTEND_PASSWORD_LENGTH:
         raise ValueError(f'Password cannot be greater than ' +  
-                            f'{ars.MAXIMUM_FRONTEND_PASSWORD_LENGTH} characters long')                    
+                            f'{AppUser.MAXIMUM_FRONTEND_PASSWORD_LENGTH} characters long')                    
 
 
 def hash_password(password: str) -> str:
@@ -239,34 +243,33 @@ def get_test_page():
 @authenticated_resource
 def post_scratch():
     session['url'] = url_for('post_scratch')
+    # caption = request.form.get('caption')
+    response = request.get_json()
+    caption = response.get('caption') 
+    session_author_id = get_user_id_from_session()
 
-    author_id = get_user_id_from_session()
-    caption = request.form.get('caption', type=str)
-    is_comment = request.form.get('is_comment', type=bool)
-    if is_comment is None or is_comment is False:
-        is_comment = False
-        scratch = srs.create_scratch(img=None,
-                                     caption=caption,
-                                     author_id=author_id,
-                                     is_comment=False,
-                                     return_scratch=True)
-        print(scratch)
-    else:
-        op_scratch_id = request.form.get('op_scratch_id', type=int)
-        scratch = srs.comment_on_scratch(img=None,
-                                         caption=caption,
-                                         op_scratch_id=op_scratch_id,
-                                         author_id=author_id,
-                                         return_scratch=True)
+    scratch = srs.create_scratch(caption=caption,
+                                 author_id=session_author_id,
+                                 is_comment=False,
+                                 return_scratch=True)
+    save_scratch_to_server(response,
+                           scratch_id=scratch.scratch_id,
+                           author_id=session_author_id)
 
-    save_scratch_to_server()
 
     return redirect(f'/scratch/{scratch.scratch_id}', 200)
 
+def save_scratch_to_server(response, scratch_id, author_id):
+    image_data = response.get('image_uri').split(',')[1]
+    binary_data = a2b_base64(image_data)
 
-def save_scratch_to_server():
-    # TODO: Implement saving image to server
-    pass
+    filename = srs.create_scratch_filename(
+        scratch_id=scratch_id,
+        user_id=author_id
+    )
+    with open(filename, 'wb') as file_writer:
+        file_writer.write(binary_data)  
+        print(f"wrote to {filename}!!")
 
 
 @app.post('/like')
@@ -285,23 +288,6 @@ def like_scratch():
 def page_not_found(error):
     return render_template('404.html'), 404
 
-@app.post("/imgProcessing")
-def process_img():
-    image_json = request.get_json()
-    print(image_json)
-    image_data = image_json.split(",")[1]
-    binary_data = a2b_base64(image_data)
-
-    # Replace with proper naming system
-    with open('image.jpeg', 'wb') as file_writer:
-        file_writer.write(binary_data)  
-        print("wrote to image.jpeg!!")
-
-    # image.filename = "userID_scratchID.jpeg" #This is currently incorrect - Just adding it because we will likely need it
-    # safe_image = secure_filename(image.filename)
-    # if image:
-    #     image.save(os.path('static', 'images', safe_image))
-    return redirect('/')
 
 @app.post('/logout')
 def logout():

@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS app_user (
 
 CREATE TABLE IF NOT EXISTS scratch (
 	scratch_id SERIAL NOT NULL,
+    scratch_filename VARCHAR(30) NULL, 
 	caption VARCHAR(30) NULL,
 	author_id INT NOT NULL,
 	is_comment BOOLEAN NOT NULL,
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS user_history (
     user_id INT NOT NULL,
     user_created_op_scratch BOOLEAN NOT NULL,
     user_commented BOOLEAN NOT NULL,
-    user_comment_scratch_id INT NOT NULL,
+    user_comment_scratch_id INT NULL,
     user_liked BOOLEAN NOT NULL,
     PRIMARY KEY (user_id, parent_scratch_id),
     FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
