@@ -170,32 +170,6 @@ class ScratchRepository():
             return new_scratch
 
     @staticmethod
-    def create_empty_scratch(*,
-                       caption: str,
-                       author_id: int,
-                       is_comment: bool = False,
-                       return_scratch=False) -> None | Scratch:
-        """ Creates a scratch, stores in the database, and returns the
-            Scratch instance if `return_scratch` is `True`.
-        """
-
-        new_scratch = Scratch(caption=caption,
-                              author_id=author_id,
-                              is_comment=is_comment)
-        print(f'\n\n\nCreating scratch in repositories.py,\n{new_scratch=}\n{new_scratch.scratch_id=}\n\n\n')
-        vhs.validate_obj_is_of_type(new_scratch, desired_type=Scratch)
-        user_created_scratch_history = UserHistory(
-            user_id=author_id,
-            parent_scratch_id=new_scratch.scratch_id,
-            user_created_op_scratch=True
-        )
-        db.session.add(new_scratch)
-        db.session.add(user_created_scratch_history)
-        db.session.commit()
-        if return_scratch is True:
-            return new_scratch
-
-    @staticmethod
     def add_url_to_scratch(scratch_id: int,
                            return_scratch: bool = True) -> None | Scratch:
         vhs.validate_id_is_int_and_pos(scratch_id)
