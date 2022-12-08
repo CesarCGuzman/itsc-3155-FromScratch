@@ -158,7 +158,7 @@ def page_not_found(error):
 @app.get('/user/<int:user_id>')
 @authenticated_resource
 def user_get(user_id):
-    session['url'] = url_for('user_get')
+    session['url'] = url_for('user_get', user_id=user_id)
     session_user_id = get_user_id_from_session()
     if session_user_id == user_id:
         is_user_owner = True
