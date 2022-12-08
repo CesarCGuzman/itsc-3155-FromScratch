@@ -158,7 +158,7 @@ def user_get(user_id):
 
     Args:
         user_id (int): The user id of the user being accessed
-    """
+"""
     session['url'] = url_for('user_get', user_id=user_id)
     user_page_template = load_user_page_from_id(user_id)
         
