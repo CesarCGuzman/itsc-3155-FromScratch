@@ -106,6 +106,23 @@ def signup_post():
     return redirect(f'/user/{user.user_id}', 200)
 
 
+def validate_username(username):
+    if len(username) < ars.MINIMUM_FRONTEND_USERNAME_LENGTH:
+            raise ValueError(f'Username must be greater than ' + 
+                             f'{ars.MINIMUM_FRONTEND_USERNAME_LENGTH} characters long')
+    if len(username) > ars.MAXIMUM_FRONTEND_USERNAME_LENGTH:
+        raise ValueError(f'Username must be less than ' + 
+                            f'{ars.MAXIMUM_FRONTEND_USERNAME_LENGTH} characters long')
+
+def validate_password(user_password):
+    if len(user_password) < ars.MINIMUM_FRONTEND_PASSWORD_LENGTH:
+            raise ValueError(f'Password must be greater than ' +  
+                             f'{ars.MINIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
+    if len(user_password) > ars.MAXIMUM_FRONTEND_PASSWORD_LENGTH:
+        raise ValueError(f'Password cannot be greater than ' +  
+                            f'{ars.MAXIMUM_FRONTEND_PASSWORD_LENGTH} characters long')                    
+
+
 def hash_password(password: str) -> str:
     hashed_bytes = bcrypt.generate_password_hash(password, num_rounds)
     hashed_password = hashed_bytes.decode('utf-8')
