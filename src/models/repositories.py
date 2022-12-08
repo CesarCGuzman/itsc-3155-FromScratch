@@ -159,6 +159,7 @@ class ScratchRepository():
 
         # Store in the user's history
         just_created_scratch = AppUserRepository.get_scratches_by_author(author_id)[-1]
+        ScratchRepository.add_url_to_scratch(just_created_scratch.scratch_id)
         user_created_scratch_history = UserHistory(
             user_id=author_id,
             parent_scratch_id=just_created_scratch.scratch_id,

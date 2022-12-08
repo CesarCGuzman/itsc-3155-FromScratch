@@ -252,22 +252,18 @@ def post_scratch():
                                  author_id=session_author_id,
                                  is_comment=False,
                                  return_scratch=True)
-    save_scratch_to_server(response,
-                           scratch_id=scratch.scratch_id,
-                           author_id=session_author_id)
-
-
+    save_scratch_to_server(response, scratch)
+    
     return redirect(f'/scratch/{scratch.scratch_id}', 200)
 
-def save_scratch_to_server(response, scratch_id, author_id):
+def save_scratch_to_server(response, scratch):
     image_data = response.get('image_uri').split(',')[1]
     binary_data = a2b_base64(image_data)
+    
+    scratch_img_folder = 'static/scratches/'
+    filename = scratch.scratch_filename
 
-    filename = srs.create_scratch_filename(
-        scratch_id=scratch_id,
-        user_id=author_id
-    )
-    with open(filename, 'wb') as file_writer:
+    with open(scratch_img_folder + filename, 'wb') as file_writer:
         file_writer.write(binary_data)  
         print(f"wrote to {filename}!!")
 
