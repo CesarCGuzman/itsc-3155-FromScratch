@@ -4,6 +4,7 @@ from models import db, Scratch, AppUser, CommentedBy, LikedBy, UserHistory
 
 
 class AppUserRepository():
+
     """ A static wrapper class that queries and modifies data in the app_user table.
     """
     
@@ -15,6 +16,19 @@ class AppUserRepository():
         """ Creates a user, stores in the database, and returns the AppUser 
             instance if `return_user` is `True`
         """
+        if len(username) < AppUser.MINIMUM_FRONTEND_USERNAME_LENGTH:
+            raise ValueError(f'Username must be greater than ' + 
+                             f'{AppUser.MINIMUM_FRONTEND_USERNAME_LENGTH} characters long')
+        if len(username) > AppUser.MAXIMUM_FRONTEND_USERNAME_LENGTH:
+            raise ValueError(f'Username must be less than ' + 
+                             f'{AppUser.MAXIMUM_FRONTEND_USERNAME_LENGTH} characters long')
+        if len(user_password) < AppUser.MINIMUM_FRONTEND_PASSWORD_LENGTH:
+            raise ValueError(f'Password must be greater than ' +  
+                             f'{AppUser.MINIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
+        if len(user_password) > AppUser.MAXIMUM_FRONTEND_PASSWORD_LENGTH:
+            raise ValueError(f'Password cannot be greater than ' +  
+                             f'{AppUser.MAXIMUM_FRONTEND_PASSWORD_LENGTH} characters long')
+
         new_user = AppUser(username=username,
                            user_password=user_password)
 

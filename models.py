@@ -49,20 +49,23 @@ class Scratch(db.Model):
 class AppUser(db.Model):
     __tablename__ = 'app_user'
 
-    MAX_USERNAME_LENGTH = 16
-    MAX_PASSWORD_LENGTH = 100
-    MAX_BIOGRAPHY_LENGTH = 60
+    MINIMUM_FRONTEND_USERNAME_LENGTH: int = 3
+    MAXIMUM_FRONTEND_USERNAME_LENGTH: int = 16
+    MINIMUM_FRONTEND_PASSWORD_LENGTH: int = 8
+    MAXIMUM_FRONTEND_PASSWORD_LENGTH: int = 32
+    MAXIMUM_DATABASE_PASSWORD_LENGTH: int = 255
+    MAXIMUM_BIOGRAPHY_LENGTH: int = 60
 
     user_id = db.Column(
         db.Integer,
         primary_key=True
     )
     username = db.Column(
-        db.String(MAX_USERNAME_LENGTH),
+        db.String(MAXIMUM_FRONTEND_USERNAME_LENGTH),
         nullable=False
     )
-    user_password = db.Column(   # TODO: Add salt
-        db.String(MAX_PASSWORD_LENGTH),
+    user_password = db.Column(
+        db.String(MAXIMUM_DATABASE_PASSWORD_LENGTH),
         nullable=False
         ) 
     date_created = db.Column(
@@ -70,7 +73,7 @@ class AppUser(db.Model):
         server_default=func.now()
     )
     biography = db.Column(
-        db.String(MAX_BIOGRAPHY_LENGTH),
+        db.String(MAXIMUM_BIOGRAPHY_LENGTH),
         nullable=True
     )
 
