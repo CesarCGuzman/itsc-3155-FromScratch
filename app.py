@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 from models import db
 from src.models.repositories import ScratchRepositorySingleton as srs, AppUserRepository as ars
-
+from functools import wraps
 
 UPLOAD_FOLDER = '/src/images'
 app = Flask(__name__)
@@ -17,7 +17,18 @@ db.init_app(app)
 bcrypt = Bcrypt(app)
 num_rounds = int(os.getenv('BCRYPT_ROUNDS'))
 
+""" A decorator that determines what resources must have user auth
+    to access. If user is not auth'd, they are redirected to sign in.
+"""
+def authenticated_resource(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' in session:
+            return f(*args, **kwargs)
 
+        return redirect(url_for('signin_get'))
+
+    return decorated_function
 
 
 @app.route('/')
@@ -103,17 +114,17 @@ def hash_password(password: str) -> str:
 
 
 @app.get('/discover')
+@authenticated_resource
 def discover_get():
     session['url'] = url_for('discover_get')
-    redirect_to_signin_if_not_in_session()
     all_scratches = srs.get_all_scratches()
     return render_template('discover.html', all_scratches=all_scratches)
 
 
 @app.get('/compose/scratch')
+@authenticated_resource
 def compose_scratch_get():
     session['url'] = url_for('compose_scratch_get')
-    redirect_to_signin_if_not_in_session()
     return render_template('compose-scratch.html')
 
 
@@ -145,9 +156,9 @@ def page_not_found(error):
 
 
 @app.get('/user/<int:user_id>')
+@authenticated_resource
 def user_get(user_id):
     session['url'] = url_for('user_get')
-    redirect_to_signin_if_not_in_session()
     session_user_id = get_user_id_from_session()
     if session_user_id == user_id:
         is_user_owner = True
@@ -169,9 +180,9 @@ def user_get(user_id):
 
 
 @app.post('/user/<int:user_id>')
+@authenticated_resource
 def user_post(user_id):
     session['url'] = url_for('user_post')
-    redirect_to_signin_if_not_in_session()
     # TODO: Implement bio updating later
     pass
 
@@ -194,9 +205,9 @@ def get_test_page():
 
 
 @app.post('/compose/scratch/post')
+@authenticated_resource
 def post_scratch():
     session['url'] = url_for('post_scratch')
-    redirect_to_signin_if_not_in_session()
 
     author_id = get_user_id_from_session()
     caption = request.form.get('caption', type=str)
@@ -222,19 +233,14 @@ def post_scratch():
     return redirect(f'/scratch/{scratch.scratch_id}', 200)
 
 
-def redirect_to_signin_if_not_in_session():
-    if not user_is_in_session():
-        return redirect('/signin')
-
-
 def save_scratch_to_server():
     # TODO: Implement saving image to server
     pass
 
 
 @app.post('/like')
+@authenticated_resource
 def like_scratch():
-    redirect_to_signin_if_not_in_session()
     author_id = get_user_id_from_session()
     scratch_id = request.form.get('scratch_id', type=int)
 
