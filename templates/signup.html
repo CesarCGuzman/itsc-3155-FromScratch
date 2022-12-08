@@ -13,14 +13,14 @@
         <form action="/signup" method="post" class="signup-form m-auto">
             <!--Create Username Input-->
             <div class="mb-3 d-flex align-items-center">
-              <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username" maxlength="16">
+              <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username" maxlength="16" minlength="3">
             </div>
             {% if username_taken is defined and username_taken %}
               <p class="text-danger">Username is taken, please try something different :)</p>
             {% endif %}
             <!--Create Password Input-->
             <div class="mb-3 d-flex align-items-center">
-              <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" maxlength="32">
+              <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" maxlength="32" minlength="8">
             </div>
             <!--Confirm Password-->
             <div class="mb-3 d-flex align-items-center">
