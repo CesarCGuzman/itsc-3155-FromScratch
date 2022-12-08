@@ -144,10 +144,6 @@ def discover():
 def notification():
     return render_template('notification.html')
 
-@app.get('/user')
-def profile():
-    # TODO: Implement fetching current user's id here
-    return render_template('user.html')
  
 @app.errorhandler(404)
 def page_not_found(error):
@@ -158,26 +154,44 @@ def page_not_found(error):
 @app.get('/user/<int:user_id>')
 @authenticated_resource
 def user_get(user_id):
-    session['url'] = url_for('user_get', user_id=user_id)
-    session_user_id = get_user_id_from_session()
-    if session_user_id == user_id:
-        is_user_owner = True
-    else:
-        is_user_owner = False
+    """ Returns a template for a particular user of `user_id`.
 
+    Args:
+        user_id (int): The user id of the user being accessed
+    """
+    session['url'] = url_for('user_get', user_id=user_id)
+    user_page_template = load_user_page_from_id(user_id)
+        
+    return user_page_template
+
+
+@app.get('/user')
+@authenticated_resource
+def profile():
+    """ Returns a template for the currently signed-in user's profile view.
+        The user is able to edit their biography in this page.
+    """
+    session['url'] = url_for('profile')
+    session_user_id = get_user_id_from_session()
+    user_page_template = load_user_page_from_id(session_user_id, is_owner=True)
+    
+    return user_page_template
+
+
+def load_user_page_from_id(user_id: int, *, is_owner: bool = False) -> str:
     user = ars.return_user_by_id(user_id)
     all_scratches = ars.get_scratches_by_author(user_id)
     num_scratches = ars.get_total_number_of_scratches(user_id)
     num_likes = ars.get_total_number_of_likes_on_scratches(user_id)
+
     return render_template(
         'user.html',
-        is_user_owner=is_user_owner,
+        is_user_owner=is_owner,
         user=user,
         all_scratches=all_scratches,
         num_likes=num_likes,
         num_scratches=num_scratches
     )
-
 
 @app.post('/user/<int:user_id>')
 @authenticated_resource
