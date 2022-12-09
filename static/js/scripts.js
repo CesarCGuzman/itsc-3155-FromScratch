@@ -171,9 +171,7 @@ colorPicker.addEventListener("change", () => {
 });
 
 
-// This currently gives me the image in base64 in the console - I'm adding to it to see if we can send that data to flask
-// Comment out if you need to test the drawing function as it currently breaks the js
-saveImg.addEventListener("click", () => {
+function saveImage() {
     let image = canvas.toDataURL("image/jpeg", 1.0);
     let caption = document.getElementById('caption');
     let captionText = caption.value;    
@@ -190,14 +188,33 @@ saveImg.addEventListener("click", () => {
             "Content-Type": "application/json"
         })
     });
+}
+
+
+
+saveImg.addEventListener("click", () => {
+    if(saveImg.classList.contains('login-btn')) {
+        // Save as profile picture and send it to the pfp thing
+        let image = canvas.toDataURL("image/jpeg", 1.0);
+        data= {
+            image_uri: image,
+        },
+        console.log(data);
+        fetch(`${window.origin}/compose/scratch/post`, { //Where we want to send the data + where we are located (assumption)
+            method: "POST",
+            body: JSON.stringify(data),
+            cache: "no-cache",
+            headers: new Headers({
+                "Content-Type": "application/json"
+        })
+    });
+    } else {
+        saveImage();
+    }
 });
 
-/* Should turn the mouse cursor into the selected tool and size when we enter the canvas
-   Currently only does the following:
-   -    Changes mouse cursor to selected tool
+// Turns the mouse cursor into the selected tool and size when we enter the canvas
 
-   TODO: Add a way to see the size of the tool
-*/
 canvas.addEventListener('mouseenter', () => {
     if(selectedTool === 'pen'){
         document.body.style.cursor = "url('/static/icons/pencil.svg') 0 20, move"; // Uses an svg to replace mouse cursor
@@ -229,6 +246,7 @@ fillbtn.addEventListener("change", () => {
 
 clearCanvas.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears the whole canvas
+    setCanvasBG();
 });
 
 // Turns the cursor back into default when user leaves the area of the canvas

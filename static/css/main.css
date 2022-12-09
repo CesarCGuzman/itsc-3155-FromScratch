@@ -274,20 +274,24 @@ input.form-control::placeholder {
 }
 
 .btn-circle {
-width: 45px;
-height: 45px;
-line-height: 40px;
-padding: 0;
-border-radius: 50%;
-border: 1px;
-border-color: black;
-border-style: solid;
+    width: 45px;
+    height: 45px;
+    line-height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
 }
 
 .selected{
-border:3px;
-border-color: black;
-border-style: solid;
+    border:3px;
+    border-color: black;
+    border-style: solid;
+}
+
+.color-container{
+    user-select: none;
 }
 
 
