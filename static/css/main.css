@@ -1,8 +1,17 @@
 :root {
     --link: #5EB1BF;
     --main-orange: #d84727;
+    --subtitle: rgb(132, 131, 135);
 }
 
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 /********** Navbar **********/
 
@@ -75,6 +84,14 @@ option{
     /* overflow-y: hidden; */
 }
 
+.main-orange {
+    color: var(--main-orange) !important;
+}
+
+.subtitle {
+    color: var(--subtitle) !important;
+}
+
 .login-form, .signup-form {
     width: 45%;
 }
@@ -93,7 +110,7 @@ option{
     line-height: 0.9rem;
 }
 
-p, a, input::placeholder {
+p, a, h1, input::placeholder {
     font-family: 'Nunito';
     font-style: normal;
 }
