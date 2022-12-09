@@ -291,8 +291,5 @@ def logout():
     session.pop('user')
     return redirect('/signin')
 
-@app.post('/logout')
-def logout():
-    session.pop('user')
-    return redirect('/')
+
 
