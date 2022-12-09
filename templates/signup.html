@@ -5,46 +5,46 @@
 {% endblock %}
 
 {% block body %}
-<div class="" style="display: flex; flex-flow: wrap row; width:100%; height:100%">
-  <div class="signup align-items-left" style="width: 30%;">
-      <div class="container signup-container" style="width:100%; height: 100%;">
-        <h1 class="text-center mb-5 logo">From Scratch</h1>
-        <form action="/signup" method="post" class="signup-form m-auto">
-            <!--Create Username Input-->
-            <div class="mb-3 d-flex align-items-center">
-              <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username" maxlength="16" minlength="3">
-            </div>
-            {% if username_taken is defined and username_taken %}
-              <p class="text-danger">Username is taken, please try something different :)</p>
-            {% endif %}
-            <!--Create Password Input-->
-            <div class="mb-3 d-flex align-items-center">
-              <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" maxlength="32" minlength="8">
-            </div>
-            <!--Confirm Password-->
-            <div class="mb-3 d-flex align-items-center">
-              <input type="password" class="form-control form-control-lg" name="confirm-password" id="confirm-password" placeholder="Confirm Password">
-            </div>
-            {% if passwords_match is defined and not passwords_match %}
-            <p class="text-danger">Passwords do not match :(</p>
-            {% endif %}
-            <!--TOS Checkbox-->
-            <div class="form-check mb-5">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required
-              oninvalid="this.setCustomValidity('You must agree to our terms and services to join FromScratch :)')"
-              oninput="setCustomValidity('')">
-              <label class="form-check-label" for="flexCheckDefault">
-                Do you agree to our terms of services?
-              </label>
-            </div>
-            <!--Sign up Button-->
-            <div class="mb-3 w-fit text-center align-items-center">
-              <button type="submit" class="btn btn-primary btn-sm d-inline-block p-2 border-0 ps-3 pe-3 login-btn">Sign up :)</button>
-            </div>
-        </form>
-      </div>
+<div class="signup-page">
+  <div class="signup-container mt-5">
+
+    <h1 class="text-center mb-5 logo">From Scratch</h1>
+    <form action="/signup" method="post" class="signup-form m-auto">
+        <!--Create Username Input-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Username" maxlength="16" minlength="3">
+        </div>
+        {% if username_taken is defined and username_taken %}
+          <p class="text-danger">Username is taken, please try something different :)</p>
+        {% endif %}
+        <!--Create Password Input-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" maxlength="32" minlength="8">
+        </div>
+        <!--Confirm Password-->
+        <div class="mb-3 d-flex align-items-center">
+          <input type="password" class="form-control form-control-lg" name="confirm-password" id="confirm-password" placeholder="Confirm Password">
+        </div>
+        {% if passwords_match is defined and not passwords_match %}
+        <p class="text-danger">Passwords do not match :(</p>
+        {% endif %}
+        <!--TOS Checkbox-->
+        <div class="form-check mb-5">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required
+          oninvalid="this.setCustomValidity('You must agree to our terms and services to join FromScratch :)')"
+          oninput="setCustomValidity('')">
+          <label class="form-check-label" for="flexCheckDefault">
+            Do you agree to our terms of services?
+          </label>
+        </div>
+        <!--Sign up Button-->
+        <div class="mb-2 w-fit text-center align-items-center">
+          <button type="submit" class="btn btn-primary btn-sm d-inline-block p-2 border-0 ps-3 pe-3 login-btn" id="post-btn">Sign up :)</button>
+        </div>
+    </form>
+
   </div>
-  <div class="scratch-form mb-3" style="width:70%; height:100%; display:inline-block;">
+  <div class="scratch-form mb-2" style="width:70%; height:80%;">
     {% include "canvas.html" %}
   </div>
 </div>
