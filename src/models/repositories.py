@@ -111,10 +111,18 @@ class AppUserRepository():
         if return_liked_by_map:
             return liked_map
 
+    @staticmethod
     def get_total_number_of_scratches(user_id: int) -> int:
         all_scratches = AppUserRepository.get_scratches_by_author(user_id)
         return len(all_scratches)
 
+    @staticmethod
+    def get_number_of_likes_on_scratch(scratch_id: int) -> int:
+        num_like_entries = LikedBy.query.filter_by(scratch_id=scratch_id).all()
+        num_likes = len(num_like_entries)
+        return num_likes
+
+    @staticmethod
     def get_total_number_of_likes_on_scratches(user_id: int) -> int:
         all_scratches_made_by_author = AppUserRepository.get_scratches_by_author(
             user_id)
@@ -269,6 +277,17 @@ class ScratchRepository():
         """
         all_scratches = Scratch.query.all()
         return all_scratches
+
+    @staticmethod
+    def get_all_scratches_and_their_authors() -> dict[Scratch, AppUser]:
+        """ Returns a `List` of all scratches.
+        """
+        all_scratches_and_their_authors = {}
+        all_scratches = Scratch.query.all()
+        for scratch in all_scratches:
+            author = AppUserRepository.return_user_by_id(scratch.author_id)
+            all_scratches_and_their_authors[scratch] = author
+        return all_scratches_and_their_authors
 
 
 ScratchRepositorySingleton = ScratchRepository()
