@@ -1,17 +1,14 @@
 {% include 'head.html' %}
-<!-- <link rel="stylesheet" href="static/css/main.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
 
 <style>
     .scratch-card {
-        outline: 2px solid black;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 3px, rgba(0, 0, 0, 0.48) 0px 1px 2px;
         width: 400px;
         height: 530px;
     }
 
     .scratch-card__header {
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.405);
         height: 100px;
     }
 
@@ -25,7 +22,6 @@
     .profile-picture {
         width: 80px;
         height: 80px;
-        outline: 1px solid black;
         margin: 0.5rem;
     }
     
@@ -50,11 +46,11 @@
     }
 
     .scratch-head__footer {
-        outline: 2px solid var(--subtitle);
         height: 30px;
     }
 
     .caption-text {
+        border-top: 1px solid rgba(0, 0, 0, 0.405);
         text-align: center;
     }
 
@@ -64,38 +60,42 @@
     <div class="scratch-card__header d-flex flex-row">
         <!-- profile-picture -->
         <div class="scratch-header-card__col">
-            <img src="/static/scratches/20010012008002022.jpeg" alt="mianjoto's profile picture" class="profile-picture unselectable">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" alt="{{ user.username }}'s profile picture" class="profile-picture unselectable">
         </div>
         <!-- username-and-date-posted -->
         <div class="scratch-header-card__col">
-            <h1 class="username">mianjoto</h1>
-            <p class="stats-label subtitle">3 days ago</p>
+            <h1 class="username">{{ user.username }}</h1>
+            <p class="stats-label subtitle">{{ time_since_creation }}</p>
             <!-- likes-and-comments -->
         </div>
         <!-- likes and comments -->
         <div class="scratch-header-card__col ms-auto me-2">
+            <a href="/scratch/{{scratch_id}}">
             <div class="likes d-inline-flex align-items-center">
                 <!-- like (heart) svg -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill main-orange" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                 </svg>
-                <p class="stats-label ps-1">0 likes</p>
-            </div>
+                    <p class="stats-label ps-1">{{ num_likes }} {% if num_likes == 1 -%}like{%- else -%}likes{%- endif -%}</p>
+                </div>
+            </a>
+            <a href="/scratch/{{scratch_id}}">
             <div class="comments d-inline-flex align-items-center">
                 <!-- comment svg -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill main-orange" viewBox="0 0 16 16">
                     <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
                 </svg>
-                <p class="stats-label ps-1">0 comments</p>
-            </div>
+                    <p class="stats-label ps-1">{{ num_comments }} {% if num_comments == 1 -%}comment{%- else -%}comments{%- endif -%}</p>
+                </div>
+            </a>
         </div>
     </div>
     
     <div class="scratch-img">
-        <img src="/static/scratches/30010012008002022.jpeg" alt="scratch.caption" class="unselectable">
+        <img src="/static/scratches/{{ scratch.scratch_filename }}" alt="Caption: {{scratch.caption}}" class="unselectable">
     </div>
     <!-- caption -->
     <div class="scratch-head__footer">
-        <p class="caption-text subtitle">A most beautiful caption</p>
+        <p class="caption-text subtitle">{{ scratch.caption }}</p>
     </div>
 </div>
