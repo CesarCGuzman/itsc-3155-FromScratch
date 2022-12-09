@@ -31,6 +31,7 @@
         font-size: 1.5rem;
         padding: 0;
         margin: 0;
+        color: black;
     }
 
     .date {
@@ -56,6 +57,13 @@
         margin: 0;
         padding: 0;
     }
+
+    form {
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+    }
+
 </style>
 
 <div class="scratch-card-large ms-1 mt-1">
@@ -64,41 +72,6 @@
     </div>
 
     <div class="scratch-card-large__footer d-flex flex-row">
-        <!-- profile-picture -->
-        <div class="scratch-footer-card-large__col">
-            <img src="/static/scratches//static/scratches/60010012008002022.jpeg" alt="mianjoto's profile picture"
-                class="profile-picture unselectable">
-        </div>
-        <!-- username-and-date-posted -->
-        <div class="scratch-footer-card-large__col">
-            <h1 class="username">mianjoto</h1>
-            <small class="stats-label subtitle date mb-3">10 days ago</small>
-            <p class="caption-text subtitle">A really good caption :)</p>
-        </div>
-        <!-- likes and comments -->
-        <div class="scratch-footer-card-large__col ms-auto me-2">
-            <div class="likes d-inline-flex align-items-center">
-                <!-- like (heart) svg -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-heart-fill main-orange" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                </svg>
-                <a href="/scratch/TODO: FILL">
-                    <p class="stats-label ps-1">3 likes</p>
-                </a>
-            </div>
-            <div class="comments d-inline-flex align-items-center">
-                <!-- comment svg -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-chat-fill main-orange" viewBox="0 0 16 16">
-                    <path
-                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                </svg>
-                <a href="/scratch/TODO: FILL">
-                    <p class="stats-label ps-1">2 comments</p>
-                </a>
-            </div>
-        </div>
+        {% include 'scratch-card-header.html' %}
     </div>
 </div>
