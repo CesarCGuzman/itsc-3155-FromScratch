@@ -83,6 +83,7 @@ def signup_post():
     username = request.form.get('username')
     password = request.form.get('password')
     confirm_password = request.form.get('confirm-password')
+    response = request.get_json()
 
     validate_username(username)
     validate_password(password)
@@ -108,6 +109,17 @@ def signup_post():
     }
 
     return redirect(f'/user/{user.user_id}', 200)
+
+def save_pfp_to_server(response, user):
+    image_data = response.get('image_uri').split(',')[1]
+    binary_data = a2b_base64(image_data)
+    
+    scratch_img_folder = 'static/scratches/'
+    filename = user.pfp_filename
+
+    with open(scratch_img_folder + filename, 'wb') as file_writer:
+        file_writer.write(binary_data)  
+        print(f"wrote to {filename}!!")
 
 
 def validate_username(username):

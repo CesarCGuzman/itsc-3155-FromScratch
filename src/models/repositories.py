@@ -26,6 +26,36 @@ class AppUserRepository():
             return new_user
 
     @staticmethod
+    def add_url():
+        pass #this is likely wrong if I'm thinking right
+            
+    @staticmethod
+    def create_pfp_filename(username: str,
+                                user_id: int) -> str:
+        """Creates the filename for a given user that 
+        takes the following form:
+
+        `username00user_id00scratch.date_created`
+
+        Args:
+            username (str): username of the user whose profile picture is being created
+            user_id (int): id of the user who the profile picture belongs to
+
+        Returns:
+            str: filename of the profile picture
+        """
+        vhs.validate_not_none(username)
+        vhs.validate_id_is_int_and_pos(user_id)
+        target_user = AppUserRepository.return_user_by_id(user_id)
+        date_created = target_user.date_created
+        delim = '_-_'
+        file_extension = '.jpeg'
+        stripped_date_created = str(date_created.month) + delim + str(date_created.day) + delim + str(date_created.year)
+
+        filename: str = str(username) + delim + str(user_id) + delim + stripped_date_created + file_extension
+        return filename     
+
+    @staticmethod
     def update_biography(*,
                          user_id: int,
                          new_biography: str,

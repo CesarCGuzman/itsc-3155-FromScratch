@@ -200,7 +200,7 @@ saveImg.addEventListener("click", () => {
             image_uri: image,
         },
         console.log(data);
-        fetch(`${window.origin}/compose/scratch/post`, { //Where we want to send the data + where we are located (assumption)
+        fetch(`${window.origin}/signup`, { //Where we want to send the data + where we are located (assumption)
             method: "POST",
             body: JSON.stringify(data),
             cache: "no-cache",
