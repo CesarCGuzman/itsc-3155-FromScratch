@@ -3,6 +3,10 @@
     --main-orange: #d84727;
 }
 
+/********** No Nav-Body **********/
+.no-nav{
+    background-color: var(--main-orange);
+}
 
 /********** Navbar **********/
 
@@ -76,7 +80,7 @@ option{
 }
 
 .login-form, .signup-form {
-    width: 45%;
+    width: 50%;
 }
 
 .login-container{
@@ -119,13 +123,23 @@ input.form-control::placeholder {
 
 
 /********** Sign Up Page **********/
+.signup-page{
+    display: flex; 
+    flex-flow: wrap row;
+    width:100%;
+    height:100%;
+}
+
 .signup-container{
     background-color: white;
     border-radius: 10px;
-    width: 40%;
-    height: 50%;
-    padding: 3rem 2rem;
+    width: 25%;
+    height:75%;
+    padding: 3rem 0.5rem;
     padding-top: 7rem;
+    margin-left: 5%;
+    border: #000, solid, 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /******** Create Scratch Page ********/
@@ -133,7 +147,6 @@ input.form-control::placeholder {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
     width: 80%;
-    height: 80%;
     border-radius: 15px;
     display: flex;
     padding: 0;
@@ -143,7 +156,6 @@ input.form-control::placeholder {
 
 .tools {
     width: 20%;
-    height: inherit;
 }
 
 .tools .option{
@@ -160,6 +172,8 @@ input.form-control::placeholder {
 .option #size-slider{
     width: 100%;
     height: 15px;
+    padding-bottom: 5%;
+    margin-bottom: 10%;
 }
 
 .tool{
@@ -245,7 +259,7 @@ input.form-control::placeholder {
 
 .drawing-canvas{
     width: 60%;
-    height: 100%;
+    height: auto;
     border-left: 1px;
     border-top: 0px;
     border-bottom: 0px;
@@ -260,20 +274,24 @@ input.form-control::placeholder {
 }
 
 .btn-circle {
-width: 45px;
-height: 45px;
-line-height: 40px;
-padding: 0;
-border-radius: 50%;
-border: 1px;
-border-color: black;
-border-style: solid;
+    width: 45px;
+    height: 45px;
+    line-height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
 }
 
 .selected{
-border:3px;
-border-color: black;
-border-style: solid;
+    border:3px;
+    border-color: black;
+    border-style: solid;
+}
+
+.color-container{
+    user-select: none;
 }
 
 

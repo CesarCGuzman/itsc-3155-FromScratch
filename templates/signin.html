@@ -5,38 +5,40 @@
 {% endblock %}
 
 {% block body %}
-<div class="d-flex align-items-center h-75 min-vh-100">
-  <div class="container login-container">
-    <h1 class="text-center mb-2 logo d-block">FromScratch</h1>
-    <form action="/signin" method="post" class="login-form m-auto">
-        <!--Username Input-->
-        <div class="mb-2 d-flex align-items-center">
-          <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
-        </div>
-        {% if user_exists is defined and not user_exists %}
-        <p class="text-danger">{{failed_username}} is not a valid username :(</p>
-        {% else %}
-        {% endif %}
-        <!--Password Input-->
-        <div class="mb-2 d-flex align-items-center">
-          <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-        </div>
-        {% if incorrect_password is defined and incorrect_password %}
-        <p class="text-danger">Incorrect password :(</p>
-        {% endif %}
-        <div class="help-links-container text-center mb-4">
-          <div class="help-links text-left d-inline-block">
-            <!--Forgot Pass Link-->
-            <a href="/404" class="d-flex">I forgot my password :(</a>
-            <!--Sign Up Link-->
-            <a href="/signup" class="d-flex">Create account</a>
+<div class="container">
+  <div class="d-flex align-items-center h-75 min-vh-100">
+    <div class="container login-container">
+      <h1 class="text-center mb-2 logo d-block">FromScratch</h1>
+      <form action="/signin" method="post" class="login-form m-auto">
+          <!--Username Input-->
+          <div class="mb-2 d-flex align-items-center">
+            <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
           </div>
-        </div>
-        <!--Log In Button-->
-        <div class="mb-3 w-fit text-center align-items-center">
-          <button type="submit" class="btn btn-primary btn-sm d-inline-block p-2 border-0 ps-3 pe-3 login-btn">Log in :)</button>
-        </div>
-    </form>
+          {% if user_exists is defined and not user_exists %}
+          <p class="text-danger">{{failed_username}} is not a valid username :(</p>
+          {% else %}
+          {% endif %}
+          <!--Password Input-->
+          <div class="mb-2 d-flex align-items-center">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+          </div>
+          {% if incorrect_password is defined and incorrect_password %}
+          <p class="text-danger">Incorrect password :(</p>
+          {% endif %}
+          <div class="help-links-container text-center mb-4">
+            <div class="help-links text-left d-inline-block">
+              <!--Forgot Pass Link-->
+              <a href="/404" class="d-flex">I forgot my password :(</a>
+              <!--Sign Up Link-->
+              <a href="/signup" class="d-flex">Create account</a>
+            </div>
+          </div>
+          <!--Log In Button-->
+          <div class="mb-3 w-fit text-center align-items-center">
+            <button type="submit" class="btn btn-primary btn-sm d-inline-block p-2 border-0 ps-3 pe-3 login-btn">Log in :)</button>
+          </div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
