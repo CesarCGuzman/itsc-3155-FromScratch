@@ -311,9 +311,3 @@ def page_not_found(error):
 def logout():
     session.pop('user')
     return redirect('/signin')
-
-
-# TODO: Remove this temporary test function
-@app.route('/testscratchcard')
-def testscratchcard():
-    return render_template('scratch-card.html')
