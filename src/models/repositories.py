@@ -124,6 +124,7 @@ class AppUserRepository():
             author_id=author_id, op_scratch_id=scratch_id).first()
         db.session.delete(like_instance)
         db.session.commit()
+        return like_instance
 
     @staticmethod
     def user_already_liked_scratch(author_id: int, scratch_id: int) -> bool:
