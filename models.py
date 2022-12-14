@@ -61,6 +61,7 @@ class AppUser(db.Model):
     MINIMUM_FRONTEND_PASSWORD_LENGTH: int = 8
     MAXIMUM_FRONTEND_PASSWORD_LENGTH: int = 32
     MAXIMUM_DATABASE_PASSWORD_LENGTH: int = 255
+    
     MAXIMUM_BIOGRAPHY_LENGTH: int = 60
     MAXIMUM_PROFILE_PICTURE_FILENAME_LENGTH: int = 60
 
@@ -140,6 +141,30 @@ class LikedBy(db.Model):
     def __init__(self, scratch_id: int, user_id: int):
         self.scratch_id = scratch_id
         self.user_id = user_id
+
+class coment(db.Model):
+    MAXIMUM_COMMENT_LENGTH: int = 128
+
+    __tablename__ = 'comment'
+
+    parent_scratch_id = db.Column(
+        db.Integer,
+        db.ForeignKey('scratch.scratch_id'),
+        primary_key=True
+    )
+    comment_id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+    comment_text = db.Column(
+        db.String(MAXIMUM_COMMENT_LENGTH),
+        nullable = False
+    )
+    
+    def __init__(self, parent_scratch_id: int, comment_id: int, comment_text: str):
+        self.parent_scratch_id = parent_scratch_id
+        self.comment_id = comment_id
+        self.comment_text = comment_text
 
 
 class UserHistory(db.Model):

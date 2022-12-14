@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'head.html' %}
+
 <nav class="navbar navbar-expand-lg nav-orange">
     <button class="navbar-toggler link-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -60,8 +61,6 @@
     </div>
   </nav>
 <body {% block content %}{% endblock %}>
-    <div class="container">
         {% block body %}{% endblock %}
-    </div>
 </body>
 </html>
