@@ -1,10 +1,4 @@
 -- FromScratch SQL Schema here :)
--- DROP TABLE IF EXISTS app_user;
--- DROP TABLE IF EXISTS scratch;
--- DROP TABLE IF EXISTS user_history;
--- DROP TABLE IF EXISTS liked_by;
--- DROP TABLE IF EXISTS commented_by;
--- DROP TABLE IF EXISTS comment;
 
 CREATE TABLE IF NOT EXISTS app_user (
     user_id SERIAL NOT NULL,
