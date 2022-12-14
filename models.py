@@ -7,13 +7,13 @@ db = SQLAlchemy()
 
 class Scratch(db.Model):
     MAX_CAPTION_LENGTH = 40
-    MAX_DATE_LENGTH = 20
     MAXMIMUM_FILENAME_LENGTH: int = 30
     __tablename__ = 'scratch'
 
     scratch_id = db.Column(db.Integer,
                            db.ForeignKey('commented_by.op_scratch_id'),
                            db.ForeignKey('liked_by.scratch_id'),
+                           db.ForeignKey('scratch_comment.op_scratch_id'),
                            primary_key=True,
                            autoincrement=True,
                            nullable=False
@@ -144,27 +144,37 @@ class LikedBy(db.Model):
 
 class Comment(db.Model):
     MAXIMUM_COMMENT_LENGTH: int = 128
+    MAXIMUM_PROFILE_PICTURE_FILENAME_LENGTH: int = 60
 
-    __tablename__ = 'comment'
+    __tablename__ = 'scratch_comment'
 
-    parent_scratch_id = db.Column(
-        db.Integer,
-        db.ForeignKey('scratch.scratch_id'),
-        primary_key=True
-    )
     comment_id = db.Column(
         db.Integer,
         primary_key=True
+    )
+    op_scratch_id = db.Column(
+        db.Integer,
+        db.ForeignKey('scratch.scratch_id'),
+        nullable=False
     )
     comment_text = db.Column(
         db.String(MAXIMUM_COMMENT_LENGTH),
         nullable = False
     )
+    author_id = db.Column(
+        db.Integer,
+        db.ForeignKey('app_user.user_id'),
+        nullable=False
+    )
+    date_created = db.Column(
+        db.DateTime(timezone=True),
+        server_default=func.now()
+    )
     
-    def __init__(self, parent_scratch_id: int, comment_id: int, comment_text: str):
-        self.parent_scratch_id = parent_scratch_id
-        self.comment_id = comment_id
-        self.comment_text = comment_text
+    # def __init__(self, parent_scratch_id: int, comment_id: int, comment_text: str):
+    #     self.parent_scratch_id = parent_scratch_id
+    #     self.comment_id = comment_id
+    #     self.comment_text = comment_text
 
 
 class UserHistory(db.Model):

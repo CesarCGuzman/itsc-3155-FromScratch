@@ -1,0 +1,17 @@
+<div class="comment-container d-flex flex-row">
+    <div class="column">
+        <a href="/user/{{ author.user_id }}">
+            <img src="/static/scratches/{{ author.profile_picture_filename }}" alt="mianjoto's profile picture"
+            class="profile-picture unselectable">
+        </a>
+    </div>
+    <!-- username-and-date-posted -->
+    <div class="column">
+        <a href="/user/{{ comment.author_id }}">
+            <h1 class="username">{{ author.username }}</h1>
+        </a>
+        <small class="stats-label subtitle date mb-3">{{ comment.date_created }}</small>
+        <p>{{ comment.comment_text }}</p>
+    </div>
+</div>
+

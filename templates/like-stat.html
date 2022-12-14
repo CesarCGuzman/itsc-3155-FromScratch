@@ -1,0 +1,13 @@
+<div class="likes d-inline-flex align-items-center">
+    <!-- like (heart) svg -->
+    <form id="like-scratch-{{scratch.scratch_id}}" action="/scratch/{{scratch.scratch_id}}/like" method="post">
+        <a href="javascript:{}" onclick="document.getElementById('like-scratch-{{scratch.scratch_id}}').submit(); return false;" class="d-inline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-heart-fill main-orange" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+            </svg>
+            <p class="stats-label ps-1 d-inline-block">{{ num_likes }} like{% if num_likes > 1 or num_likes == 0 -%}s{% endif %}</p>
+        </a>
+    </form>
+</div>
