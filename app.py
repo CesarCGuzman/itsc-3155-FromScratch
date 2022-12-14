@@ -155,6 +155,7 @@ def view_scratch_get(scratch_id: int):
     target_user = ars.return_user_by_id(target_scratch.author_id)
     num_likes = ars.get_number_of_likes_on_scratch(target_scratch.scratch_id)
     num_comments = crs.get_number_of_comments_on_scratch(target_scratch.scratch_id)
+    user_liked_scratch = ars.user_already_liked_scratch(author_id=get_user_id_from_session(), scratch_id=target_scratch.scratch_id)
     scratch_comments_and_their_authors = crs.get_comments_and_authors_from_id(target_scratch.scratch_id)
     
     return render_template('view-scratch.html',
@@ -162,6 +163,7 @@ def view_scratch_get(scratch_id: int):
         user=target_user,
         num_likes=num_likes,
         num_comments=num_comments,
+        user_liked_scratch=user_liked_scratch,
         scratch_comments_and_their_authors=scratch_comments_and_their_authors)
 
 
