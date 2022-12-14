@@ -2,6 +2,8 @@ from flask.testing import FlaskClient
 from models import Scratch, AppUser, db
 
 def test_discover_empty(test_app: FlaskClient):
+    AppUser.query.delete()
+    Scratch.query.delete()
     test_user = AppUser(username='Blue', user_password="password")
     db.session.add(test_user)
     db.session.commit()
@@ -10,6 +12,7 @@ def test_discover_empty(test_app: FlaskClient):
     assert b'<div class="scratch-card ms-1 mt-1">' not in response.data
 
 def test_discover(test_app: FlaskClient):
+    Scratch.query.delete()
     new_scratch = Scratch(caption="hello", author_id=1)
     db.session.add(new_scratch)
     db.session.commit()
