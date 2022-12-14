@@ -5,7 +5,7 @@ from flask import Flask, request, render_template, redirect, session, url_for, a
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 from models import AppUser, db
-from src.models.repositories import ScratchRepositorySingleton as srs, AppUserRepository as ars
+from src.models.repositories import ScratchRepositorySingleton as srs, AppUserRepository as ars, CommentRepository as crs
 from functools import wraps
 
 UPLOAD_FOLDER = '/src/images'
@@ -154,14 +154,27 @@ def view_scratch_get(scratch_id: int):
     
     target_user = ars.return_user_by_id(target_scratch.author_id)
     num_likes = ars.get_number_of_likes_on_scratch(target_scratch.scratch_id)
-    num_comments = 0 # TODO: Fix this when the comment table is finished
-    db.session.commit() 
-
+    num_comments = crs.get_number_of_comments_on_scratch(target_scratch.scratch_id)
+    scratch_comments_and_their_authors = crs.get_comments_and_authors_from_id(target_scratch.scratch_id)
+    
     return render_template('view-scratch.html',
         scratch=target_scratch,
         user=target_user,
         num_likes=num_likes,
-        num_comments=num_comments)
+        num_comments=num_comments,
+        scratch_comments_and_their_authors=scratch_comments_and_their_authors)
+
+
+@app.post('/scratch/<int:scratch_id>/comment')
+@authenticated_resource
+def comment_on_scratch_post(scratch_id: int):
+    session['url'] = url_for('comment_on_scratch_post', scratch_id=scratch_id)
+    comment_text = request.form.get('comment-text')
+    print(f'comment_text: {comment_text}')
+    author_id = get_user_id_from_session()
+    crs.add_comment(scratch_id, comment_text, author_id)
+    return redirect(url_for('view_scratch_get', scratch_id=scratch_id))
+
 
 
 @app.get('/compose/scratch')

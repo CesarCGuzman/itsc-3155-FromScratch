@@ -1,6 +1,6 @@
 from typing import List
 from src.models.helpers import ValidateHelperSingleton as vhs
-from models import db, Scratch, AppUser, CommentedBy, LikedBy, UserHistory
+from models import db, Scratch, AppUser, Comment, CommentedBy, LikedBy, UserHistory
 
 
 class AppUserRepository():
@@ -289,6 +289,77 @@ class ScratchRepository():
             all_scratches_and_their_authors[scratch] = author
         return all_scratches_and_their_authors
 
+class CommentRepository():
+    """A static wrapper class for the comment table that queries and modifies 
+    comment data in the database.
+    """
+    @staticmethod
+    def add_comment(op_scratch_id: int, comment_text: str, author_id: int) -> Comment:
+        """ Adds a comment to the database and returns the comment instance.
+        """
+        new_comment = Comment(op_scratch_id=op_scratch_id,
+                              comment_text=comment_text,
+                              author_id=author_id)
+        db.session.add(new_comment)
+        db.session.commit()
+        return new_comment
+    
+    @staticmethod
+    def get_comment_author_with_id(comment_id: int) -> AppUser:
+        """ Returns the author of a comment given `comment_id`.
+        """
+        vhs.validate_id_is_int_and_pos(comment_id)
+        target_comment = CommentRepository.find_comment_with_id(comment_id)
+        author = AppUserRepository.return_user_by_id(target_comment.author_id)
+        return author
+
+    @staticmethod
+    def get_comment_and_author_with_id(comment_id: int) -> tuple[Comment, AppUser]:
+        """ Returns the comment and author of a comment given `comment_id`.
+        """
+        vhs.validate_id_is_int_and_pos(comment_id)
+        target_comment = CommentRepository.find_comment_with_id(comment_id)
+        author = AppUserRepository.return_user_by_id(target_comment.author_id)
+        return target_comment, author
+
+    @staticmethod
+    def get_authors_from_comments(comments: List[Comment]) -> List[AppUser]:
+        """ Returns a `List` of authors from a `List` of comments.
+        """
+        authors = []
+        for comment in comments:
+            author = AppUserRepository.return_user_by_id(comment.author_id)
+            authors.append(author)
+        return authors
+
+    @staticmethod
+    def get_comments_and_authors_from_id(op_scratch_id: int) -> dict[Comment, AppUser]:
+        """ Returns a `Dict` of comments and their authors.
+        """
+        comments_and_authors = {}
+        comments = CommentRepository.get_all_comments_on_scratch(op_scratch_id)
+        for comment in comments:
+            author = AppUserRepository.return_user_by_id(comment.author_id)
+            comments_and_authors[comment] = author
+        return comments_and_authors
+
+    @staticmethod
+    def get_all_comments_on_scratch(op_scratch_id: int) -> List[Comment]:
+        """ Returns a `List` of all comments on a scratch given `op_scratch_id`.
+        """
+        vhs.validate_id_is_int_and_pos(op_scratch_id)
+        all_comments_on_scratch = Comment.query.filter_by(op_scratch_id=op_scratch_id).all()
+        return all_comments_on_scratch
+    
+    @staticmethod
+    def get_number_of_comments_on_scratch(op_scratch_id: int) -> int:
+        """ Returns the number of comments on a scratch given `op_scratch_id`.
+        """
+        vhs.validate_id_is_int_and_pos(op_scratch_id)
+        all_comments_on_scratch = Comment.query.filter_by(op_scratch_id=op_scratch_id).all()
+        return len(all_comments_on_scratch)
+
 
 ScratchRepositorySingleton = ScratchRepository()
 AppUserRepositorySingleton = AppUserRepository()
+CommentRepositorySingleton = CommentRepository()

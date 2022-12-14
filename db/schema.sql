@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS liked_by (
     FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS commented_by (
     op_scratch_id INT NOT NULL,
     comment_scratch_id INT NOT NULL,
@@ -47,10 +48,13 @@ CREATE TABLE IF NOT EXISTS commented_by (
     FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (comment_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS comment (
-    parent_scratch_id INT NOT NULL,
+
+CREATE TABLE IF NOT EXISTS scratch_comment (
     comment_id SERIAL NOT NULL,
+    op_scratch_id INT NOT NULL,
     comment_text VARCHAR(128) NOT NULL,
-    PRIMARY KEY (parent_scratch_id, comment_id),
-    FOREIGN KEY (parent_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
+    author_id INT NOT NULL,
+	date_created DATE NOT NULL DEFAULT CURRENT_DATE,
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

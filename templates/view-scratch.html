@@ -14,7 +14,7 @@
     </button>
 </span>
 
-<div class="content d-flex flex-column align-items-center">
+<div class="content d-flex flex-column align-items-center w-50 m-auto">
     <div class="scratch-card mt-5">
         {% include 'scratch-card-large.html' %}
     </div>
@@ -30,14 +30,6 @@
             align-content: center;
         }
 
-        label {
-            display: block;
-            text-align: center;
-            line-height: 150%;
-            color: #5EB1BF;
-            font-size: x-large;
-        }
-
         .scratch-label {
             padding-top: 80;
         }
@@ -50,37 +42,38 @@
             padding-inline-start: 3em;
             justify-content: center;
         }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            margin: 0.5rem;
+        }
     </style>
 
+    <!-- Comments section-->
+    <!-- Add comment box -->
+    <form action="/scratch/{{scratch.scratch_id}}/comment" method="post" class="mt-3 mb-3 w-50 d-flex flex-row justify-content-center align-content-center">
+        <input type="text"
+        class="form-control form-control-sm"
+        name="comment-text" id="comment-text" aria-describedby="comment-text-help" 
+        maxlength="128" required autocomplete="off"
+        placeholder="Say something nice :)">
+        <input type="submit" style="display: none" />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+    <h2 class="justify-content-center pt-4 text-white">Comments</h2>
     <!-- Comments -->
-    <label class="justify-content-center" style="padding-top: 20;">Comments</label>
-    {% for comment in scratch_comments %}
-    <div class="replies justify-content-center" style="padding-top: 20; padding-left: 450;">
-        <div class="row">
-            <div class="col-1" width="200">
-            <div class="d-flex">
-                    <img class="rounded-circle" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" alt="..." width="65"
-                    height="65" />
-            </div>
-            </div>
-            <div class="col-5 d-flex">
-                <div>
-                    <div>
-                        <p>
-                            Username 
-                            <small>
-                                - 24 hours ago
-                            </small>
-                        </p>
-                    </div>
-                    <small> What's cookin good lookin, keep up the good work.</small>
-                </div>
-            </div>
-        </div>
+    <div class="d-flex flex-column bg-white rounded w-50">
+        {% for comment, author in scratch_comments_and_their_authors.items() %}
+            {% include 'comment.html' %}
+        {% endfor %}
     </div>
-    {% endfor %}
 
 
 </div>
+
+<!-- Adding space from bottom -->
+<div class="mb-3"></div>
 
 {% endblock %}

@@ -15,31 +15,6 @@
 </div>
 <!-- likes and comments -->
 <div class="scratch-footer-card-large__col ms-auto me-2">
-    <div class="likes d-inline-flex align-items-center">
-        <!-- like (heart) svg -->
-        <form id="like-scratch-{{scratch.scratch_id}}" action="/scratch/{{scratch.scratch_id}}/like" method="post">
-            <a href="javascript:{}" onclick="document.getElementById('like-scratch-{{scratch.scratch_id}}').submit(); return false;" class="d-inline">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-heart-fill main-orange" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                </svg>
-                <p class="stats-label ps-1 d-inline-block">{{ num_likes }} like{% if num_likes > 1 or num_likes == 0 -%}s{% endif %}</p>
-            </a>
-        </form>
-    </div>
-    
-    <div class="comments d-inline-flex align-items-center">
-        <!-- comment svg -->
-        <form id="comment-on-scratch-{{scratch.scratch_id}}" action="/scratch/{{scratch.scratch_id}}/comment" method="post">
-            <a href="javascript:{}" onclick="document.getElementById('comment-on-scratch-{{scratch.scratch_id}}').submit(); return false;" class="d-inline">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16"or if num_likes == 0  height="16" fill="currentColor"
-                    class="bi bi-chat-fill main-orange" viewBox="0 0 16 16">
-                    <path
-                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                </svg>
-                <p class="stats-label ps-1 d-inline-block">{{ num_comments }} like{% if num_comments > 1 or num_comments == 0 -%}s{% endif %}</p>
-            </a>
-        </form>
-    </div>
+    {% include 'like-stat.html' %}
+    {% include 'comment-stat.html' %}
 </div>
