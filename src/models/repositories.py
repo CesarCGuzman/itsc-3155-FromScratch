@@ -1,6 +1,6 @@
 from typing import List
 from src.models.helpers import ValidateHelperSingleton as vhs
-from models import db, Scratch, AppUser, Comment, CommentedBy, LikedBy, UserHistory
+from models import Like, db, Scratch, AppUser, Comment, CommentedBy, LikedBy, UserHistory
 
 
 class AppUserRepository():
@@ -82,15 +82,14 @@ class AppUserRepository():
         if target_user is None:
             raise ValueError(f'Could not find user with {username=}')
         return target_user
-        
+
     @staticmethod
-    def like_scratch(*,
-                     author_id: int,
-                     scratch_id: int,
-                     return_liked_by_map=False) -> None | LikedBy:
-        """ Likes a scratch with `scratch id`, and stores their likes in the
-            `liked_by` table. 
-        """
+    def like_or_unlike_scratch(*,
+                    author_id: int,
+                    scratch_id: int,
+                    return_like_instance: bool = False) -> Like:
+        """ Likes a scratch with `scratch id` if unliked, and unlikes if the scratch
+        is already liked; then returns the instance if return_like_instance is True."""
         liked_scratch = ScratchRepository.check_if_scratch_exists(scratch_id)
         author_exists = AppUserRepository.check_if_user_exists_by_id(author_id)
         if not liked_scratch:
@@ -99,18 +98,44 @@ class AppUserRepository():
         if not author_exists:
             raise ValueError(f'User with {author_id=} does not exist and therefore' +
                              f'could not like scratch with id {scratch_id}')
+        
+        user_already_liked_scratch = AppUserRepository.user_already_liked_scratch(scratch_id, author_id)
+        like_instance = None
+        if user_already_liked_scratch:
+            like_instance = AppUserRepository.unlike_scratch(scratch_id, author_id)
+        else:
+            like_instance = AppUserRepository.like_scratch(scratch_id, author_id)
+        return like_instance
 
-        liked_map = LikedBy(scratch_id, author_id)
-        user_liked_scratch_history = UserHistory(
-            user_id=author_id,
-            parent_scratch_id=scratch_id,
-            user_liked=True)
-        db.session.add(liked_map)
-        db.session.add(user_liked_scratch_history)
+    @staticmethod
+    def like_scratch(author_id: int, scratch_id: int) -> Like:
+        """ Likes a scratch with `scratch id` and returns the Like instance.
+        """
+        like_instance = Like(op_scratch_id=scratch_id, author_id=author_id)
+        db.session.add(like_instance)
         db.session.commit()
-        if return_liked_by_map:
-            return liked_map
+        return like_instance
 
+    @staticmethod
+    def unlike_scratch(author_id: int, scratch_id: int) -> bool:
+        """ Unlikes a scratch with `scratch id` and returns the Like instance.
+        """
+        like_instance = Like.query.filter_by(
+            author_id=author_id, op_scratch_id=scratch_id).first()
+        db.session.delete(like_instance)
+        db.session.commit()
+        return like_instance
+
+    @staticmethod
+    def user_already_liked_scratch(author_id: int, scratch_id: int) -> bool:
+        """ Returns True if the user has already liked the scratch, else returns False.
+        """
+        like_instance = Like.query.filter_by(
+            author_id=author_id, op_scratch_id=scratch_id).first()
+        if like_instance is None:
+            return False
+        return True
+    
     @staticmethod
     def get_total_number_of_scratches(user_id: int) -> int:
         all_scratches = AppUserRepository.get_scratches_by_author(user_id)
@@ -118,7 +143,7 @@ class AppUserRepository():
 
     @staticmethod
     def get_number_of_likes_on_scratch(scratch_id: int) -> int:
-        num_like_entries = LikedBy.query.filter_by(scratch_id=scratch_id).all()
+        num_like_entries = Like.query.filter_by(op_scratch_id=scratch_id).all()
         num_likes = len(num_like_entries)
         return num_likes
 
@@ -128,7 +153,7 @@ class AppUserRepository():
             user_id)
         all_scratch_ids_made_by_author = [
             scratch.scratch_id for scratch in all_scratches_made_by_author]
-        scratches_liked_by_users = LikedBy.query.filter(
+        scratches_liked_by_users = Like.query.filter(
             LikedBy.scratch_id.in_(all_scratch_ids_made_by_author)).all()
         return len(scratches_liked_by_users)
 
