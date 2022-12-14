@@ -144,7 +144,6 @@ class LikedBy(db.Model):
 
 class Comment(db.Model):
     MAXIMUM_COMMENT_LENGTH: int = 128
-    MAXIMUM_PROFILE_PICTURE_FILENAME_LENGTH: int = 60
 
     __tablename__ = 'scratch_comment'
 
@@ -170,12 +169,28 @@ class Comment(db.Model):
         db.DateTime(timezone=True),
         server_default=func.now()
     )
-    
-    # def __init__(self, parent_scratch_id: int, comment_id: int, comment_text: str):
-    #     self.parent_scratch_id = parent_scratch_id
-    #     self.comment_id = comment_id
-    #     self.comment_text = comment_text
 
+class Like(db.Model):
+    __tablename__ = 'scratch_like'
+
+    like_id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+    op_scratch_id = db.Column(
+        db.Integer,
+        db.ForeignKey('scratch.scratch_id'),
+        nullable=False
+    )
+    author_id = db.Column(
+        db.Integer,
+        db.ForeignKey('app_user.user_id'),
+        nullable=False
+    )
+    date_liked = db.Column(
+        db.DateTime(timezone=True),
+        server_default=func.now()
+    )
 
 class UserHistory(db.Model):
     __tablename__ = "user_history"

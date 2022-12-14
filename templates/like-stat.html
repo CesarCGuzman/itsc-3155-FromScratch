@@ -1,6 +1,7 @@
 <div class="likes d-inline-flex align-items-center">
     <!-- like (heart) svg -->
-    <form id="like-scratch-{{scratch.scratch_id}}" action="/scratch/{{scratch.scratch_id}}/like" method="post">
+    <form id="like-scratch-{{scratch.scratch_id}}"
+        action="/scratch/{{scratch.scratch_id}}/like" method="post">
         <a href="javascript:{}" onclick="document.getElementById('like-scratch-{{scratch.scratch_id}}').submit(); return false;" class="d-inline">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-heart-fill main-orange" viewBox="0 0 16 16">

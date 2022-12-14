@@ -58,3 +58,12 @@ CREATE TABLE IF NOT EXISTS scratch_comment (
     PRIMARY KEY (comment_id),
     FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS scratch_like (
+    like_id SERIAL NOT NULL,
+    op_scratch_id INT NOT NULL,
+    author_id INT NOT NULL,
+	date_liked DATE NOT NULL DEFAULT CURRENT_DATE,
+    PRIMARY KEY (like_id),
+    FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
