@@ -100,6 +100,7 @@ def signup_post():
     user = ars.create_user(username=username,
                            user_password=hashed_password,
                            return_user=True)
+    save_pfp_to_server(response, user)
 
     db.session.add(user)
     db.session.commit()

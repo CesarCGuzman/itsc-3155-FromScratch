@@ -61,6 +61,7 @@ class AppUser(db.Model):
     MINIMUM_FRONTEND_PASSWORD_LENGTH: int = 8
     MAXIMUM_FRONTEND_PASSWORD_LENGTH: int = 32
     MAXIMUM_DATABASE_PASSWORD_LENGTH: int = 255
+    MAXMIMUM_FILENAME_LENGTH: int = 30
     
     MAXIMUM_BIOGRAPHY_LENGTH: int = 60
 
@@ -75,7 +76,11 @@ class AppUser(db.Model):
     user_password = db.Column(
         db.String(MAXIMUM_DATABASE_PASSWORD_LENGTH),
         nullable=False
-        ) 
+        )
+    pfp_filename = db.Column(
+        db.String(MAXMIMUM_FILENAME_LENGTH),
+        nullable=True
+    )
     date_created = db.Column(
         db.DateTime(timezone=True),
         server_default=func.now()

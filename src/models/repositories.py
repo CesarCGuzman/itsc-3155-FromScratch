@@ -26,8 +26,12 @@ class AppUserRepository():
             return new_user
 
     @staticmethod
-    def add_url():
-        pass #this is likely wrong if I'm thinking right
+    def add_url_to_pfp(user_id: int,
+                        return_pfp: bool = True) -> None | AppUser:
+        vhs.validate_id_is_int_and_pos(user_id)
+        target_user = AppUserRepository.return_user_by_id(user_id)
+        filename = AppUserRepository.create_pfp_filename(target_user.username, target_user.user_id)
+        target_user.pfp_filename = filename
             
     @staticmethod
     def create_pfp_filename(username: str,

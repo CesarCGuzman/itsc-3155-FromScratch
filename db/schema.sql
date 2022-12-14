@@ -1,8 +1,16 @@
 -- FromScratch SQL Schema here :)
+-- DROP TABLE IF EXISTS app_user;
+-- DROP TABLE IF EXISTS scratch;
+-- DROP TABLE IF EXISTS user_history;
+-- DROP TABLE IF EXISTS liked_by;
+-- DROP TABLE IF EXISTS commented_by;
+-- DROP TABLE IF EXISTS comment;
+
 CREATE TABLE IF NOT EXISTS app_user (
     user_id SERIAL NOT NULL,
     username VARCHAR(16) NOT NULL,
     user_password VARCHAR(255) NOT NULL,
+    pfp_filename VARCHAR(30) NULL,
     date_created DATE NOT NULL DEFAULT CURRENT_DATE,
     biography VARCHAR(60) NULL,
     PRIMARY KEY (user_id)
