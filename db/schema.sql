@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS app_user (
     user_password VARCHAR(255) NOT NULL,
     date_created DATE NOT NULL DEFAULT CURRENT_DATE,
     biography VARCHAR(60) NULL,
+    profile_picture_filename VARCHAR(60) NULL,
     PRIMARY KEY (user_id)
 );
 

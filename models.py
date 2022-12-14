@@ -63,6 +63,7 @@ class AppUser(db.Model):
     MAXIMUM_DATABASE_PASSWORD_LENGTH: int = 255
     
     MAXIMUM_BIOGRAPHY_LENGTH: int = 60
+    MAXIMUM_PROFILE_PICTURE_FILENAME_LENGTH: int = 60
 
     user_id = db.Column(
         db.Integer,
@@ -82,6 +83,10 @@ class AppUser(db.Model):
     )
     biography = db.Column(
         db.String(MAXIMUM_BIOGRAPHY_LENGTH),
+        nullable=True
+    ) 
+    profile_picture_filename = db.Column(
+        db.String(MAXIMUM_PROFILE_PICTURE_FILENAME_LENGTH),
         nullable=True
     )
 

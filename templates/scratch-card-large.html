@@ -1,0 +1,77 @@
+{% include 'head.html' %}
+
+<style>
+    .scratch-card-large {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 3px, rgba(0, 0, 0, 0.48) 0px 1px 2px;
+        width: fit-content;
+        height: auto;
+    }
+
+    .scratch-card-large__footer {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        border-top: 1px solid rgba(0, 0, 0, 0.405);
+        height: 100px;
+    }
+
+    .scratch-footer-card-large__col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+        margin: 0.5rem;
+    }
+
+    .username {
+        font-weight: 800;
+        font-size: 1.5rem;
+        padding: 0;
+        margin: 0;
+        color: black;
+    }
+
+    .date {
+        line-height: 0.4;
+    }
+
+    .stats-label {
+        margin: 0;
+        padding: 0;
+        color: var(--main-orange)
+    }
+
+    .scratch-img,
+    .scratch-img>img {
+        width: 36rem;
+        height: 36rem;
+        /*outline: 1px solid black;*/
+        overflow: hidden;
+    }
+
+    .caption-text {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    form {
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+</style>
+
+<div class="scratch-card-large ms-1 mt-1">
+    <div class="scratch-img">
+        <img src="/static/scratches/{{ scratch.scratch_filename }}" alt="Caption: TODO: FILL" class="unselectable">
+    </div>
+
+    <div class="scratch-card-large__footer d-flex flex-row">
+        {% include 'scratch-card-header.html' %}
+    </div>
+</div>

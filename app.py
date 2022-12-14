@@ -1,7 +1,7 @@
 import os
 from flask import json
 from binascii import a2b_base64
-from flask import Flask, request, render_template, redirect, session, url_for
+from flask import Flask, request, render_template, redirect, session, url_for, abort
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 from models import AppUser, db
@@ -138,8 +138,30 @@ def hash_password(password: str) -> str:
 @authenticated_resource
 def discover_get():
     session['url'] = url_for('discover_get')
-    all_scratches = srs.get_all_scratches()
-    return render_template('discover.html', all_scratches=all_scratches)
+    all_scratches_and_their_authors = srs.get_all_scratches_and_their_authors()
+    return render_template('discover.html',
+        all_scratches_and_their_authors=all_scratches_and_their_authors
+    )
+
+
+@app.get('/scratch/<int:scratch_id>')
+@authenticated_resource
+def view_scratch_get(scratch_id: int):
+    session['url'] = url_for('view_scratch_get', scratch_id=scratch_id)
+    target_scratch = srs.find_scratch_with_id(scratch_id)
+    if target_scratch == None:
+        return abort(404)
+    
+    target_user = ars.return_user_by_id(target_scratch.author_id)
+    num_likes = ars.get_number_of_likes_on_scratch(target_scratch.scratch_id)
+    num_comments = 0 # TODO: Fix this when the comment table is finished
+    db.session.commit() 
+
+    return render_template('view-scratch.html',
+        scratch=target_scratch,
+        user=target_user,
+        num_likes=num_likes,
+        num_comments=num_comments)
 
 
 @app.get('/compose/scratch')

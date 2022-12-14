@@ -1,147 +1,86 @@
 {% extends 'layout-no-navbar.html' %}
 {% block body %}
-<style>
-   .back-button {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-  }
 
-  .card{
-    width: 35%;
-    height: 200px;
-    align-self: center;
-    margin: 0 auto;
-    float: none;
-  }
-  .replies{
-    align-content: center;
-  }
-  label{
-    display: block;
-    text-align: center;
-    line-height: 150%;
-    color: #5EB1BF;
-    font-size:x-large;
-  }
-  .scratch-label{
-    padding-top: 80;
-  }
-  .card-body{
-    height: 30%;
-  }
-    
-    .icon{
-        padding-inline-start: 3em;
-        justify-content: center;
-    }
-    form {
-        display: inline;
-    }
-   /* Clear floats after the columns */
- 
-</style>
 
 <!--Back Button-->
 <span class="back-button">
     <button type="button" onclick="history.back()" class="btn btn-primary flex-grow-1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" >
-        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-      </svg>
-      Go Back
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Go Back
     </button>
 </span>
 
-<label class="scratch-label"></label>
-
-<div class="scratch" style="height:75%">
-    <div class="card h-100">
-
-        <!--Card image display-->
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" class="card-img-top" alt="...">
-
-        <!--Card body text-->
-        <div class="card-body">
-            <p class="card-text">A wonderful caption</p>
-        </div>
-
-        <!--Card footer-->
-        <div class="card-footer bg-transparent align-items-center ">
-            
-
-            <!--Person Icon-->
-            <span class="icon">
-                <form action="/view-reply/scratch" method="get" class="">
-                    <button type="button" class="btn btn-clear">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        </svg>
-                    </button>
-                </form>
-            </span>
-
-            <!--Upvote Icon-->
-            <span class="icon">
-                <button type="button" class="btn btn-clear">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                        <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
-                    </svg>
-                </button>
-            </span>
-            
-            <!--Downvote Icon-->
-            <span class="icon">
-                <button type="button" class="btn btn-clear">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-dash" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M5.5 6.5A.5.5 0 0 1 6 6h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                    </svg>
-                </button>
-            </span>
-            
-            <!--Reply Icon-->
-            <span class="icon">
-                <form action="/compose-reply/scratch" method="get" class="">
-                    <button type="submit" class="btn btn-clear">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
-                        </svg>
-                    </button>
-                </form>
-            </span>   
-        </div>
+<div class="content d-flex flex-column align-items-center">
+    <div class="scratch-card mt-5">
+        {% include 'scratch-card-large.html' %}
     </div>
-</div>
 
+    <style>
+        .back-button {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+        }
 
-<!--Generates card replies-->
-<label class="justify-content-center" style="padding-top: 20;">Replies</label>
+        .replies {
+            align-content: center;
+        }
 
-<!--For loop for reply cards-->
-{% for i in range(3) %}
-<div class="replies justify-content-center" style="padding-top: 20; padding-left: 450;">
-    <div class="row">
-        <div class="col-1" width="200">
-          <div class="d-flex">
-                <img class="rounded-circle" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" alt="..." width="65"
-                height="65" />
-          </div>
-        </div>
-        <div class="col-5 d-flex">
-            <div>
+        label {
+            display: block;
+            text-align: center;
+            line-height: 150%;
+            color: #5EB1BF;
+            font-size: x-large;
+        }
+
+        .scratch-label {
+            padding-top: 80;
+        }
+
+        .card-body {
+            height: 30%;
+        }
+
+        .icon {
+            padding-inline-start: 3em;
+            justify-content: center;
+        }
+    </style>
+
+    <!-- Comments -->
+    <label class="justify-content-center" style="padding-top: 20;">Comments</label>
+    {% for comment in scratch_comments %}
+    <div class="replies justify-content-center" style="padding-top: 20; padding-left: 450;">
+        <div class="row">
+            <div class="col-1" width="200">
+            <div class="d-flex">
+                    <img class="rounded-circle" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" alt="..." width="65"
+                    height="65" />
+            </div>
+            </div>
+            <div class="col-5 d-flex">
                 <div>
-                    <p>
-                         Username 
-                         <small>
-                            - 24 hours ago
-                        </small>
-                    </p>
+                    <div>
+                        <p>
+                            Username 
+                            <small>
+                                - 24 hours ago
+                            </small>
+                        </p>
+                    </div>
+                    <small> What's cookin good lookin, keep up the good work.</small>
                 </div>
-                <small> What's cookin good lookin, keep up the good work.</small>
             </div>
         </div>
     </div>
+    {% endfor %}
+
+
 </div>
-{% endfor %}
+
 {% endblock %}
