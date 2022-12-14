@@ -47,10 +47,10 @@ CREATE TABLE IF NOT EXISTS commented_by (
     FOREIGN KEY (op_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (comment_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS comment {
+CREATE TABLE IF NOT EXISTS comment (
     parent_scratch_id INT NOT NULL,
     comment_id SERIAL NOT NULL,
     comment_text VARCHAR(128) NOT NULL,
     PRIMARY KEY (parent_scratch_id, comment_id),
     FOREIGN KEY (parent_scratch_id) REFERENCES scratch(scratch_id) ON UPDATE CASCADE ON DELETE CASCADE,
-};
+);

@@ -142,7 +142,7 @@ class LikedBy(db.Model):
         self.scratch_id = scratch_id
         self.user_id = user_id
 
-class coment(db.Model):
+class Comment(db.Model):
     MAXIMUM_COMMENT_LENGTH: int = 128
 
     __tablename__ = 'comment'
