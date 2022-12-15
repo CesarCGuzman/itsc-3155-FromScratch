@@ -73,9 +73,10 @@ def signin_post():
 
 
 @app.get('/signup')
-def signup_get():
+def signup_get(**kwargs):
     session['url'] = url_for('signup_get')
-    return render_template('signup.html')
+    print(f'kwargs: {kwargs}')
+    return render_template('signup.html', **kwargs)
 
 
 @app.post('/signup')
@@ -89,10 +90,10 @@ def signup_post():
 
     username_taken = ars.check_if_user_exists_by_username(username)
     if username_taken:
-        return redirect(url_for('signup_get', username_taken=True))
+        return signup_get(username_taken=True)
 
     if password != confirm_password:
-        return redirect(url_for('signup_get', passwords_match=False))
+        return signup_get(passwords_match=False)
 
     hashed_password = hash_password(password)
 
